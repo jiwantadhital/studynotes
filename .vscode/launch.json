@@ -1,0 +1,19 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch csit",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main_csit.dart",
+            "args": ["--flavor","csit","--target","lib/main_csit.dart"]
+        },
+        {
+            "name": "Launch bim",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main_bim.dart",
+            "args": ["--flavor","bim","--target","lib/main_bim.dart"]
+        }
+    ]
+}
