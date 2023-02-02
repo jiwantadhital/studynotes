@@ -20,8 +20,11 @@ class TopHeader extends StatelessWidget {
             Container(
               height: 70,
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
+                 Row(
+                  children: [
+                     Container(
                     height: 50,
                     width: 50,
                     decoration: BoxDecoration(
@@ -54,9 +57,8 @@ class TopHeader extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(
-                    width: size.width*0.30,
-                  ),
+                  ],
+                 ),
                     Container(
                     height: 45,
                     width: 45,

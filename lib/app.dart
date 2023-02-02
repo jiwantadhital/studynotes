@@ -1,6 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:studynotes/presentation/home_pages/main_page.dart';
+import 'package:studynotes/resources/colors.dart';
+
+import 'presentation/bottom_navigation/bottom_navigation_bar.dart';
 
 class App extends StatelessWidget {
   final String flavor;
@@ -17,10 +20,14 @@ class App extends StatelessWidget {
       title: "Study Notes",
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          backgroundColor: Colors.transparent,
+        ),
+        canvasColor: Colors.white,
         // primaryColor: color,
         primarySwatch: color,
       ),
-      home: MainPage()
+      home: BottomBarPage()
     );
   }
 }

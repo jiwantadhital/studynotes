@@ -27,61 +27,73 @@ class _MainPageState extends State<MainPage> {
         elevation: 0,
         title: TopHeader(size: size)
       ),
-      body: Column(
-        children: [
-          SizedBox(height: 15,),
-          Topics(text: "Continue reading",),
-          SizedBox(height: 5,),
-          _continueReading(size),
-          SizedBox(height: 10,),
-          Topics(text: "Recent Notices"),
-          SizedBox(height: 5,),
-          _notices(size),
-          SizedBox(height: 10,),
-          Topics(text: "Latest News"),
-          SizedBox(height: 5,),
-          Expanded(
-            child: GridView.builder(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-              childAspectRatio: 4/3.3,
-              ),
-              itemCount: 6,
-              itemBuilder: (context,index){
-              return Container(
-                margin: EdgeInsets.all(10),
+      body: Container(
+        child: Column(
+          //  mainAxisSize: MainAxisSize.min,
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                physics: ClampingScrollPhysics(),
                 child: Column(
                   children: [
+                    SizedBox(height: 15,),
+                    Topics(text: "Continue reading",),
+                    SizedBox(height: 5,),
+                    _continueReading(size),
+                    SizedBox(height: 10,),
+                    Topics(text: "Recent Notices"),
+                    SizedBox(height: 5,),
+                    _notices(size),
+                    SizedBox(height: 10,),
+                    Topics(text: "Latest News"),
+                    SizedBox(height: 5,),
                     Container(
-                      margin: EdgeInsets.only(left: 10,right: 10),
-                      height: 100,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        image: DecorationImage(
-                          image: NetworkImage("https://149747948.v2.pressablecdn.com/wp-content/uploads/video-bg.jpg"),fit: BoxFit.cover,
-                          )
-                      ),
-                      ),
-                      SizedBox(height: 5,),
-                      Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: DText(
-                          color: ColorManager.textColorBlack,
-                          text: "Why are student preferring online study ?", 
-                          weight: FontWeightManager.regular, 
-                          family: FontConstants.fontNoto, 
-                          size: FontSize.s11
+                      child: GridView.builder(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                        childAspectRatio: 4/3.3,
+                        ),
+                        itemCount: 6,
+                        itemBuilder: (context,index){
+                        return Container(
+                          margin: EdgeInsets.all(10),
+                          child: Column(
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(left: 10,right: 10),
+                                height: 100,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  image: DecorationImage(
+                                    image: NetworkImage("https://149747948.v2.pressablecdn.com/wp-content/uploads/video-bg.jpg"),fit: BoxFit.cover,
+                                    )
+                                ),
+                                ),
+                                SizedBox(height: 5,),
+                                Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: DText(
+                                    color: ColorManager.textColorBlack,
+                                    text: "Why are student preferring online study ?", 
+                                    weight: FontWeightManager.regular, 
+                                    family: FontConstants.fontNoto, 
+                                    size: FontSize.s11
+                                    ),
+                                )
+                            ],
                           ),
-                      )
+                        );
+                        }),
+                    )
+                
                   ],
                 ),
-              );
-              }),
-          )
-
-        ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -92,6 +104,7 @@ _notices(size){
   return Container(
             height: 150,
             child: ListView.builder(
+              shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
               itemCount: 3,
               itemBuilder: (context,index){
