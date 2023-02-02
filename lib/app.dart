@@ -1,9 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:studynotes/presentation/home_pages/main_page.dart';
 
 class App extends StatelessWidget {
   final String flavor;
-  final Color color ;
+  final MaterialColor color ;
   const App({
     Key? key,
     required this.flavor,
@@ -16,14 +17,10 @@ class App extends StatelessWidget {
       title: "Study Notes",
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor: color
+        // primaryColor: color,
+        primarySwatch: color,
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          backgroundColor: color,
-          title: Text(flavor),
-        ),
-      ),
+      home: MainPage()
     );
   }
 }
