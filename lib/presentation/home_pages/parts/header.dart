@@ -70,7 +70,7 @@ class TopHeader extends StatelessWidget {
                     child: Stack(
                         alignment: Alignment.center,
                       children: [
-                        const Icon(Icons.notifications,size: 30,),
+                        const Icon(Icons.notifications,size: 30,color: Colors.white,),
                         Positioned(
                           left: 20,
                           bottom: 22,
@@ -123,12 +123,12 @@ class TopHeader extends StatelessWidget {
                       color: ColorManager.primaryColor,
                       borderRadius: BorderRadius.circular(10)
                     ),
-                    child: Center(child: Icon(Icons.menu),),
+                    child: Center(child: Icon(Icons.menu,color: Colors.white,),),
                   ),
                   ),
               ],
             ),
-            const SizedBox(height: 40,)
+            const SizedBox(height: 10,)
           ],
       )
       );
