@@ -59,74 +59,77 @@ class _CategoriesState extends State<Categories> {
                 }),
               ),
               SizedBox(height: 10,),
-              Container(
-                padding: EdgeInsets.all(10),
-                height: MediaQuery.of(context).size.height,
-                width: double.maxFinite,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                   borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        topRight: Radius.circular(20)
-                      )
-                ),
-                child: Column(
-                  children: [
-                    DText(color: ColorManager.textColorBlack,
-                    text: "Subjects",
-                    weight: FontWeightManager.semibold, family: FontConstants.fontPoppins, size: FontSize.s16),
-                    SizedBox(height: 10,),
-                    Expanded(
-                      child: GridView.builder(
-                        itemCount: 9,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,  
-                        crossAxisSpacing: 7.0,  
-                      childAspectRatio: 2/1.9,
-                        mainAxisSpacing: 10.0
-                      ), itemBuilder: (context,index){
-                        return GestureDetector(
-                          onTap: (){
-                            showModalBottomSheet(
-                              isScrollControlled: true,
-                              context: context,
-                             builder: (BuildContext context) {
-                              return BottomOfCategories(
-                                width: 0,
-                              );
-                            }).whenComplete(() {
-                              setState(() {
-                                
+              SingleChildScrollView(
+                child: Container(
+                  padding: EdgeInsets.all(10),
+                  height: MediaQuery.of(context).size.height,
+                  width: double.maxFinite,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                     borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20)
+                        )
+                  ),
+                  child: Column(
+                    children: [
+                      DText(color: ColorManager.textColorBlack,
+                      text: "Subjects",
+                      weight: FontWeightManager.semibold, family: FontConstants.fontPoppins, size: FontSize.s16),
+                      SizedBox(height: 10,),
+                      Expanded(
+                        child: GridView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: 12,
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3,  
+                          crossAxisSpacing: 7.0,  
+                        childAspectRatio: 2/1.9,
+                          mainAxisSpacing: 10.0
+                        ), itemBuilder: (context,index){
+                          return GestureDetector(
+                            onTap: (){
+                              showModalBottomSheet(
+                                isScrollControlled: true,
+                                context: context,
+                               builder: (BuildContext context) {
+                                return BottomOfCategories();
+                              }).whenComplete(() {
+                                setState(() {
+                                  
+                                });
                               });
-                            });
-                          },
-                          child: Container(
-                            padding: EdgeInsets.all(5),
-                            width: 200,
-                            decoration: BoxDecoration(
-                              color: ColorManager.boxBlue,
-                              borderRadius: BorderRadius.circular(10)
+                            },
+                            child: Container(
+                              padding: EdgeInsets.all(5),
+                              width: 200,
+                              decoration: BoxDecoration(
+                                color: ColorManager.boxBlue,
+                                borderRadius: BorderRadius.circular(10)
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    height: 80,
+                                    child: DText(color: ColorManager.textColorWhite, text: "Basic of computing and Math", weight: FontWeightManager.medium, family: FontConstants.fontPoppins, size: FontSize.s13),
+                                  ),
+                                  Container(
+                                    height: 20,
+                                    child: DText(color: ColorManager.textColorWhite, text: "Chapters: 12", weight: FontWeightManager.light, family: FontConstants.fontPoppins, size: FontSize.s12),
+                                  )
+                                ],
+                              ),
                             ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  height: 80,
-                                  child: DText(color: ColorManager.textColorWhite, text: "Basic of computing and Math", weight: FontWeightManager.medium, family: FontConstants.fontPoppins, size: FontSize.s13),
-                                ),
-                                Container(
-                                  height: 20,
-                                  child: DText(color: ColorManager.textColorWhite, text: "Chapters: 12", weight: FontWeightManager.light, family: FontConstants.fontPoppins, size: FontSize.s12),
-                                )
-                              ],
-                            ),
-                          ),
-                        );
-                      }),
-                    )  
-                  ],
+                          );
+                        }),
+                      )  ,
+                                                        SizedBox(height: 80,)
+                    ],
+                  ),
                 ),
-              )
+              ),
             ],
           ),
         )
