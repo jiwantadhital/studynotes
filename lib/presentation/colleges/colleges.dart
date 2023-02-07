@@ -1,165 +1,139 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:studynotes/presentation/bottom_navigation/bottom_navigation_bar.dart';
+import 'package:studynotes/presentation/colleges/college_details/college_details.dart';
 import 'package:studynotes/presentation/home_pages/widgets/home_page_widgets.dart';
 import 'package:studynotes/resources/colors.dart';
 import 'package:studynotes/resources/fonts.dart';
 
 class Colleges extends StatefulWidget {
-
+  const Colleges({super.key});
 
   @override
   State<Colleges> createState() => _CollegesState();
 }
 
 class _CollegesState extends State<Colleges> {
+  bool search = false;
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-       body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              ColorManager.primaryColor,
-              Colors.white,
-            ],
-            end: Alignment.bottomCenter,
-        begin: Alignment.topCenter,
-            ),
+    return Scaffold(
+      appBar: AppBar(
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 20),
+            child:search==false? GestureDetector(
+              onTap: (){
+                search = true;
+                 setState(() {
+                 
+               });
+                BottomBarPage.setLocale(context,true);
+              
+              },
+              child: Icon(Icons.search)):Container(),
+          )
+        ],
+        centerTitle: true,
+        backgroundColor: ColorManager.primaryColor,
+        title: search==false? DText(color: ColorManager.textColorWhite, text: "Colleges", weight: FontWeightManager.bold, family: FontConstants.fontNunito, size: FontSize.s16):
+        TextField(
+          onTap: (){
+           BottomBarPage.setLocale(context,true);
+setState(() {
+  
+});
+          },
+          onEditingComplete: (){
+            BottomBarPage.setLocale(context,false);
+            FocusScope.of(context).requestFocus(new FocusNode());
+            setState(() {
+              
+            });
+          },
+          style: TextStyle(
+            color: Colors.white,
+          ),
+          autofocus: true,
+        decoration: InputDecoration(
+          border: InputBorder.none,
+          hintText: "Search for colleges",
+          labelStyle: TextStyle(
+            color: Colors.white
+          ),
+          hintStyle: TextStyle(
+            color: Colors.white
+          ),
+          prefixIcon: GestureDetector(
+            onTap: (){
+              search = false;
+               BottomBarPage.setLocale(context,false);
+                setState(() {
+                  
+                });
+            },
+            child: Padding(
+              padding: const EdgeInsets.only(right: 30),
+              child: Icon(Icons.close,color: Colors.white,),
+            ))
         ),
-         child: Column(
-           children: [
-            SizedBox(height: MediaQuery.of(context).size.height*0.008,),
-         Container(
-                  padding: const EdgeInsets.only(left: 20,right: 10,top: 10),
-                  height: MediaQuery.of(context).size.height*0.08,
-                  child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(height: 10,),
+            GridView.builder(
+              shrinkWrap: true,
+                        physics: BouncingScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  childAspectRatio: 0.66,
+                ), 
+                itemCount: 12,
+                itemBuilder: (context, index){
+                  return GestureDetector(
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12.0),
-                        color: Colors.white
+                      margin: const EdgeInsets.only(left: 10,right: 10,top: 15),
+                      
+                      child: Column(
+                        children: [
+                          GestureDetector(
+                            onTap: (){
+                         Navigator.push(context, MaterialPageRoute(builder: (context){
+                        return CollegeDetail();
+                      }));
+                            },
+                            child: Container(
+                              padding: EdgeInsets.all(10),
+                                          height: 100,
+                                          width: 120,
+                                          decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(10),
+                                          border: Border.all(width: 2,color: Colors.grey.withOpacity(0.5)),
+       
+                                          ),
+                                          child: Image.asset("assets/images/clz.png",fit: BoxFit.cover,),
+                                        ),
+                          ),
+                      const SizedBox(height: 5,),
+                      Container(
+                        padding: const EdgeInsets.only(left: 5,right: 5),
+                        child:  DText(
+                          lines: 3,
+                          color: ColorManager.textColorBlack, text: "Orchild International College", weight: FontWeightManager.regular, family: FontConstants.fontNunito, size: FontSize.s12),
+                        
                       ),
-                      child:   TextField(
-                        cursorColor: const Color.fromRGBO(255, 141, 13, 1),
-                        decoration: InputDecoration(
-                          icon: Icon(
-                            Icons.search,
-                            color: ColorManager.primaryColor,
-                            size: 25,
-                            ),
-                            border: InputBorder.none,
-                            hintText: "Search fo colleges",
-                            hintStyle: const TextStyle(color: Colors.black26,fontSize: 10)
-                        ),
+                        ],
+                      )
+                    ),
+                  );
+                }
                       ),
-                    ),
-                  ),
-                  const SizedBox(width: 10,),
-                  Container(
-                    width: 50,
-                    height: 50,
-                    decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30.0),
-                    color: Colors.white,
-                    ),
-                    child:  GestureDetector(
-                      onTap: (() {
-                  //       showModalBottomSheet<void>(
-                  //         isScrollControlled: true,
-                  //         enableDrag: true,
-                  //   context: context,
-                  //   builder: (BuildContext context) {
-                  //   return Filters();
-                  // },
-                  //   );
-                      }),
-                      child: const Icon(
-                        Icons.list,
-                        color: Colors.grey,
-                        ),
-                    ),
-                  ),
-                ],
-              ),),
-             Container(
-              padding: EdgeInsets.all(0),
-              margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.03),
-              height: MediaQuery.of(context).size.height*0.83,
-              width: double.maxFinite,
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Colors.white,
-                    Colors.white54,
-                  ],
-                   end: Alignment.bottomCenter,
-        begin: Alignment.topCenter,
-                ),
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(40),topRight: Radius.circular(40))
-              ),
-              child: Container(
-                margin:  EdgeInsets.only(left: 20,right: 20,bottom: 10),
-                child: GridView.builder(
-                  physics: BouncingScrollPhysics(),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            childAspectRatio: 0.66,
-          ), 
-          itemCount: 12,
-          itemBuilder: (context, index){
-            return Container(
-              margin: const EdgeInsets.only(left: 10,right: 10,top: 15),
-              
-              child: Column(
-                children: [
-                  GestureDetector(
-                    onTap: (){
-              
-                    },
-                    child: Container(
-                      padding: EdgeInsets.all(10),
-                                  height: 100,
-                                  width: 120,
-                                  decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(width: 2,color: Colors.grey.withOpacity(0.5)),
-                                  boxShadow: [
-                    // BoxShadow(
-                    //   offset: const Offset(-2,0),
-                    //   color: Colors.grey.withOpacity(0.3),
-                    //   blurRadius: 10
-                    // ),
-                    ],
-                      // image: const DecorationImage(image: NetworkImage(
-                      //   "https://media.istockphoto.com/id/876177980/vector/university-vector.jpg?s=612x612&w=0&k=20&c=FqW7PHJFlpzTfK3ax3zPhxgTCgCnVQaPnnmTRPmdjjc=",
-                      //   )
-                      //   ,fit: BoxFit.cover)
-                                  ),
-                                  child: Image.asset("assets/images/clz.png",fit: BoxFit.cover,),
-                                ),
-                  ),
-              const SizedBox(height: 5,),
-              Container(
-                padding: const EdgeInsets.only(left: 5,right: 5),
-                child:  DText(
-                  lines: 3,
-                  color: ColorManager.textColorBlack, text: "Orchild International College", weight: FontWeightManager.regular, family: FontConstants.fontNunito, size: FontSize.s12),
-
-              ),
-                ],
-              )
-            );
-          }
-                ),
-              ),
-             ),
-              
-           ],
-         ),
-       ),
+                      SizedBox(height: 35,)
+          ],
+        ),
       ),
     );
   }

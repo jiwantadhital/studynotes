@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:studynotes/presentation/home_pages/news_section/news_details.dart';
 import 'package:studynotes/presentation/home_pages/parts/header.dart';
 import 'package:studynotes/presentation/home_pages/widgets/home_page_widgets.dart';
 import 'package:studynotes/resources/colors.dart';
 import 'package:studynotes/resources/fonts.dart';
 _notices(size){
+  String text = "The Result of 4th sem has been recently published by..";
   return Container(
             height: 140,
             child: ListView.builder(
@@ -12,22 +15,64 @@ _notices(size){
               physics: NeverScrollableScrollPhysics(),
               itemCount: 3,
               itemBuilder: (context,index){
-                return Container(
-                  margin: EdgeInsets.only(left: 15,right: 15,bottom: 5),
-                  height: 40,
-                  width: double.maxFinite,
-                  decoration: BoxDecoration(
-                    color: ColorManager.primaryColor,
-                    borderRadius: BorderRadius.circular(5)
+                return GestureDetector(
+                  onTap: (){
+                    showGeneralDialog(
+      context: context,
+      barrierDismissible: true,
+      barrierLabel: MaterialLocalizations.of(context)
+          .modalBarrierDismissLabel,
+      barrierColor: Colors.black45,
+      transitionDuration: const Duration(milliseconds: 200),
+      pageBuilder: (BuildContext buildContext,
+          Animation animation,
+          Animation secondaryAnimation) {
+        return Center(
+          child: Container(
+            width: MediaQuery.of(context).size.width *0.9,
+            height: MediaQuery.of(context).size.height*0.6,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+                          color: Colors.white,
+
+            ),
+            padding: EdgeInsets.all(20),
+            child: Column(
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(
+                    "Ok",
+                    style: TextStyle(color: Colors.white),
                   ),
-                  child: Center(
-                    child: DText(
-                      color: ColorManager.textColorWhite,
-                      text: "The Result of 4th sem has been recently published by..",
-                      weight: FontWeightManager.light,
-                      family: FontConstants.fontNoto,
-                      size: FontSize.s12
-                      ),
+                )
+              ],
+            ),
+          ),
+        );
+      });
+                  },
+                  child: Container(
+                    padding: EdgeInsets.only(left: 10,right: 10),
+                    margin: EdgeInsets.only(left: 15,right: 15,bottom: 5),
+                    height: 40,
+                    width: double.maxFinite,
+                    decoration: BoxDecoration(
+                      color: ColorManager.primaryColor,
+                      borderRadius: BorderRadius.circular(5)
+                    ),
+                    child: Center(
+                      child: DText(
+                        lines: 1,
+                        color: ColorManager.textColorWhite,
+                        text: text,
+                        weight: FontWeightManager.light,
+                        family: FontConstants.fontNoto,
+                        size: FontSize.s12
+                        ),
+                    ),
                   ),
                 );
             }),
@@ -116,6 +161,10 @@ class _MainPageState extends State<MainPage> {
         controller: scrollController,
         slivers: [
           SliverAppBar(
+            systemOverlayStyle: SystemUiOverlayStyle(
+                  statusBarColor: ColorManager.primaryColor, 
+    statusBarIconBrightness: Brightness.light, 
+    statusBarBrightness: Brightness.light,   ),
             centerTitle: true,
             floating: false,
             pinned: true,
@@ -233,36 +282,43 @@ class _MainPageState extends State<MainPage> {
                         physics: NeverScrollableScrollPhysics(),
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
-                        childAspectRatio: 4/3.7,
+                        childAspectRatio: 4/3.3,
                         ),
                         itemCount: 6,
                         itemBuilder: (context,index){
-                        return Container(
-                          margin: EdgeInsets.all(10),
-                          child: Column(
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(left: 10,right: 10),
-                                height: 100,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  image: DecorationImage(
-                                    image: NetworkImage("https://149747948.v2.pressablecdn.com/wp-content/uploads/video-bg.jpg"),fit: BoxFit.cover,
-                                    )
-                                ),
-                                ),
-                                SizedBox(height: 5,),
-                                Padding(
-                                  padding: const EdgeInsets.all(5.0),
-                                  child: DText(
-                                    color: ColorManager.textColorBlack,
-                                    text: "Why are student preferring online study ?", 
-                                    weight: FontWeightManager.regular, 
-                                    family: FontConstants.fontNoto, 
-                                    size: FontSize.s11
-                                    ),
-                                )
-                            ],
+                        return GestureDetector(
+                          onTap: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context){
+                              return NewsDetails();
+                            }));
+                          },
+                          child: Container(
+                            margin: EdgeInsets.all(10),
+                            child: Column(
+                              children: [
+                                Container(
+                                  // margin: EdgeInsets.only(left: 5,right: 5),
+                                  height: 100,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    image: DecorationImage(
+                                      image: NetworkImage("https://www.orphicy.com/blog/wp-content/uploads/2022/01/10-Undeniable-Reasons-People-Hate-Offline-Learning-and-Instead-Prefer-Online-Learning-01.jpg"),fit: BoxFit.cover,
+                                      )
+                                  ),
+                                  ),
+                                  SizedBox(height: 5,),
+                                  Padding(
+                                    padding: const EdgeInsets.all(5.0),
+                                    child: DText(
+                                      color: ColorManager.textColorBlack,
+                                      text: "Why are student preferring online study ?", 
+                                      weight: FontWeightManager.regular, 
+                                      family: FontConstants.fontNoto, 
+                                      size: FontSize.s11
+                                      ),
+                                  )
+                              ],
+                            ),
                           ),
                         );
                         }),

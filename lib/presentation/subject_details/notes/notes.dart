@@ -31,10 +31,10 @@ class _NotesState extends State<Notes> {
         weight: FontWeightManager.semibold,
         size: FontSize.s16,
         )),
-        systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarColor: Colors.white,
-          statusBarBrightness: Brightness.dark,
-          statusBarIconBrightness: Brightness.dark,
+        systemOverlayStyle:  SystemUiOverlayStyle(
+          statusBarColor: ColorManager.primaryColor,
+          statusBarBrightness: Brightness.light,
+          statusBarIconBrightness: Brightness.light,
         ),
       ),
       body: Container(
@@ -47,7 +47,10 @@ class _NotesState extends State<Notes> {
             height: 60,
             width: size.width,
             decoration: BoxDecoration(
-              color: ColorManager.boxBlue,
+              gradient: LinearGradient(colors: [
+               ColorManager.boxBlue,
+               Colors.lightBlue
+              ]),
               borderRadius: BorderRadius.circular(10)
             ),
             child: Row(
@@ -59,7 +62,7 @@ class _NotesState extends State<Notes> {
                   height: 40,
                   width: 40,
                   decoration: BoxDecoration(
-                    color: Colors.pinkAccent,
+                    color: ColorManager.boxGreen,
                     shape: BoxShape.circle,
                     border: Border.all(width: 3,color: Colors.white)
                   ),

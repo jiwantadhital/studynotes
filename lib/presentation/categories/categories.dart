@@ -20,9 +20,9 @@ class _CategoriesState extends State<Categories> {
     var size = MediaQuery.of(context).size;
     return  Scaffold(
       backgroundColor: ColorManager.primaryColor,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          physics: NeverScrollableScrollPhysics(),
+      body: SingleChildScrollView(
+        physics: NeverScrollableScrollPhysics(),
+        child: SafeArea(
           child: Column(
             children: [
               Container(
@@ -45,10 +45,7 @@ class _CategoriesState extends State<Categories> {
                       width: 100,
                       decoration: BoxDecoration(
                         color: selected==index?ColorManager.boxBlue: ColorManager.boxGreen,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          bottomRight: Radius.circular(20)
-                        ),
+                        borderRadius: BorderRadius.circular(20),
                         border: Border.all(width: 2,color: Colors.white),
                       ),
                       child: Center(
@@ -132,7 +129,7 @@ class _CategoriesState extends State<Categories> {
               ),
             ],
           ),
-        )
+        ),
       ),
     );
   }

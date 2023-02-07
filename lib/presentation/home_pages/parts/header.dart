@@ -1,16 +1,28 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
+import 'package:studynotes/presentation/bottom_navigation/bottom_navigation_bar.dart';
+import 'package:studynotes/presentation/home_pages/parts/open_search_page.dart';
 import 'package:studynotes/presentation/home_pages/widgets/home_page_widgets.dart';
 import 'package:studynotes/resources/fonts.dart';
 
 import '../../../resources/colors.dart';
 
-class TopHeader extends StatelessWidget {
+class TopHeader extends StatefulWidget {
   const TopHeader({
     super.key,
     required this.size,
   });
 
   final Size size;
+
+  @override
+  State<TopHeader> createState() => _TopHeaderState();
+}
+
+class _TopHeaderState extends State<TopHeader> {
+    bool _slowAnimations = false;
+    ContainerTransitionType _transitionType = ContainerTransitionType.fade;
+
 
   @override
   Widget build(BuildContext context) {
@@ -90,29 +102,29 @@ class TopHeader extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 10,),
-            Stack(
+            const SizedBox(height: 10,),
+             OpenContainer(
+              transitionDuration: Duration(milliseconds: 500),
+              transitionType: _transitionType,
+              closedBuilder: (BuildContext _, VoidCallback openContainer){
+                return  Stack(
               alignment: Alignment.centerRight,
               children: [
+               
                 Container(
                   height: 50,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(10)
                   ),
-                  child: const TextField(
-                    decoration: InputDecoration(
-                      hintText: "Search for all courses",
-                      hintStyle: TextStyle(
-                        color: Colors.grey,
-                      ),
-                      icon: Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Icon(Icons.search,color: Colors.grey,),
-                      ),
-                      border: InputBorder.none,
+                    child: Row(
+                      children: [
+                        SizedBox(width: 10,),
+                        Icon(Icons.search,color: Colors.grey,),
+                        SizedBox(width: 10,),
+                        DText(color: Colors.grey, text: "Search all subjects", weight: FontWeightManager.medium, family: FontConstants.fontNunito, size: FontSize.s12)
+                      ],
                     ),
-                  ),
                 ),
                 Positioned(
                   right: 10,
@@ -123,12 +135,17 @@ class TopHeader extends StatelessWidget {
                       color: ColorManager.primaryColor,
                       borderRadius: BorderRadius.circular(10)
                     ),
-                    child: Center(child: Icon(Icons.menu,color: Colors.white,),),
+                    child: const Center(child: Icon(Icons.menu,color: Colors.white,),),
                   ),
                   ),
               ],
-            ),
-            const SizedBox(height: 10,)
+            );
+              },
+               openBuilder: (BuildContext _, VoidCallback __){
+                    return OpenSearchPage();
+                   }
+              ),
+           
           ],
       )
       );
