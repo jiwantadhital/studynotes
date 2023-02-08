@@ -46,7 +46,8 @@ class _NewsDetailsState extends State<NewsDetails> {
           Positioned(child: Container(
                     height: 260,
                     decoration: BoxDecoration(
-                      image: DecorationImage(image: NetworkImage("https://www.orphicy.com/blog/wp-content/uploads/2022/01/10-Undeniable-Reasons-People-Hate-Offline-Learning-and-Instead-Prefer-Online-Learning-01.jpg"),fit: BoxFit.cover)
+                      color: ColorManager.primaryColor,
+                      image: DecorationImage(image: NetworkImage("https://www.rmit.edu.au/content/dam/rmit/multimedia/video/youtube-images/marketing/online/flexible-study-02-1280x732.jpg"),fit: BoxFit.cover)
                     ),
                   ),),
           NestedScrollView(
@@ -95,7 +96,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                   background: Container(
                     // height: 300,
                     decoration: BoxDecoration(
-                      image: DecorationImage(image: NetworkImage("https://www.orphicy.com/blog/wp-content/uploads/2022/01/10-Undeniable-Reasons-People-Hate-Offline-Learning-and-Instead-Prefer-Online-Learning-01.jpg"),fit: BoxFit.cover)
+                      image: DecorationImage(image: NetworkImage("https://www.rmit.edu.au/content/dam/rmit/multimedia/video/youtube-images/marketing/online/flexible-study-02-1280x732.jpg"),fit: BoxFit.cover)
                     ),
                   ),
                 ),
@@ -107,7 +108,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                     body: Container(
                       padding: EdgeInsets.all(10),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color:dark==true? Colors.grey[600]:Colors.white,
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(round),
                           topRight: Radius.circular(round)
@@ -117,13 +118,13 @@ class _NewsDetailsState extends State<NewsDetails> {
                       child: Column(
                         children: [
                           SizedBox(height: 10,),
-                          DText(color: ColorManager.textColorBlack,
+                          DText(color:dark==true? ColorManager.textColorWhite:ColorManager.textColorBlack,
                           text: "Why are student preferring online study ?", weight: FontWeightManager.extrabold,
                           family: FontConstants.fontPoppins, size: FontSize.s24),
                           SizedBox(height: 10,),
-                          DText(color: ColorManager.textColorBlack.withOpacity(0.7),
+                          DText(color: dark==true? ColorManager.textColorWhite.withOpacity(0.4):ColorManager.textColorBlack.withOpacity(0.7),
                           text: "Online education enables the teacher and the student to set their own learning pace, and there's the added flexibility of setting a schedule that fits everyone's agenda. As a result, using an online educational platform allows for a better balance of work and studies, so there's no need to give anything up. Online education enables the teacher and the student to set their own learning pace, and there's the added flexibility of setting a schedule that fits everyone's agenda. \n As a result, using an online educational platform allows for a better balance of work and studies, so there's no need to give anything up. Online education enables the teacher and the student to set their own learning pace, and there's the added flexibility of setting a schedule that fits everyone's agenda.\n As a result, using an online educational platform allows for a better balance of work and studies, so there's no need to give anything up. Online education enables the teacher and the student to set their own learning pace, and there's the added flexibility of setting a schedule that fits everyone's agenda. As a result, using an online educational platform allows for a better balance of work and studies, so there's no need to give anything up. Online education enables the teacher and the student to set their own learning pace, and there's the added flexibility of setting a schedule that fits everyone's agenda. As a result, using an online educational platform allows for a better balance of work and studies, so there's no need to give anything up. \n Online education enables the teacher and the student to set their own learning pace, and there's the added flexibility of setting a schedule that fits everyone's agenda. As a result, using an online educational platform allows for a better balance of work and studies, so there's no need to give anything up.Online education enables the teacher and the student to set their own learning pace, and there's the added flexibility of setting a schedule that fits everyone's agenda. As a result, using an online educational platform allows for a better balance of work and studies, so there's no need to give anything up. Online education enables the teacher and the student to set their own learning pace, and there's the added flexibility of setting a schedule that fits everyone's agenda. As a result, using an online educational platform allows for a better balance of work and studies, so there's no need to give anything up", weight: FontWeightManager.regular,
-                          family: FontConstants.fontNoto, size: FontSize.s15),
+                          family: FontConstants.fontNoto, size: FontSize.s16),
                         ],
                       ),
                     ),

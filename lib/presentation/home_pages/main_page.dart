@@ -17,42 +17,51 @@ _notices(size){
               itemBuilder: (context,index){
                 return GestureDetector(
                   onTap: (){
-                    showGeneralDialog(
-      context: context,
-      barrierDismissible: true,
-      barrierLabel: MaterialLocalizations.of(context)
-          .modalBarrierDismissLabel,
-      barrierColor: Colors.black45,
-      transitionDuration: const Duration(milliseconds: 200),
-      pageBuilder: (BuildContext buildContext,
-          Animation animation,
-          Animation secondaryAnimation) {
-        return Center(
-          child: Container(
-            width: MediaQuery.of(context).size.width *0.9,
-            height: MediaQuery.of(context).size.height*0.6,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-                          color: Colors.white,
+                    showDialog(
+                      barrierDismissible: false,
+                      context: context, builder: (context){
+                      return Center(
+                        child: Container(
+                          height: MediaQuery.of(context).size.height*0.5,
+                          width: MediaQuery.of(context).size.width*0.9,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10)
+                          ),
+                          child: Column(
+                            children: [
+                              Container(
+                                height: MediaQuery.of(context).size.height*0.1,
+                                width: MediaQuery.of(context).size.width*0.9,
+                                decoration: BoxDecoration(
+                                  color: ColorManager.primaryColor,
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(10),
+                                    topRight: Radius.circular(10)
+                                  )
+                                ),
+                             child: Center(child: DText(color: ColorManager.textColorWhite, text: "Notice", weight: FontWeightManager.bold, family: FontConstants.fontPoppins, size: FontSize.s16)),
 
-            ),
-            padding: EdgeInsets.all(20),
-            child: Column(
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text(
-                    "Ok",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                )
-              ],
-            ),
-          ),
-        );
-      });
+                              ),
+                              SizedBox(height: 10,),
+                                Container(
+                                  height: MediaQuery.of(context).size.height*0.28,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: DText(
+                                      lines: 9,
+                                      color: ColorManager.textColorBlack, text: "The resut of this semister was published by the BCA Result 2022 1st 2nd 3rd year (Part 1, 2, 3) Semester results can be checked from the official website of each university. All information about BCA Result 2022 will be available on our website. According to the information, soon the result of the examination will be released on the official website BCA Result 2022 1st 2nd 3rd year (Part 1, 2, 3) Semester results can be checked from the official website of each university. All information about BCA Result 2022 will be available on our website. According to the information, soon the result of the examination will be released on the official website", weight: FontWeightManager.light, family: FontConstants.fontPoppins, size: FontSize.s14),
+                                  ),
+                                ),
+                                SizedBox(height: 10,),
+                                ElevatedButton(onPressed: (){
+                                  Navigator.pop(context);
+                                }, child: Text("Ok"))
+                            ],
+                          ),
+                        ),
+                      );
+                    });
                   },
                   child: Container(
                     padding: EdgeInsets.only(left: 10,right: 10),
@@ -282,7 +291,7 @@ class _MainPageState extends State<MainPage> {
                         physics: NeverScrollableScrollPhysics(),
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
-                        childAspectRatio: 4/3.3,
+                        childAspectRatio: 4/3.5,
                         ),
                         itemCount: 6,
                         itemBuilder: (context,index){
@@ -302,7 +311,7 @@ class _MainPageState extends State<MainPage> {
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
                                     image: DecorationImage(
-                                      image: NetworkImage("https://www.orphicy.com/blog/wp-content/uploads/2022/01/10-Undeniable-Reasons-People-Hate-Offline-Learning-and-Instead-Prefer-Online-Learning-01.jpg"),fit: BoxFit.cover,
+                                      image: NetworkImage("https://www.rmit.edu.au/content/dam/rmit/multimedia/video/youtube-images/marketing/online/flexible-study-02-1280x732.jpg"),fit: BoxFit.cover,
                                       )
                                   ),
                                   ),
