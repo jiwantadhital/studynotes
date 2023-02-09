@@ -1,7 +1,11 @@
+import 'dart:io';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:studynotes/presentation/home_pages/widgets/home_page_widgets.dart';
+import 'package:studynotes/presentation/notification/notifications.dart';
+import 'package:studynotes/presentation/setting/report/report.dart';
 import 'package:studynotes/resources/colors.dart';
 import 'package:studynotes/resources/fonts.dart';
 
@@ -13,6 +17,17 @@ class SettingPage extends StatefulWidget {
 }
 
 class _SettingPageState extends State<SettingPage> {
+    File? image;
+Future pickImage() async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+if(image == null) return;
+final imageTemp = File(image.path);
+setState(() => this.image = imageTemp);
+    } on PlatformException catch(e) {
+      print('Failed to pick image: $e');
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +56,17 @@ class _SettingPageState extends State<SettingPage> {
                     child: Stack(
                       alignment: Alignment.topCenter,
                       children: [
+                       image != null?
                         Container(
+                          height: 100,
+                          width: 100,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(100),
+                            border: Border.all(width: 7,color: Colors.white),
+                            image: DecorationImage(image: FileImage(image!),fit: BoxFit.cover)
+                          ),
+                        )
+                        :Container(
                           height: 100,
                           width: 100,
                           decoration: BoxDecoration(
@@ -53,14 +78,22 @@ class _SettingPageState extends State<SettingPage> {
                         Positioned(
                           top: 60,
                           left: MediaQuery.of(context).size.width*0.53,
-                          child: Container(
-                            height: 30,
-                            width: 30,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: ColorManager.primaryColor
+                          child: GestureDetector(
+                            onTap: (){
+                              pickImage();
+                              setState(() {
+                                print(image);
+                              });
+                            },
+                            child: Container(
+                              height: 30,
+                              width: 30,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: ColorManager.primaryColor
+                              ),
+                              child: Icon(Icons.edit,color: Colors.white,size: 15,),
                             ),
-                            child: Icon(Icons.edit,color: Colors.white,size: 15,),
                           ),
                           ),
             
@@ -87,7 +120,15 @@ class _SettingPageState extends State<SettingPage> {
                       SizedBox(height: 10,),
                       ProfileBoxes(fIcon: Icons.favorite,sIcon: Icons.arrow_forward_ios,boxText: "Favourites",),
                       SizedBox(height: 10,),
-                      ProfileBoxes(fIcon: Icons.error,sIcon: Icons.arrow_forward_ios,boxText: "Report a problem",),
+                      ProfileBoxes(fIcon: Icons.error,sIcon: Icons.arrow_forward_ios,boxText: "Report a problem",
+                      tap: (){
+                          Navigator.push(context, 
+                           MaterialPageRoute(builder: (context){
+                             return Report();
+                         })
+              );
+                      },
+                      ),
                       SizedBox(height: 10,),
                       ProfileBoxes(fIcon: Icons.notifications,sIcon: Icons.arrow_forward_ios,boxText: "Notifications",),
                       SizedBox(height: 10,),

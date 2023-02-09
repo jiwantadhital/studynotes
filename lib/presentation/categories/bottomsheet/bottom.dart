@@ -4,7 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:studynotes/presentation/home_pages/widgets/home_page_widgets.dart';
+import 'package:studynotes/presentation/subject_details/college_questions/college_questions.dart';
+import 'package:studynotes/presentation/subject_details/extra_notes/extra_notes.dart';
+import 'package:studynotes/presentation/subject_details/lab_reports/lab_reports.dart';
 import 'package:studynotes/presentation/subject_details/notes/notes.dart';
+import 'package:studynotes/presentation/subject_details/question_bank/questions.dart';
+import 'package:studynotes/presentation/subject_details/solutions/solutions.dart';
+import 'package:studynotes/presentation/subject_details/syllabus/syllabus.dart';
 import 'package:studynotes/resources/colors.dart';
 import 'package:studynotes/resources/fonts.dart';
 
@@ -35,7 +41,7 @@ class _BottomOfCategoriesState extends State<BottomOfCategories> {
     var size = MediaQuery.of(context).size;
     return Container(
       padding: EdgeInsets.all(10),
-      height: size.height*0.65,
+      height: size.height*0.75,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(
@@ -48,7 +54,15 @@ class _BottomOfCategoriesState extends State<BottomOfCategories> {
           SizedBox(height: 10,),
           DText(color: ColorManager.textColorBlack, text: "Basic of computing and Math", weight: FontWeightManager.medium, family: FontConstants.fontPoppins, size: FontSize.s16),
           SizedBox(height: 20,),
-          BottomWidget(extend: extend, size: size,text: "Syllabus",),
+          GestureDetector(
+            onTap: (){
+                   Navigator.push(context, 
+          MaterialPageRoute(builder: (context){
+            return Syllabus();
+          })
+              );
+            },
+            child: BottomWidget(extend: extend, size: size,text: "Syllabus",)),
           SizedBox(height: 15,),
           GestureDetector(
             onTap: (){
@@ -62,13 +76,55 @@ class _BottomOfCategoriesState extends State<BottomOfCategories> {
             ),
           ),
                     SizedBox(height: 15,),
-          BottomWidget(extend: extend, size: size,text: "Question Bank",),
+          GestureDetector(
+            onTap: (){
+                Navigator.push(context, 
+          MaterialPageRoute(builder: (context){
+            return Questions();
+          })
+              );
+            },
+            child: BottomWidget(extend: extend, size: size,text: "Question Bank",)),
+            SizedBox(height: 15,),
+            GestureDetector(
+            onTap: (){
+                Navigator.push(context, 
+          MaterialPageRoute(builder: (context){
+            return CollegeQuestions();
+          })
+              );
+            },
+            child: BottomWidget(extend: extend, size: size,text: "College Questions",)),
                     SizedBox(height: 15,),
-          BottomWidget(extend: extend, size: size,text: "Solutions",),
+          GestureDetector(
+            onTap: (){
+                     Navigator.push(context, 
+          MaterialPageRoute(builder: (context){
+            return Solutions();
+          })
+              );
+            },
+            child: BottomWidget(extend: extend, size: size,text: "Solutions",)),
                     SizedBox(height: 15,),
-          BottomWidget(extend: extend, size: size,text: "Extra Notes",),
+          GestureDetector(
+            onTap: (){
+                    Navigator.push(context, 
+          MaterialPageRoute(builder: (context){
+            return ExtraNotes();
+          })
+              );
+            },
+            child: BottomWidget(extend: extend, size: size,text: "Extra Notes",)),
                     SizedBox(height: 15,),
-          BottomWidget(extend: extend, size: size,text: "Labs",),
+          GestureDetector(
+            onTap: (){
+                  Navigator.push(context, 
+          MaterialPageRoute(builder: (context){
+            return Labs();
+          })
+              );
+            },
+            child: BottomWidget(extend: extend, size: size,text: "Labs",)),
         ],
       ),
     );

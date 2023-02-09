@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:studynotes/presentation/bottom_navigation/bottom_navigation_bar.dart';
 import 'package:studynotes/presentation/home_pages/parts/open_search_page.dart';
 import 'package:studynotes/presentation/home_pages/widgets/home_page_widgets.dart';
+import 'package:studynotes/presentation/notification/notifications.dart';
 import 'package:studynotes/resources/fonts.dart';
 
 import '../../../resources/colors.dart';
@@ -82,7 +83,15 @@ class _TopHeaderState extends State<TopHeader> {
                     child: Stack(
                         alignment: Alignment.center,
                       children: [
-                        const Icon(Icons.notifications,size: 30,color: Colors.white,),
+                        GestureDetector(
+                          onTap: (){
+                                                      Navigator.push(context, 
+                           MaterialPageRoute(builder: (context){
+                             return Notifications();
+                         })
+              );
+                          },
+                          child: const Icon(Icons.notifications,size: 30,color: Colors.white,)),
                         Positioned(
                           left: 20,
                           bottom: 22,

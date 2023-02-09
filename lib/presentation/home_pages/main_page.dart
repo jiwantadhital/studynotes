@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:studynotes/presentation/home_pages/news_section/news_details.dart';
 import 'package:studynotes/presentation/home_pages/parts/header.dart';
 import 'package:studynotes/presentation/home_pages/widgets/home_page_widgets.dart';
+import 'package:studynotes/presentation/notification/notifications.dart';
+import 'package:studynotes/presentation/subject_details/notes/notes.dart';
 import 'package:studynotes/resources/colors.dart';
 import 'package:studynotes/resources/fonts.dart';
 _notices(size){
@@ -97,36 +99,45 @@ _continueReading(size){
               scrollDirection: Axis.horizontal,
               itemCount: 4,
               itemBuilder: (context,index){
-                return Container(
-                  padding: EdgeInsets.all(10),
-                  margin: EdgeInsets.only(right: 10,left: 10),
-                  width: size.width*0.65,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    color: index.isEven?ColorManager.boxDarkGreen:ColorManager.boxGreen,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        height: 50,
-                        child: DText(
-                          color: ColorManager.textColorWhite,
-                          text:index.isEven? "Software Engineering and Pilot":"Basic Computing in Math",
-                          family: FontConstants.fontNunito,
-                          weight: FontWeightManager.extrabold,
-                          size: FontSize.s18,
+                return GestureDetector(
+                  onTap: (){
+                    Navigator.push(context, 
+                             MaterialPageRoute(builder: (context){
+                           return Notes();
+                             })
+              );
+                  },
+                  child: Container(
+                    padding: EdgeInsets.all(10),
+                    margin: EdgeInsets.only(right: 10,left: 10),
+                    width: size.width*0.65,
+                    height: 100,
+                    decoration: BoxDecoration(
+                      color: index.isEven?ColorManager.boxDarkGreen:ColorManager.boxGreen,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          height: 50,
+                          child: DText(
+                            color: ColorManager.textColorWhite,
+                            text:index.isEven? "Software Engineering and Pilot":"Basic Computing in Math",
+                            family: FontConstants.fontNunito,
+                            weight: FontWeightManager.extrabold,
+                            size: FontSize.s18,
+                          ),
                         ),
-                      ),
-                      SizedBox(height: 10,),
-                      DText(
-                        color: ColorManager.textColorWhite,
-                        text: "Chapters: 12",
-                        weight: FontWeightManager.semibold,
-                        family: FontConstants.fontNunito,
-                        size: FontSize.s13)
-                    ],
+                        SizedBox(height: 10,),
+                        DText(
+                          color: ColorManager.textColorWhite,
+                          text: "Chapters: 12",
+                          weight: FontWeightManager.semibold,
+                          family: FontConstants.fontNunito,
+                          size: FontSize.s13)
+                      ],
+                    ),
                   ),
                 );
             }),
@@ -247,7 +258,15 @@ class _MainPageState extends State<MainPage> {
                     child: Stack(
                         alignment: Alignment.center,
                       children: [
-                        const Icon(Icons.notifications,size: 30,color: Colors.white,),
+                        GestureDetector(
+                          onTap: (){
+                            Navigator.push(context, 
+                             MaterialPageRoute(builder: (context){
+                           return Notifications();
+                             })
+              );
+                          },
+                          child: const Icon(Icons.notifications,size: 30,color: Colors.white,)),
                         Positioned(
                           left: 20,
                           bottom: 22,
@@ -278,7 +297,15 @@ class _MainPageState extends State<MainPage> {
                     SizedBox(height: 5,),
                     _continueReading(size),
                     SizedBox(height: 10,),
-                    Topics(text: "Recent Notices"),
+                    Topics(text: "Recent Notices",
+                    onTap: (){
+                          Navigator.push(context, 
+                         MaterialPageRoute(builder: (context){
+                        return Notifications();
+                         })
+              );
+                    },
+                    ),
                     // SizedBox(height: 5,),
                     _notices(size),
                     SizedBox(height: 10,),
