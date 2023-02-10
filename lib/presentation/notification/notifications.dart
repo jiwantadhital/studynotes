@@ -13,13 +13,54 @@ class Notifications extends StatefulWidget {
 }
 
 class _NotificationsState extends State<Notifications> {
+  bool search = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+         search==true?Container(): Padding(padding: const EdgeInsets.only(right: 20),
+          child: GestureDetector(
+            onTap: (){
+              search = true;
+              setState(() {
+                
+              });
+            },
+            child: const Icon(Icons.search)),
+          )
+        ],
         centerTitle: true,
         backgroundColor: ColorManager.primaryColor,
-        title: DText(color: ColorManager.textColorWhite, text: "Notifications", weight: FontWeightManager.bold, family: FontConstants.fontNunito, size: FontSize.s16),
+        title:search==false? DText(color: ColorManager.textColorWhite, text: "Notifications", weight: FontWeightManager.bold, family: FontConstants.fontNunito, size: FontSize.s16):
+        TextField(
+          style: const TextStyle(
+            color: Colors.white,
+          ),
+          autofocus: true,
+        decoration: InputDecoration(
+          border: InputBorder.none,
+          hintText: "Search for Notifications",
+          labelStyle: const TextStyle(
+            color: Colors.white
+          ),
+          hintStyle: const TextStyle(
+            color: Colors.white
+          ),
+          prefixIcon: GestureDetector(
+            onTap: (){
+              search = false;
+                setState(() {
+                  
+                });
+            },
+            child: const Padding(
+              padding: EdgeInsets.only(right: 20),
+              child: Icon(Icons.close,color: Colors.white,),
+            ))
+        ),
+        )
+        ,
       ),
       body: Container(
         color: Colors.grey[100],
@@ -28,9 +69,9 @@ class _NotificationsState extends State<Notifications> {
           child: Column(
             children: [
               NotificationsWidget(header: "Today",title: "The result of 5th semester was delayed due to various",time: "2h ago",),
-              SizedBox(height: 10,),
+              const SizedBox(height: 10,),
               NotificationsWidget(header: "This Week",title: "The result of 5th semester was delayed due to various",time: "2h ago",),
-              SizedBox(height: 10,),
+              const SizedBox(height: 10,),
               NotificationsWidget(header: "All",title: "The result of 5th semester was delayed due to various",time: "2h ago",),
             ],
           ),
@@ -63,18 +104,18 @@ String time;
           )),
         // SizedBox(height: 10,),
         ListView.builder(
-          physics: NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemCount: 3,
           itemBuilder: (context,index){
           return Container(
-            margin: EdgeInsets.only(top: 5, bottom: 5),
+            margin: const EdgeInsets.only(top: 5, bottom: 5),
             color: Colors.white,
           height: 80,
           width: double.maxFinite,
           child: Row(
             children: [
-              SizedBox(width: 10,),
+              const SizedBox(width: 10,),
               Stack(
                 alignment: Alignment.topRight,
                 children: [
@@ -86,7 +127,7 @@ String time;
                       shape: BoxShape.circle,
                       border: Border.all(width: 3,color: Colors.white)
                     ),
-                    child: Center(
+                    child: const Center(
                       child: Icon(Icons.notifications,color: Colors.white,),
                     ),
                   ),
@@ -105,9 +146,9 @@ String time;
                     )
                 ],
               ),
-              SizedBox(width: 10,),
+              const SizedBox(width: 10,),
               Container(
-                margin: EdgeInsets.only(top: 10),
+                margin: const EdgeInsets.only(top: 10),
                 width: MediaQuery.of(context).size.width*0.8,
                 child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -115,7 +156,7 @@ String time;
               DText(
                 lines: 2,
                 color: ColorManager.textColorBlack, text: title, weight: FontWeightManager.regular, family: FontConstants.fontNoto, size: FontSize.s14),
-              SizedBox(height: 5,),
+              const SizedBox(height: 5,),
               DText(
                 lines: 1,
                 color: ColorManager.primaryColor, text: time, weight: FontWeightManager.regular, family: FontConstants.fontNunito, size: FontSize.s12),                   

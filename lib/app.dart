@@ -1,5 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:studynotes/presentation/auth_pages/auth_page.dart';
+import 'package:studynotes/presentation/auth_pages/login.dart';
+import 'package:studynotes/presentation/auth_pages/social_login.dart';
+import 'package:studynotes/presentation/splash/splash_screen.dart';
 import 'presentation/bottom_navigation/bottom_navigation_bar.dart';
 
 class App extends StatelessWidget {
@@ -24,7 +28,7 @@ class App extends StatelessWidget {
         // primaryColor: color,
         primarySwatch: color,
       ),
-      home: BottomBarPage()
+      home: SocialLogin()
     );
   }
 }
