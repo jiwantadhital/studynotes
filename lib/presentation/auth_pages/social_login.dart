@@ -1,15 +1,36 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:studynotes/presentation/auth_pages/auth_page.dart';
 import 'package:studynotes/presentation/auth_pages/auth_widgets/auth_widgets.dart';
+import 'package:studynotes/presentation/auth_pages/google/google_sign.dart';
 import 'package:studynotes/presentation/auth_pages/register.dart';
+import 'package:studynotes/presentation/bottom_navigation/bottom_navigation_bar.dart';
 import 'package:studynotes/presentation/home_pages/widgets/home_page_widgets.dart';
 import 'package:studynotes/resources/colors.dart';
 import 'package:studynotes/resources/fonts.dart';
 
 
-class SocialLogin extends StatelessWidget {
+class SocialLogin extends StatefulWidget {
   const SocialLogin({super.key});
 
+  @override
+  State<SocialLogin> createState() => _SocialLoginState();
+}
+
+class _SocialLoginState extends State<SocialLogin> {
+  bool op = false;
+  opac(){
+    op=true;
+    setState(() {
+      
+    });
+  }
+  @override
+  void initState() {
+   Timer(Duration(milliseconds: 100), opac);
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +42,6 @@ class SocialLogin extends StatelessWidget {
             physics: BouncingScrollPhysics(),
             child: Column(
               children: [
-                // TopSection(),
                 Container(
                   height: MediaQuery.of(context).size.height*0.25,
                   decoration: BoxDecoration(
@@ -32,49 +52,67 @@ class SocialLogin extends StatelessWidget {
                     )
                   ),
                 ),
-                SizedBox(height: 20,),
-                DText(text: "Let's you in", color: Colors.black.withOpacity(0.7),weight: FontWeightManager.extrabold,family: FontConstants.fontNoto,size: FontSize.s26,),
-                SizedBox(height: 20,),
-                SocialBox(icon: "assets/images/face.png",text: "Continue with Facebook",),
-                SizedBox(height: 10,),
-                SocialBox(icon: "assets/images/goog.png",text: "Continue with Google",),
-                SizedBox(height: 10,),
-                SocialBox(icon: "assets/images/appl.png",text: "Continue with Apple",),
-                SizedBox(height: 20,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+               AnimatedOpacity(
+                opacity:op==false?0: 1,
+                duration: Duration(seconds: 2),
+                 child: Column(
                   children: [
-                    SizedBox(width: MediaQuery.of(context).size.width*0.43,
-                      child: Divider(height: 1,thickness: 1,color: Colors.black.withOpacity(0.7),)),
-                    DText(text: "or", color: Colors.black.withOpacity(0.7),weight: FontWeightManager.regular,family: FontConstants.fontNunito,size: FontSize.s14),
-                    SizedBox(width: MediaQuery.of(context).size.width*0.43,
-                      child: Divider(height: 1,thickness: 1,color: Colors.black.withOpacity(0.7),)),
-                  ],
-                ),
-                SizedBox(height: 20,),
-                GestureDetector(
-                  onTap: (){
-                   
-                  },
-                  child: 
-                  AuthButton(text: "Sign in with Password")
+                     SizedBox(height: 20,),
+                  DText(text: "Let's you in", color: Colors.black.withOpacity(0.7),weight: FontWeightManager.extrabold,family: FontConstants.fontNoto,size: FontSize.s26,),
+                  SizedBox(height: 20,),
+                  SocialBox(icon: "assets/images/face.png",text: "Continue with Facebook",),
+                  SizedBox(height: 10,),
+                  GestureDetector(
+                    onTap: (){
+                      signIn(context);
+                    },
+                    child: SocialBox(icon: "assets/images/goog.png",text: "Continue with Google",)),
+                  SizedBox(height: 10,),
+                  SocialBox(icon: "assets/images/appl.png",text: "Continue with Apple",),
+                  SizedBox(height: 20,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(width: MediaQuery.of(context).size.width*0.43,
+                        child: Divider(height: 1,thickness: 1,color: Colors.black.withOpacity(0.7),)),
+                      DText(text: "or", color: Colors.black.withOpacity(0.7),weight: FontWeightManager.regular,family: FontConstants.fontNunito,size: FontSize.s14),
+                      SizedBox(width: MediaQuery.of(context).size.width*0.43,
+                        child: Divider(height: 1,thickness: 1,color: Colors.black.withOpacity(0.7),)),
+                    ],
                   ),
-                SizedBox(height: 30,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    DText(text: "Don't have an account ?", color: Colors.black,weight: FontWeightManager.regular,family: FontConstants.fontNunito,size: FontSize.s14),
-                    SizedBox(width: 10,),
-                    GestureDetector(
-                      onTap: (){
-                         Navigator.push(context, MaterialPageRoute(builder: (context){
-                              return AuthPage();
-                            }));
-                      },
-                      child: DText(text: "Click here", color: Colors.blue,weight: FontWeightManager.regular,family: FontConstants.fontNunito,size: FontSize.s14),
-),
+                  SizedBox(height: 20,),
+                  GestureDetector(
+                    onTap: (){
+                     
+                    },
+                    child: 
+                    AuthButton(text: "Sign in with Password",
+                    tap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context){
+                                return AuthPage();
+                              }));
+                    },
+                    )
+                    ),
+                  SizedBox(height: 30,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      DText(text: "Don't have an account ?", color: Colors.black,weight: FontWeightManager.regular,family: FontConstants.fontNunito,size: FontSize.s14),
+                      SizedBox(width: 10,),
+                      GestureDetector(
+                        onTap: (){
+                           Navigator.push(context, MaterialPageRoute(builder: (context){
+                                return AuthPage();
+                              }));
+                        },
+                        child: DText(text: "Click here", color: Colors.blue,weight: FontWeightManager.regular,family: FontConstants.fontNunito,size: FontSize.s14),
+               ),
+                    ],
+                  ),
                   ],
-                ),
+                 ),
+               )
               ],
             ),
           ),
@@ -84,7 +122,13 @@ class SocialLogin extends StatelessWidget {
   }
 }
 
-
+//for google log in
+Future signIn(context)async{
+final user = await GoogleSignInApi.login();
+ Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
+                                return BottomBarPage();
+                              }));
+}
 class SocialBox extends StatelessWidget {
 String text;
 String icon;

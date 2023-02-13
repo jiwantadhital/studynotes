@@ -3,8 +3,11 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:studynotes/local_databases/sharedpreferences/shared_pref.dart';
+import 'package:studynotes/presentation/auth_pages/auth_page.dart';
 import 'package:studynotes/presentation/home_pages/widgets/home_page_widgets.dart';
 import 'package:studynotes/presentation/notification/notifications.dart';
+import 'package:studynotes/presentation/setting/edit_profile/edit_profile.dart';
 import 'package:studynotes/presentation/setting/report/report.dart';
 import 'package:studynotes/resources/colors.dart';
 import 'package:studynotes/resources/fonts.dart';
@@ -32,6 +35,7 @@ setState(() => this.image = imageTemp);
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         systemOverlayStyle: SystemUiOverlayStyle(
     // Status bar color
     statusBarColor: ColorManager.primaryColor, 
@@ -114,7 +118,15 @@ setState(() => this.image = imageTemp);
                   SizedBox(height: 10,),
                   Column(
                     children: [
-                      ProfileBoxes(fIcon: Icons.person,sIcon: Icons.arrow_forward_ios,boxText: "Edit Profile",),
+                      GestureDetector(
+                        onTap: (){
+                                  Navigator.push(context, 
+                           MaterialPageRoute(builder: (context){
+                             return EditProfile();
+                         })
+              );
+                        },
+                        child: ProfileBoxes(fIcon: Icons.person,sIcon: Icons.arrow_forward_ios,boxText: "Edit Profile",)),
                       SizedBox(height: 10,),
                       ProfileBoxes(fIcon: Icons.download_done,sIcon: Icons.arrow_forward_ios,boxText: "Downloads",),
                       SizedBox(height: 10,),
@@ -163,18 +175,26 @@ setState(() => this.image = imageTemp);
                                        Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Container(
-                      height:40,
-                      width: MediaQuery.of(context).size.width*0.35,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.grey.withOpacity(0.7),
+                    GestureDetector(
+                      onTap: (){
+                        Navigator.pop(context);
+                      },
+                      child: Container(
+                        height:40,
+                        width: MediaQuery.of(context).size.width*0.35,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.grey.withOpacity(0.7),
+                        ),
+                        child: Center(child: Center(child: DText(text: "Cancel",size: FontSize.s15,weight: FontWeightManager.semibold,family: FontConstants.fontPoppins,color: ColorManager.textColorWhite,)),),
                       ),
-                      child: Center(child: Center(child: DText(text: "Cancel",size: FontSize.s15,weight: FontWeightManager.semibold,family: FontConstants.fontPoppins,color: ColorManager.textColorWhite,)),),
                     ),
                     GestureDetector(
                       onTap: (){
-              
+                        UserSimplePreferences.logout();
+                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
+                              return AuthPage();
+                            }));
                       },
                       child: Container(
                         height: 40,

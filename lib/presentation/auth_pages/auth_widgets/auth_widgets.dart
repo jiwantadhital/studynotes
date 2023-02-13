@@ -7,8 +7,10 @@ import '../../home_pages/widgets/home_page_widgets.dart';
 class AuthButton extends StatelessWidget {
 String text;
 var tap;
+Color color;
    AuthButton({
     Key? key,
+    this.color = const Color.fromARGB(255, 32, 112, 100),
     required this.text,
      this.tap,
   }) : super(key: key);
@@ -35,18 +37,23 @@ class AuthTextBox extends StatelessWidget {
     String labelText;
     bool hide;
     var tap;
+    var validation;
+    TextEditingController? controller;
    AuthTextBox({
     Key? key,
+    this.validation,
+    this.controller,
     this.icon,
     this.tap,
      this.hide = false,
     required this.labelText,
   }) : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
+      controller: controller,
+      validator: validation,
               cursorColor: ColorManager.primaryColor,
               obscureText: hide,
               decoration: InputDecoration(

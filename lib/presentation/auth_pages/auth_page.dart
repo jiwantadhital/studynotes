@@ -103,7 +103,7 @@ class _AuthPageState extends State<AuthPage> {
                           });
                         },
                         child: AnimatedContainer(
-                          duration: Duration(milliseconds: 100),
+                          duration: Duration(milliseconds: 500),
                           height: loginselected == false? 60 : 55,
                           width: 130,
                             decoration: BoxDecoration(

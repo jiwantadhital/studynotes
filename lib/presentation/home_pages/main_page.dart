@@ -181,6 +181,7 @@ class _MainPageState extends State<MainPage> {
         controller: scrollController,
         slivers: [
           SliverAppBar(
+            automaticallyImplyLeading: false,
             systemOverlayStyle: SystemUiOverlayStyle(
                   statusBarColor: ColorManager.primaryColor, 
     statusBarIconBrightness: Brightness.light, 

@@ -56,9 +56,9 @@ class _RegisterState extends State<Register> {
                         SizedBox(height: 20,),
                         GestureDetector(
                           onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context){
-                              return BottomBarPage();
-                            }));
+                            // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
+                            //   return BottomBarPage();
+                            // }));
                           },
                           child: AuthButton(text: "Register",)),
                
