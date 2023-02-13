@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:studynotes/local_databases/sharedpreferences/shared_pref.dart';
 import 'package:studynotes/presentation/auth_pages/auth_widgets/auth_widgets.dart';
+import 'package:studynotes/presentation/auth_pages/social_login.dart';
 import 'package:studynotes/presentation/bottom_navigation/bottom_navigation_bar.dart';
 import 'package:studynotes/resources/colors.dart';
 import 'package:studynotes/resources/fonts.dart';
@@ -83,17 +84,17 @@ class _LoginState extends State<Login> {
                           SizedBox(height: 10,),
                        GestureDetector(
                             onTap: (){
-                              // Navigator.push(context, MaterialPageRoute(builder: (context){
-                              //   return BottomBarPage();
-                              // }));
+                              Navigator.push(context, MaterialPageRoute(builder: (context){
+                                return BottomBarPage();
+                              }));
                             },
                             child: AuthButton(text: "Login",
                             tap: (){
                               if(_formKey.currentState!.validate()){
                                 UserSimplePreferences.setToken("12");
-                              //     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
-                              //   return BottomBarPage();
-                              // }));
+                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
+                                return BottomBarPage();
+                              }));
                               }
                               else{
                              print("err");
@@ -115,11 +116,11 @@ class _LoginState extends State<Login> {
                                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                                 children: [
                                   Container(
-                                    width: 170,
+                                    width: MediaQuery.of(context).size.width*0.4,
                                     child: Divider(thickness: 2,color: ColorManager.primaryColor,)),
                                   DText(color: ColorManager.textColorBlack, text: "Or", weight: FontWeightManager.bold, family: FontConstants.fontNunito, size: FontSize.s14),
                                   Container(
-                                    width: 170,
+                                    width: MediaQuery.of(context).size.width*0.4,
                                     child: Divider(thickness: 2,color: ColorManager.primaryColor,)),
                                 ],
                               ),
@@ -132,7 +133,13 @@ class _LoginState extends State<Login> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   DText(color: ColorManager.textColorBlack, text: "Continue with ", weight: FontWeightManager.bold, family: FontConstants.fontNunito, size: FontSize.s14),
-                                  DText(color: ColorManager.boxBlue, text: "social login", weight: FontWeightManager.bold, family: FontConstants.fontNunito, size: FontSize.s14),
+                                  GestureDetector(
+                                    onTap: (){
+                                         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
+                                            return SocialLogin();
+                                             }));
+                                    },
+                                    child: DText(color: ColorManager.boxBlue, text: "social login", weight: FontWeightManager.bold, family: FontConstants.fontNunito, size: FontSize.s14)),
                                 ],
                               ),
                             )

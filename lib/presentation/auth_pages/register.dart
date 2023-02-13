@@ -21,6 +21,11 @@ class _RegisterState extends State<Register> {
     return Column(
                       children: [
                         AuthTextBox(
+                          labelText: "User Name",
+                          hide: false,
+                        ),
+                           SizedBox(height: 20,),
+                        AuthTextBox(
                           labelText: "Email",
                         ),
                         SizedBox(height: 20,),
@@ -40,25 +45,14 @@ class _RegisterState extends State<Register> {
                           },
                         ),
          
-                        SizedBox(height: 20,),
-                        AuthTextBox(
-                          labelText: "Confirm Password",
-                          hide: false,
-                          icon: Icons.remove_red_eye,
-                          tap: (){
-                            hide == false?hide= true:hide=false;
-                            setState(() {
-                              
-                            });
-                          },
-                        ),
+                       
          
                         SizedBox(height: 20,),
                         GestureDetector(
                           onTap: (){
-                            // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
-                            //   return BottomBarPage();
-                            // }));
+                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
+                              return BottomBarPage();
+                            }));
                           },
                           child: AuthButton(text: "Register",)),
                

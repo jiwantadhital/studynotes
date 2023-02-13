@@ -45,6 +45,9 @@ dependencies:
   rive: ^0.9.1
   shared_preferences: ^2.0.17
   google_sign_in: ^5.4.4
+  flutter_bloc: ^8.1.2
+  equatable: ^2.0.5
+  dropdown_textfield: ^1.0.8
 
 dev_dependencies:
   flutter_test:

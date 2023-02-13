@@ -5,6 +5,7 @@ class UserSimplePreferences {
 
   static const _token = 'TOKEN';
   static const _username = 'USERNAME';
+  static const _googlePhoto = 'GOOGLEPHOTO';
   static const _email = 'Email';
   static const _password = 'PASSWORD';
   static const _userID = 'USERID';
@@ -22,6 +23,12 @@ class UserSimplePreferences {
   static Future setUserID(int userID) async {
     await _preferences?.setInt(_userID, userID);
   }
+   static Future setUserName(String username) async {
+    await _preferences?.setString(_username, username);
+  }
+   static Future setGooglePhoto(String goglePhoto) async {
+    await _preferences?.setString(_googlePhoto, goglePhoto);
+  }
 
    static Future setToken(String token) async {
     await _preferences?.setString(_token, token);
@@ -37,6 +44,7 @@ class UserSimplePreferences {
     return _preferences?.containsKey(_token);
   }
   static String? getUsername() => _preferences?.getString(_username);
+   static String? getGooglePhoto() => _preferences?.getString(_googlePhoto);
   static String? getEmail() => _preferences?.getString(_email);
   static String? getPassword() => _preferences?.getString(_password);
   static String? getToken() => _preferences?.getString(_token);
@@ -48,6 +56,10 @@ class UserSimplePreferences {
   static Future removeEmailPassword()async{
     await _preferences?.remove(_email);
     await _preferences?.remove(_password);
+  }
+  static Future removeUserDetails()async{
+    await _preferences?.remove(_username);
+    await _preferences?.remove(_googlePhoto);
   }
   static Future logout()async{
     await _preferences?.remove(_token);

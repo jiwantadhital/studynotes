@@ -38,9 +38,11 @@ class AuthTextBox extends StatelessWidget {
     bool hide;
     var tap;
     var validation;
+    bool readO;
     TextEditingController? controller;
    AuthTextBox({
     Key? key,
+    this.readO=false,
     this.validation,
     this.controller,
     this.icon,
@@ -52,6 +54,7 @@ class AuthTextBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      readOnly: readO,
       controller: controller,
       validator: validation,
               cursorColor: ColorManager.primaryColor,

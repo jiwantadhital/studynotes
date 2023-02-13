@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:studynotes/local_databases/sharedpreferences/shared_pref.dart';
 import 'package:studynotes/presentation/home_pages/news_section/news_details.dart';
 import 'package:studynotes/presentation/home_pages/parts/header.dart';
 import 'package:studynotes/presentation/home_pages/widgets/home_page_widgets.dart';
@@ -157,8 +160,16 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   ScrollController scrollController = ScrollController();
   double round = 20;
+  aaData(){
+    Timer(Duration(seconds:1), () {
+      setState(() {
+        
+      });
+     });
+  }
   @override
   void initState() {
+    aaData();
     scrollController..addListener(() { 
       _appBarCollapsed ? round =0:round=20;
       setState(() {
@@ -176,6 +187,7 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
         var size = MediaQuery.of(context).size;
+        print(size.width);
     return Scaffold(
       body: CustomScrollView(
         controller: scrollController,
@@ -217,7 +229,9 @@ class _MainPageState extends State<MainPage> {
                       color: Colors.white,
                       shape: BoxShape.circle,
                       border: Border.all(width: 2,color: Colors.white),
-                      image: const DecorationImage(image: NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsynwv-5qtogtOwJbIjaPFJUmHpzhxgqIAug&usqp=CAU"),fit: BoxFit.cover),
+                      image:  DecorationImage(image: NetworkImage(
+                        UserSimplePreferences.getGooglePhoto()??
+                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsynwv-5qtogtOwJbIjaPFJUmHpzhxgqIAug&usqp=CAU"),fit: BoxFit.cover),
                     ),
                   ),
                   const SizedBox(width: 20,),
@@ -227,15 +241,20 @@ class _MainPageState extends State<MainPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        DText(
-                          family: FontConstants.fontPoppins,
-                          weight: FontWeightManager.bold,
-                          size: FontSize.s16,
-                          color: ColorManager.textColorWhite,
-                          text: "Hello, User",
-                          
+                        Container(
+                          width: size.width*0.5,
+                          child: DText(
+                            lines: 1,
+                            family: FontConstants.fontPoppins,
+                            weight: FontWeightManager.bold,
+                            size: FontSize.s16,
+                            color: ColorManager.textColorWhite,
+                            text: "Hello, ${UserSimplePreferences.getUsername()??"User"}",
+                            
+                          ),
                         ),
                         DText(
+                          lines: 1,
                           family: FontConstants.fontPoppins,
                           weight: FontWeightManager.light,
                           size: FontSize.s14,
@@ -319,7 +338,7 @@ class _MainPageState extends State<MainPage> {
                         physics: NeverScrollableScrollPhysics(),
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
-                        childAspectRatio: 4/3.5,
+                        childAspectRatio: size.width < 370? 4/3.7: 4/3.5,
                         ),
                         itemCount: 6,
                         itemBuilder: (context,index){

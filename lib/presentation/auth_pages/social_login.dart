@@ -1,11 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:studynotes/local_databases/sharedpreferences/shared_pref.dart';
 import 'package:studynotes/presentation/auth_pages/auth_page.dart';
 import 'package:studynotes/presentation/auth_pages/auth_widgets/auth_widgets.dart';
 import 'package:studynotes/presentation/auth_pages/google/google_sign.dart';
 import 'package:studynotes/presentation/auth_pages/register.dart';
 import 'package:studynotes/presentation/bottom_navigation/bottom_navigation_bar.dart';
+import 'package:studynotes/presentation/extra_widgets/loadings.dart';
 import 'package:studynotes/presentation/home_pages/widgets/home_page_widgets.dart';
 import 'package:studynotes/resources/colors.dart';
 import 'package:studynotes/resources/fonts.dart';
@@ -65,6 +67,9 @@ class _SocialLoginState extends State<SocialLogin> {
                   GestureDetector(
                     onTap: (){
                       signIn(context);
+                      setState(() {
+                        
+                      });
                     },
                     child: SocialBox(icon: "assets/images/goog.png",text: "Continue with Google",)),
                   SizedBox(height: 10,),
@@ -124,10 +129,18 @@ class _SocialLoginState extends State<SocialLogin> {
 
 //for google log in
 Future signIn(context)async{
-final user = await GoogleSignInApi.login();
- Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
+  dialogBuilder(context,"Please wait..",);
+  try{
+ await GoogleSignInApi.login();
+ Navigator.pop(context);
+  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
                                 return BottomBarPage();
                               }));
+ }catch(e){
+  Navigator.pop(context);
+ }
+
+
 }
 class SocialBox extends StatelessWidget {
 String text;

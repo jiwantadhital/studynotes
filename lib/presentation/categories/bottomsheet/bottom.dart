@@ -39,9 +39,10 @@ class _BottomOfCategoriesState extends State<BottomOfCategories> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    print(size.height);
     return Container(
       padding: EdgeInsets.all(10),
-      height: size.height*0.75,
+      height:size.height<687?size.height*0.77: size.height*0.75,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(

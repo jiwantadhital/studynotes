@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:studynotes/local_databases/sharedpreferences/shared_pref.dart';
 import 'package:studynotes/presentation/bottom_navigation/bottom_navigation_bar.dart';
 import 'package:studynotes/presentation/home_pages/widgets/home_page_widgets.dart';
 import 'package:studynotes/resources/colors.dart';
@@ -25,9 +26,9 @@ class _ForLoggedState extends State<ForLogged> {
     });
   }
   _goNext(){
-  //  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
-  //   return BottomBarPage();
-  //  }));
+   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
+    return BottomBarPage();
+   }));
   }
   @override
   void initState() {
@@ -63,7 +64,7 @@ class _ForLoggedState extends State<ForLogged> {
                 DText(color: ColorManager.textColorBlack, text: "Welcome Back",
                weight: FontWeightManager.bold, family: FontConstants.fontNoto, size: FontSize.s36),
                SizedBox(height: 10,),
-               DText(color: ColorManager.textColorBlack, text: "Subin Subedi",
+               DText(color: ColorManager.textColorBlack, text: UserSimplePreferences.getUsername()??"User",
                weight: FontWeightManager.regular, family: FontConstants.fontNunito, size: FontSize.s22),
                SizedBox(height: 20,),
                Container(

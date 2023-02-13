@@ -2,9 +2,12 @@ import 'dart:io';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:studynotes/local_databases/sharedpreferences/shared_pref.dart';
 import 'package:studynotes/presentation/auth_pages/auth_page.dart';
+import 'package:studynotes/presentation/auth_pages/google/google_sign.dart';
+import 'package:studynotes/presentation/auth_pages/social_login.dart';
 import 'package:studynotes/presentation/home_pages/widgets/home_page_widgets.dart';
 import 'package:studynotes/presentation/notification/notifications.dart';
 import 'package:studynotes/presentation/setting/edit_profile/edit_profile.dart';
@@ -33,6 +36,8 @@ setState(() => this.image = imageTemp);
   }
   @override
   Widget build(BuildContext context) {
+        print( UserSimplePreferences.getGooglePhoto());
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -52,6 +57,7 @@ setState(() => this.image = imageTemp);
           Container(
             margin: EdgeInsets.all(10),
             child: SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
               child: Column(
                 children: [
                   Container(
@@ -76,7 +82,7 @@ setState(() => this.image = imageTemp);
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(100),
                             border: Border.all(width: 7,color: Colors.white),
-                            image: DecorationImage(image: NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2WPSnSP44UbxEKVUsVg8AT2Sf43whBNwsHw&usqp=CAU"),fit: BoxFit.cover)
+                            image: DecorationImage(image: NetworkImage(UserSimplePreferences.getGooglePhoto()??"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2WPSnSP44UbxEKVUsVg8AT2Sf43whBNwsHw&usqp=CAU"),fit: BoxFit.cover)
                           ),
                         ),
                         Positioned(
@@ -106,7 +112,7 @@ setState(() => this.image = imageTemp);
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                DText(text: "Subin Subedi",color: ColorManager.textColorBlack,weight: FontWeightManager.bold,family: FontConstants.fontNunito,size: FontSize.s15,),
+                                DText(text: UserSimplePreferences.getUsername()??"User",color: ColorManager.textColorBlack,weight: FontWeightManager.bold,family: FontConstants.fontNunito,size: FontSize.s15,),
                                 DText(text: "9815261522",color: ColorManager.textColorBlack,weight: FontWeightManager.regular,family: FontConstants.fontNunito,size: FontSize.s13,),
                               ],
                             ))
@@ -116,110 +122,111 @@ setState(() => this.image = imageTemp);
                     
                   ),
                   SizedBox(height: 10,),
-                  Column(
+                  SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        GestureDetector(
+                          onTap: (){
+                                    Navigator.push(context, 
+                             MaterialPageRoute(builder: (context){
+                               return EditProfile();
+                           })
+                                );
+                          },
+                          child: ProfileBoxes(fIcon: Icons.person,sIcon: Icons.arrow_forward_ios,boxText: "Edit Profile",)),
+                        SizedBox(height: 10,),
+                        ProfileBoxes(fIcon: Icons.download_done,sIcon: Icons.arrow_forward_ios,boxText: "Downloads",),
+                        SizedBox(height: 10,),
+                        ProfileBoxes(fIcon: Icons.error,sIcon: Icons.arrow_forward_ios,boxText: "Report a problem",
+                        tap: (){
+                            Navigator.push(context, 
+                             MaterialPageRoute(builder: (context){
+                               return Report();
+                           })
+                                );
+                        },
+                        ),
+                        SizedBox(height: 10,),
+                        ProfileToggle(fIcon: Icons.remove_red_eye,button: Switch(
+                          activeColor: ColorManager.primaryColor,
+                          value: true, onChanged: (val){
+                          }),boxText: "Dark Mode",),
+                        SizedBox(height: 10,),
+                        ProfileBoxes(fIcon: Icons.share,sIcon: Icons.arrow_forward_ios,boxText: "Invite",),
+                        SizedBox(height: 10,),
+                      ProfileBoxes(fIcon: Icons.logout,boxText: "Logout",color: Colors.red,
+                        tap: (){
+                          showModalBottomSheet<void>(
+                                isScrollControlled: true,
+                                enableDrag: true,
+                          context: context,
+                          builder: (BuildContext context) {
+                           return Container(
+                                height: 150,
+                                width: double.maxFinite,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(topLeft: Radius.circular(30),topRight: Radius.circular(30)),
+                                  color: Colors.white
+                                ),
+                                child: Column(
+                                  children: [
+                                    SizedBox(height: 10,),
+                                    DText(text: "Logout",color: Colors.red,size: FontSize.s20,weight: FontWeightManager.semibold,family: FontConstants.fontNunito,),
+                                                                  SizedBox(height: 10,),
+                                      DText(text: "Are you sure you want to logout?",color: Colors.black,size: FontSize.s15,weight: FontWeightManager.semibold,family: FontConstants.fontNunito,),
+                                                                  SizedBox(height: 20,),
+                                         Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       GestureDetector(
                         onTap: (){
-                                  Navigator.push(context, 
-                           MaterialPageRoute(builder: (context){
-                             return EditProfile();
-                         })
-              );
+                          Navigator.pop(context);
                         },
-                        child: ProfileBoxes(fIcon: Icons.person,sIcon: Icons.arrow_forward_ios,boxText: "Edit Profile",)),
-                      SizedBox(height: 10,),
-                      ProfileBoxes(fIcon: Icons.download_done,sIcon: Icons.arrow_forward_ios,boxText: "Downloads",),
-                      SizedBox(height: 10,),
-                      ProfileBoxes(fIcon: Icons.favorite,sIcon: Icons.arrow_forward_ios,boxText: "Favourites",),
-                      SizedBox(height: 10,),
-                      ProfileBoxes(fIcon: Icons.error,sIcon: Icons.arrow_forward_ios,boxText: "Report a problem",
-                      tap: (){
-                          Navigator.push(context, 
-                           MaterialPageRoute(builder: (context){
-                             return Report();
-                         })
-              );
-                      },
-                      ),
-                      SizedBox(height: 10,),
-                      ProfileBoxes(fIcon: Icons.notifications,sIcon: Icons.arrow_forward_ios,boxText: "Notifications",),
-                      SizedBox(height: 10,),
-                      ProfileToggle(fIcon: Icons.remove_red_eye,button: Switch(
-                        activeColor: ColorManager.primaryColor,
-                        value: true, onChanged: (val){
-                        }),boxText: "Dark Mode",),
-                      SizedBox(height: 10,),
-                      ProfileBoxes(fIcon: Icons.share,sIcon: Icons.arrow_forward_ios,boxText: "Invite",),
-                      SizedBox(height: 10,),
-                    ProfileBoxes(fIcon: Icons.logout,boxText: "Logout",color: Colors.red,
-                      tap: (){
-                        showModalBottomSheet<void>(
-                              isScrollControlled: true,
-                              enableDrag: true,
-                        context: context,
-                        builder: (BuildContext context) {
-                         return Container(
-                              height: 150,
-                              width: double.maxFinite,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(topLeft: Radius.circular(30),topRight: Radius.circular(30)),
-                                color: Colors.white
-                              ),
-                              child: Column(
-                                children: [
-                                  SizedBox(height: 10,),
-                                  DText(text: "Logout",color: Colors.red,size: FontSize.s20,weight: FontWeightManager.semibold,family: FontConstants.fontNunito,),
-                                                                SizedBox(height: 10,),
-                                    DText(text: "Are you sure you want to logout?",color: Colors.black,size: FontSize.s15,weight: FontWeightManager.semibold,family: FontConstants.fontNunito,),
-                                                                SizedBox(height: 20,),
-                                       Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    GestureDetector(
-                      onTap: (){
-                        Navigator.pop(context);
-                      },
-                      child: Container(
-                        height:40,
-                        width: MediaQuery.of(context).size.width*0.35,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.grey.withOpacity(0.7),
+                        child: Container(
+                          height:40,
+                          width: MediaQuery.of(context).size.width*0.35,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.grey.withOpacity(0.7),
+                          ),
+                          child: Center(child: Center(child: DText(text: "Cancel",size: FontSize.s15,weight: FontWeightManager.semibold,family: FontConstants.fontPoppins,color: ColorManager.textColorWhite,)),),
                         ),
-                        child: Center(child: Center(child: DText(text: "Cancel",size: FontSize.s15,weight: FontWeightManager.semibold,family: FontConstants.fontPoppins,color: ColorManager.textColorWhite,)),),
                       ),
-                    ),
-                    GestureDetector(
-                      onTap: (){
-                        UserSimplePreferences.logout();
-                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
-                              return AuthPage();
-                            }));
-                      },
-                      child: Container(
-                        height: 40,
-                        width: MediaQuery.of(context).size.width*0.35,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: ColorManager.primaryColor,
+                      GestureDetector(
+                        onTap: (){
+                          UserSimplePreferences.logout();
+                          UserSimplePreferences.removeUserDetails();
+                          GoogleSignInApi.logout();
+                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
+                                return SocialLogin();
+                              }));
+                        },
+                        child: Container(
+                          height: 40,
+                          width: MediaQuery.of(context).size.width*0.35,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: ColorManager.primaryColor,
+                          ),
+                          child: Center(child: DText(text: "Yes",size: FontSize.s15,weight: FontWeightManager.semibold,family: FontConstants.fontPoppins,color: ColorManager.textColorWhite,)),
                         ),
-                        child: Center(child: DText(text: "Yes",size: FontSize.s15,weight: FontWeightManager.semibold,family: FontConstants.fontPoppins,color: ColorManager.textColorWhite,)),
-                      ),
-                    )
-                  ],
-                 )
-                                ],
-                              ),
-                            );
-                      },
-                        );
-                        
-                      },
-                      ),
-                      SizedBox(height: 10,),
-                    
+                      )
                     ],
+                                   )
+                                  ],
+                                ),
+                              );
+                        },
+                          );
+                          
+                        },
+                        ),
+                        SizedBox(height: 10,),
+                      
+                      ],
+                    ),
                   ),
+                  SizedBox(height: 30,)
                 ],
               ),
             ),

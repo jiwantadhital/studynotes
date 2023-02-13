@@ -38,6 +38,9 @@ setLocale(bool open){
   void onTapNav(int index){
     setState(() {
       _selectedIndex = index;
+      setState(() {
+        
+      });
     });
   }
 

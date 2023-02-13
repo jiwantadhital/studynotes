@@ -77,12 +77,12 @@ class _CategoriesState extends State<Categories> {
                       Expanded(
                         child: GridView.builder(
                           shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
-                          itemCount: 12,
+                          physics: BouncingScrollPhysics(),
+                          itemCount: 19,
                           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 3,  
                           crossAxisSpacing: 7.0,  
-                        childAspectRatio: 2/1.9,
+                        childAspectRatio: 2/2.1,
                           mainAxisSpacing: 10.0
                         ), itemBuilder: (context,index){
                           return GestureDetector(
@@ -122,10 +122,12 @@ class _CategoriesState extends State<Categories> {
                           );
                         }),
                       )  ,
-                                                        SizedBox(height: 80,)
+                      SizedBox(height: 80,)
+
                     ],
                   ),
                 ),
+                
               ),
             ],
           ),

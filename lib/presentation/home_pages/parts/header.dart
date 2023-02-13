@@ -1,5 +1,6 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
+import 'package:studynotes/local_databases/sharedpreferences/shared_pref.dart';
 import 'package:studynotes/presentation/bottom_navigation/bottom_navigation_bar.dart';
 import 'package:studynotes/presentation/home_pages/parts/open_search_page.dart';
 import 'package:studynotes/presentation/home_pages/widgets/home_page_widgets.dart';
@@ -44,7 +45,9 @@ class _TopHeaderState extends State<TopHeader> {
                       color: Colors.white,
                       shape: BoxShape.circle,
                       border: Border.all(width: 2,color: Colors.white),
-                      image: const DecorationImage(image: NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsynwv-5qtogtOwJbIjaPFJUmHpzhxgqIAug&usqp=CAU"),fit: BoxFit.cover),
+                      image:  DecorationImage(image: NetworkImage(
+                        UserSimplePreferences.getGooglePhoto()??
+                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsynwv-5qtogtOwJbIjaPFJUmHpzhxgqIAug&usqp=CAU"),fit: BoxFit.cover),
                     ),
                   ),
                   const SizedBox(width: 20,),
@@ -52,13 +55,17 @@ class _TopHeaderState extends State<TopHeader> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      DText(
-                        family: FontConstants.fontPoppins,
-                        weight: FontWeightManager.bold,
-                        size: FontSize.s16,
-                        color: ColorManager.textColorWhite,
-                        text: "Hello, User",
-                        
+                      Container(
+                        width: MediaQuery.of(context).size.width*0.5,
+                        child: DText(
+                          lines: 2,
+                          family: FontConstants.fontPoppins,
+                          weight: FontWeightManager.bold,
+                          size: FontSize.s16,
+                          color: ColorManager.textColorWhite,
+                          text: "Hello, ${UserSimplePreferences.getUsername()??"User"}",
+                          
+                        ),
                       ),
                       DText(
                         family: FontConstants.fontPoppins,

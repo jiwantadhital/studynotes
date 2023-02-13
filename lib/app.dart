@@ -20,6 +20,7 @@ class App extends StatelessWidget {
         bottomSheetTheme: BottomSheetThemeData(
           backgroundColor: Colors.transparent,
         ),
+        
         canvasColor: Colors.white,
         // primaryColor: color,
         primarySwatch: color,
