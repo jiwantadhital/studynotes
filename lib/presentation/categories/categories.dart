@@ -78,7 +78,7 @@ class _CategoriesState extends State<Categories> {
                         child: GridView.builder(
                           shrinkWrap: true,
                           physics: BouncingScrollPhysics(),
-                          itemCount: 19,
+                          itemCount: 6,
                           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 3,  
                           crossAxisSpacing: 7.0,  

@@ -41,14 +41,13 @@ setState(() => this.image = imageTemp);
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        systemOverlayStyle: SystemUiOverlayStyle(
-    // Status bar color
-    statusBarColor: ColorManager.primaryColor, 
+    //     systemOverlayStyle: SystemUiOverlayStyle(
+    // // Status bar color
+    // statusBarColor: ColorManager.primaryColor, 
 
-    // Status bar brightness (optional)
-    statusBarIconBrightness: Brightness.light, 
-    statusBarBrightness: Brightness.light,   ),
-  backgroundColor: ColorManager.primaryColor,
+    // // Status bar brightness (optional)
+    // statusBarIconBrightness: Brightness.light, 
+    // statusBarBrightness: Brightness.light,   ),
         title: Center(child: DText(text: "Profile",color: ColorManager.textColorWhite,weight: FontWeightManager.semibold,size: FontSize.s20, family: FontConstants.fontNunito,),),
       ),
       body: Stack(

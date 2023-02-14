@@ -1,8 +1,10 @@
 import 'dart:async';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:studynotes/local_databases/sharedpreferences/shared_pref.dart';
+import 'package:studynotes/notification/local_notification.dart';
 import 'package:studynotes/presentation/home_pages/news_section/news_details.dart';
 import 'package:studynotes/presentation/home_pages/parts/header.dart';
 import 'package:studynotes/presentation/home_pages/widgets/home_page_widgets.dart';
@@ -158,6 +160,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  String token = "";
   ScrollController scrollController = ScrollController();
   double round = 20;
   aaData(){
@@ -170,6 +173,10 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     aaData();
+    FirebaseMessaging.instance.getToken().then((value) {
+   token = value.toString();
+});
+
     scrollController..addListener(() { 
       _appBarCollapsed ? round =0:round=20;
       setState(() {
@@ -177,6 +184,48 @@ class _MainPageState extends State<MainPage> {
       });
     });
     super.initState();
+
+     FirebaseMessaging.instance.getInitialMessage().then(
+      (message) {
+        print("FirebaseMessaging.instance.getInitialMessage");
+        
+        if (message != null) {
+                    print("New Notification");
+            if (message.notification!.body != null) {
+              //   Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //       builder: (context) => Notifications()),
+              // );
+          }
+        }
+      },
+    );
+    FirebaseMessaging.onMessage.listen(
+      (message) {
+        print("FirebaseMessaging.onMessage.listen");
+        if (message.notification != null) {
+    
+          print(message.notification!.title);
+          print(message.notification!.body);
+          print("message.data11 ${message.data}");
+          LocalNotificationService.createanddisplaynotification(message);
+
+        }
+      },
+    );
+     FirebaseMessaging.onMessageOpenedApp.listen(
+      (message) {
+        print("FirebaseMessaging.onMessageOpenedApp.listen");
+
+        if (message.notification != null) {
+           print("FirebaseMessaging.onMessageOpenedApp.listen");
+          print(message.notification!.title);
+          print(message.notification!.body);
+          print("message.data22 ${message.data['_id']}");
+        }
+      },
+    );
   }
 
  bool get _appBarCollapsed{
@@ -186,6 +235,7 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    print(token);
         var size = MediaQuery.of(context).size;
         print(size.width);
     return Scaffold(
@@ -194,14 +244,10 @@ class _MainPageState extends State<MainPage> {
         slivers: [
           SliverAppBar(
             automaticallyImplyLeading: false,
-            systemOverlayStyle: SystemUiOverlayStyle(
-                  statusBarColor: ColorManager.primaryColor, 
-    statusBarIconBrightness: Brightness.light, 
-    statusBarBrightness: Brightness.light,   ),
             centerTitle: true,
             floating: false,
             pinned: true,
-            backgroundColor: ColorManager.primaryColor,
+            // backgroundColor: ColorManager.primaryColor,
             collapsedHeight: 70,
             expandedHeight: size.height*0.20,
           shape:  RoundedRectangleBorder(

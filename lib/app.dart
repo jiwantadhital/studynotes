@@ -1,14 +1,14 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:studynotes/presentation/splash/splash_screen.dart';
+import 'package:studynotes/resources/colors.dart';
 
 class App extends StatelessWidget {
   final String flavor;
-  final MaterialColor color ;
   const App({
     Key? key,
     required this.flavor,
-    required this.color,
   }) : super(key: key);
 
   @override
@@ -20,10 +20,17 @@ class App extends StatelessWidget {
         bottomSheetTheme: BottomSheetThemeData(
           backgroundColor: Colors.transparent,
         ),
+        appBarTheme: AppBarTheme(
+          systemOverlayStyle: SystemUiOverlayStyle(
+                  statusBarColor: ColorManager.primaryColor, 
+    statusBarIconBrightness: Brightness.light, 
+    statusBarBrightness: Brightness.light, 
+      ),
+      backgroundColor: ColorManager.primaryColor
+        ),
         
         canvasColor: Colors.white,
-        // primaryColor: color,
-        primarySwatch: color,
+        primaryColor: ColorManager.primaryColor,
       ),
       home: SplashView()
     );

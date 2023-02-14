@@ -37,7 +37,7 @@ class _CollegesState extends State<Colleges> {
           )
         ],
         centerTitle: true,
-        backgroundColor: ColorManager.primaryColor,
+        // backgroundColor: ColorManager.primaryColor,
         title: search==false? DText(color: ColorManager.textColorWhite, text: "Colleges", weight: FontWeightManager.bold, family: FontConstants.fontNunito, size: FontSize.s16):
         TextField(
           onTap: (){

@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "1059245792814",
+    "project_id": "studynotes-377615",
+    "storage_bucket": "studynotes-377615.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1059245792814:android:e52fc1bc3ecb49e98689bf",
+        "android_client_info": {
+          "package_name": "com.app.studynotes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1059245792814-qhnkjghg80egg94ge4o3tm9va6h332lm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWMPRaSijx6oMXWmYMWH6Qk8fcVUify_c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1059245792814-qhnkjghg80egg94ge4o3tm9va6h332lm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1059245792814:android:3d79672f8ab0830f8689bf",
+        "android_client_info": {
+          "package_name": "com.app.studynotes.bim"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1059245792814-qhnkjghg80egg94ge4o3tm9va6h332lm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWMPRaSijx6oMXWmYMWH6Qk8fcVUify_c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1059245792814-qhnkjghg80egg94ge4o3tm9va6h332lm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -4,7 +4,6 @@ import 'package:studynotes/app.dart';
 
 void main(){
   runApp(App(flavor: "CSIT",
-    color: Colors.green,
 
   ));
 }
