@@ -1,4 +1,6 @@
 
+import 'dart:async';
+
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:studynotes/presentation/categories/categories.dart';
@@ -53,7 +55,7 @@ setLocale(bool open){
         index: _selectedIndex,
         height: 60,
           backgroundColor: Colors.transparent,
-          color: ColorManager.primaryColor,
+          color: Theme.of(context).primaryColor,
           onTap: onTapNav,
           items: <Widget>[
             Icon(Icons.home,color: Colors.white,),

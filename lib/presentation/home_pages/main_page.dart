@@ -76,7 +76,7 @@ _notices(size){
                     height: 40,
                     width: double.maxFinite,
                     decoration: BoxDecoration(
-                      color: ColorManager.primaryColor,
+                      color: Theme.of(context).primaryColor,
                       borderRadius: BorderRadius.circular(5)
                     ),
                     child: Center(
@@ -163,16 +163,9 @@ class _MainPageState extends State<MainPage> {
   String token = "";
   ScrollController scrollController = ScrollController();
   double round = 20;
-  aaData(){
-    Timer(Duration(seconds:1), () {
-      setState(() {
-        
-      });
-     });
-  }
+
   @override
   void initState() {
-    aaData();
     FirebaseMessaging.instance.getToken().then((value) {
    token = value.toString();
 });
@@ -231,7 +224,6 @@ class _MainPageState extends State<MainPage> {
  bool get _appBarCollapsed{
   return scrollController.hasClients && scrollController.offset > (140-kToolbarHeight);
   }
-
 
   @override
   Widget build(BuildContext context) {

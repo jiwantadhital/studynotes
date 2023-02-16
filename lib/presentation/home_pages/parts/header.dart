@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:studynotes/local_databases/sharedpreferences/shared_pref.dart';
@@ -25,7 +27,18 @@ class _TopHeaderState extends State<TopHeader> {
     bool _slowAnimations = false;
     ContainerTransitionType _transitionType = ContainerTransitionType.fade;
 
-
+   aaData(){
+    Timer(Duration(milliseconds:100), () {
+      setState(() {
+        
+      });
+     });
+  }
+@override
+  void initState() {
+    aaData();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -83,7 +96,7 @@ class _TopHeaderState extends State<TopHeader> {
                     height: 45,
                     width: 45,
                     decoration: BoxDecoration(
-                      color: ColorManager.primaryColor,
+                      color: Theme.of(context).primaryColor,
                       shape: BoxShape.circle,
                       border: Border.all(width: 2,color: Colors.white),
                     ),
@@ -148,7 +161,7 @@ class _TopHeaderState extends State<TopHeader> {
                     height: 40,
                     width: 40,
                     decoration: BoxDecoration(
-                      color: ColorManager.primaryColor,
+                      color: Theme.of(context).primaryColor,
                       borderRadius: BorderRadius.circular(10)
                     ),
                     child: const Center(child: Icon(Icons.menu,color: Colors.white,),),

@@ -52,7 +52,7 @@ class _LoginState extends State<Login> {
                                  return null;
                             },
                             hide: hide,
-                            icon: Icons.remove_red_eye,
+                            icon:hide==true? Icons.remove_red_eye:Icons.remove_red_eye_outlined,
                             tap: (){
                               hide == false?hide= true:hide=false;
                               setState(() {

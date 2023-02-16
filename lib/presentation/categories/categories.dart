@@ -19,7 +19,7 @@ class _CategoriesState extends State<Categories> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return  Scaffold(
-      backgroundColor: ColorManager.primaryColor,
+      backgroundColor: Theme.of(context).primaryColor,
       body: SingleChildScrollView(
         physics: NeverScrollableScrollPhysics(),
         child: SafeArea(
@@ -44,7 +44,7 @@ class _CategoriesState extends State<Categories> {
                       height: 25,
                       width: 100,
                       decoration: BoxDecoration(
-                        color: selected==index?ColorManager.boxBlue: ColorManager.boxGreen,
+                        color: selected==index?Theme.of(context).buttonColor: Theme.of(context).hoverColor,
                         borderRadius: BorderRadius.circular(20),
                         border: Border.all(width: 2,color: Colors.white),
                       ),
@@ -102,7 +102,7 @@ class _CategoriesState extends State<Categories> {
                               padding: EdgeInsets.all(5),
                               width: 200,
                               decoration: BoxDecoration(
-                                color: ColorManager.boxBlue,
+                                color: Theme.of(context).buttonColor,
                                 borderRadius: BorderRadius.circular(10)
                               ),
                               child: Column(

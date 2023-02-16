@@ -1,15 +1,11 @@
 import 'dart:io';
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:studynotes/local_databases/sharedpreferences/shared_pref.dart';
-import 'package:studynotes/presentation/auth_pages/auth_page.dart';
 import 'package:studynotes/presentation/auth_pages/google/google_sign.dart';
 import 'package:studynotes/presentation/auth_pages/social_login.dart';
 import 'package:studynotes/presentation/home_pages/widgets/home_page_widgets.dart';
-import 'package:studynotes/presentation/notification/notifications.dart';
 import 'package:studynotes/presentation/setting/edit_profile/edit_profile.dart';
 import 'package:studynotes/presentation/setting/report/report.dart';
 import 'package:studynotes/resources/colors.dart';
@@ -41,13 +37,6 @@ setState(() => this.image = imageTemp);
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-    //     systemOverlayStyle: SystemUiOverlayStyle(
-    // // Status bar color
-    // statusBarColor: ColorManager.primaryColor, 
-
-    // // Status bar brightness (optional)
-    // statusBarIconBrightness: Brightness.light, 
-    // statusBarBrightness: Brightness.light,   ),
         title: Center(child: DText(text: "Profile",color: ColorManager.textColorWhite,weight: FontWeightManager.semibold,size: FontSize.s20, family: FontConstants.fontNunito,),),
       ),
       body: Stack(
@@ -147,7 +136,7 @@ setState(() => this.image = imageTemp);
                         ),
                         SizedBox(height: 10,),
                         ProfileToggle(fIcon: Icons.remove_red_eye,button: Switch(
-                          activeColor: ColorManager.primaryColor,
+                          activeColor: Theme.of(context).primaryColor,
                           value: true, onChanged: (val){
                           }),boxText: "Dark Mode",),
                         SizedBox(height: 10,),
@@ -205,7 +194,7 @@ setState(() => this.image = imageTemp);
                           width: MediaQuery.of(context).size.width*0.35,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
-                            color: ColorManager.primaryColor,
+                            color: Theme.of(context).primaryColor,
                           ),
                           child: Center(child: DText(text: "Yes",size: FontSize.s15,weight: FontWeightManager.semibold,family: FontConstants.fontPoppins,color: ColorManager.textColorWhite,)),
                         ),
@@ -257,7 +246,7 @@ ProfileBoxes({required this.boxText,required this.fIcon,  this.sIcon, this.color
           children: [
             Row(
               children: [
-                Icon(fIcon,color: ColorManager.primaryColor,),
+                Icon(fIcon,color: Theme.of(context).primaryColor,),
                 SizedBox(width: 20,),
               DText(text: boxText, color: color,size: FontSize.s15,family: FontConstants.fontPoppins,weight: FontWeightManager.medium,)
               ],
@@ -288,7 +277,7 @@ ProfileToggle({required this.boxText,required this.fIcon, required this.button, 
         children: [
           Row(
             children: [
-              Icon(fIcon,color: ColorManager.primaryColor,),
+              Icon(fIcon,color: Theme.of(context).primaryColor,),
               SizedBox(width: 20,),
               DText(text: boxText, color: color,size: FontSize.s15,family: FontConstants.fontPoppins,weight: FontWeightManager.medium,)
             ],

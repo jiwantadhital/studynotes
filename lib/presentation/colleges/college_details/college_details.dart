@@ -43,11 +43,11 @@ class _CollegeDetailState extends State<CollegeDetail> {
                           child: IconWidget(
                               icons: Icons.arrow_back,
                               backgroundColor:
-                                  ColorManager.primaryColor.withOpacity(0.6))),
+                                  Theme.of(context).primaryColor.withOpacity(0.6))),
                 
                     ],
                   ),
-                  backgroundColor: ColorManager.primaryColor,
+                  backgroundColor: Theme.of(context).primaryColor,
                   collapsedHeight: 80,
                   automaticallyImplyLeading: false,
                   expandedHeight: 300.0,
@@ -93,7 +93,7 @@ class _CollegeDetailState extends State<CollegeDetail> {
                                               width:
                                                   currentIndex == index ? 3 : 2,
                                               color: currentIndex == index
-                                                  ? ColorManager.primaryColor
+                                                  ? Theme.of(context).primaryColor
                                                   : Colors.white),
                                           image: DecorationImage(
                                               image: NetworkImage(
@@ -120,7 +120,7 @@ class _CollegeDetailState extends State<CollegeDetail> {
                           controller: _tabController,
                           unselectedLabelColor: Colors.black,
                           indicator: BoxDecoration(
-                              color: ColorManager.primaryColor,
+                              color: Theme.of(context).primaryColor,
                               borderRadius: BorderRadius.circular(4)),
                           tabs: const [
                             Tab(
@@ -149,7 +149,7 @@ class _CollegeDetailState extends State<CollegeDetail> {
                       // index: index,
                     ),
                     Specifications(),
-                    Reviews(),
+                    Reviews(show: false,),
                   ]),
             )),
       ),

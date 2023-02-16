@@ -26,7 +26,7 @@ class DescPart extends StatelessWidget {
                                         ),
                                         ),
                                                                                 WidgetSpan(child: Container(width: 2,)),
-                                        WidgetSpan(child: Icon(Icons.star,color: ColorManager.primaryColor,size: 15,)),
+                                        WidgetSpan(child: Icon(Icons.star,color: Theme.of(context).primaryColor,size: 15,)),
                                       
                                       ],
                                     ),),
@@ -108,11 +108,23 @@ class SpecificationName extends StatelessWidget {
   }
 }
 
-class Reviews extends StatelessWidget {
-  const Reviews({
+class Reviews extends StatefulWidget {
+  bool show;
+   Reviews({
     super.key,
+    required this.show
   });
 
+  @override
+  State<Reviews> createState() => _ReviewsState();
+}
+
+class _ReviewsState extends State<Reviews> {
+  @override
+  void initState() {
+    widget.show=true;
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -130,7 +142,7 @@ class Reviews extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     for(int i=0;i<5;i++)
-                Icon(Icons.star, color: ColorManager.primaryColor,),
+                Icon(Icons.star, color: Theme.of(context).primaryColor,),
                   ],
                 ),
                 Divider(),
@@ -154,7 +166,7 @@ class Reviews extends StatelessWidget {
                               width: 40,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(30),
-                                border: Border.all(width: 2,color: ColorManager.primaryColor),
+                                border: Border.all(width: 2,color: Theme.of(context).primaryColor),
                                 image: DecorationImage(image: NetworkImage("https://newprofilepic2.photo-cdn.net//assets/images/article/profile.jpg"))
                               ),
                             ),
@@ -171,7 +183,7 @@ class Reviews extends StatelessWidget {
                                     children: [
                                       RichText(text: TextSpan(
                                         children: [
-                                          WidgetSpan(child: Icon(Icons.star,color: ColorManager.primaryColor,size: 15,)),
+                                          WidgetSpan(child: Icon(Icons.star,color: Theme.of(context).primaryColor,size: 15,)),
                                           WidgetSpan(child: Container(width: 2,)),
                                           TextSpan(text: "4.0",style: TextStyle(
                                             color: Colors.black.withOpacity(0.7),fontSize: 12,
@@ -206,23 +218,27 @@ class Reviews extends StatelessWidget {
           ),
         )
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        splashColor: Colors.black,
-        backgroundColor: ColorManager.primaryColor,
-        label: Text("Write a review"),
-        onPressed: (){
-           showModalBottomSheet(
-                                                    isScrollControlled: true,
-                                                    backgroundColor:
-                                                        Colors.transparent,
-                                                    context: context,
-                                                    builder: (context) {
-                                                      return CommentSheet(
-                                                      
-                                                      );
-                                                    });
-                                           
-        }),
+      floatingActionButton: AnimatedOpacity(
+        opacity: widget.show ==false?1: 0,
+        duration: Duration(seconds: 2),
+        child: FloatingActionButton.extended(
+          splashColor: Colors.black,
+          backgroundColor: Theme.of(context).primaryColor,
+          label: Text("Write a review"),
+          onPressed: (){
+             showModalBottomSheet(
+                                                      isScrollControlled: true,
+                                                      backgroundColor:
+                                                          Colors.transparent,
+                                                      context: context,
+                                                      builder: (context) {
+                                                        return CommentSheet(
+                                                        
+                                                        );
+                                                      });
+                                             
+          }),
+      ),
     );
   }
 }

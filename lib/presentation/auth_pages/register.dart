@@ -35,8 +35,8 @@ class _RegisterState extends State<Register> {
                         SizedBox(height: 20,),
                         AuthTextBox(
                           labelText: "Password",
-                          hide: false,
-                          icon: Icons.remove_red_eye,
+                          hide: hide,
+                          icon:hide == false?Icons.remove_red_eye_outlined: Icons.remove_red_eye,
                           tap: (){
                             hide == false?hide= true:hide=false;
                             setState(() {

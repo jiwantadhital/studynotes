@@ -28,8 +28,9 @@ class App extends StatelessWidget {
       ),
       backgroundColor: ColorManager.primaryColor
         ),
-        
-        canvasColor: Colors.white,
+        buttonColor: ColorManager.boxBlue,
+        hoverColor: ColorManager.boxGreen,
+        // canvasColor: Colors.white,
         primaryColor: ColorManager.primaryColor,
       ),
       home: SplashView()
