@@ -3,18 +3,61 @@ import 'dart:async';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:studynotes/local_databases/sharedpreferences/shared_pref.dart';
+import 'package:studynotes/logic/news/bloc/news_bloc.dart';
+import 'package:studynotes/logic/notices/bloc/notices_bloc.dart';
 import 'package:studynotes/notification/local_notification.dart';
 import 'package:studynotes/presentation/home_pages/news_section/news_details.dart';
 import 'package:studynotes/presentation/home_pages/parts/header.dart';
 import 'package:studynotes/presentation/home_pages/widgets/home_page_widgets.dart';
+import 'package:studynotes/presentation/notification/notice_details.dart';
 import 'package:studynotes/presentation/notification/notifications.dart';
 import 'package:studynotes/presentation/subject_details/notes/notes.dart';
 import 'package:studynotes/resources/colors.dart';
 import 'package:studynotes/resources/fonts.dart';
 _notices(size){
   String text = "The Result of 4th sem has been recently published by..";
-  return Container(
+  return BlocConsumer<NoticesBloc,NoticesState>(builder: (context,state){
+    if(state is NoticesLoading){
+      return Container(
+      height: 140,
+      width: double.maxFinite,
+      child: Column(
+        children: [
+          Container(
+           padding: EdgeInsets.only(left: 10,right: 10),
+                    margin: EdgeInsets.only(left: 15,right: 15,bottom: 5,),
+                    height: 40,
+                    width: double.maxFinite,
+                    decoration: BoxDecoration(
+                      color: Colors.grey[200]
+                    ),
+          ),
+          Container(
+           padding: EdgeInsets.only(left: 10,right: 10),
+                    margin: EdgeInsets.only(left: 15,right: 15,bottom: 5,),
+                    height: 40,
+                    width: double.maxFinite,
+                    decoration: BoxDecoration(
+                      color: Colors.grey[200]
+                    ),
+          ),
+          Container(
+           padding: EdgeInsets.only(left: 10,right: 10),
+                    margin: EdgeInsets.only(left: 15,right: 15,bottom: 5,),
+                    height: 40,
+                    width: double.maxFinite,
+                    decoration: BoxDecoration(
+                      color: Colors.grey[200]
+                    ),
+          ),
+        ],
+      ),
+    );
+    }
+    if(state is NoticesGot){
+      return Container(
             height: 140,
             child: ListView.builder(
               padding: EdgeInsets.only(top: 5),
@@ -24,6 +67,7 @@ _notices(size){
               itemBuilder: (context,index){
                 return GestureDetector(
                   onTap: (){
+                    state.noticeModel[index].desc!.isEmpty?
                     showDialog(
                       barrierDismissible: false,
                       context: context, builder: (context){
@@ -57,7 +101,7 @@ _notices(size){
                                     padding: const EdgeInsets.all(8.0),
                                     child: DText(
                                       lines: 9,
-                                      color: ColorManager.textColorBlack, text: "The resut of this semister was published by the BCA Result 2022 1st 2nd 3rd year (Part 1, 2, 3) Semester results can be checked from the official website of each university. All information about BCA Result 2022 will be available on our website. According to the information, soon the result of the examination will be released on the official website BCA Result 2022 1st 2nd 3rd year (Part 1, 2, 3) Semester results can be checked from the official website of each university. All information about BCA Result 2022 will be available on our website. According to the information, soon the result of the examination will be released on the official website", weight: FontWeightManager.light, family: FontConstants.fontPoppins, size: FontSize.s14),
+                                      color: ColorManager.textColorBlack, text: state.noticeModel[index].shortDesc??"", weight: FontWeightManager.light, family: FontConstants.fontPoppins, size: FontSize.s14),
                                   ),
                                 ),
                                 SizedBox(height: 10,),
@@ -68,7 +112,9 @@ _notices(size){
                           ),
                         ),
                       );
-                    });
+                    }):Navigator.push(context, MaterialPageRoute(builder: (context){
+                      return NoticeDetails(index: index,);
+                    }));
                   },
                   child: Container(
                     padding: EdgeInsets.only(left: 10,right: 10),
@@ -93,6 +139,12 @@ _notices(size){
                 );
             }),
           );
+    }
+    if(state is NoticesError){
+      print("error");
+    }
+    return Text("wrong");
+  }, listener: (context,state){});
 }
 
 //continue reading
@@ -369,7 +421,39 @@ class _MainPageState extends State<MainPage> {
                     SizedBox(height: 10,),
                     Topics(text: "Latest News"),
                     SizedBox(height: 5,),
-                      Container(
+                      BlocConsumer<NewsBloc,NewsState>(builder: ((context, state) {
+                        if(state is NewsLoading){
+                          return Column(
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(left: 15,right: 15,top: 10,bottom: 10),
+                                height: 120,
+                                width: double.maxFinite,
+                                child: Row(
+                                  children: [
+                                    Loading(size: size),
+                                    SizedBox(width: 10,),
+                                    Loading(size: size)
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(left: 15,right: 15),
+                                height: 120,
+                                width: double.maxFinite,
+                                child: Row(
+                                  children: [
+                                    Loading(size: size),
+                                    SizedBox(width: 10,),
+                                    Loading(size: size)
+                                  ],
+                                ),
+                              ),
+                            ],
+                          );
+                        }
+                        if(state is NewsGot){
+                          return Container(
                       child: GridView.builder(
                         padding: EdgeInsets.all(0),
                         shrinkWrap: true,
@@ -378,12 +462,12 @@ class _MainPageState extends State<MainPage> {
                           crossAxisCount: 2,
                         childAspectRatio: size.width < 370? 4/3.7: 4/3.5,
                         ),
-                        itemCount: 6,
+                        itemCount: state.newsModel.length,
                         itemBuilder: (context,index){
                         return GestureDetector(
                           onTap: (){
                             Navigator.push(context, MaterialPageRoute(builder: (context){
-                              return NewsDetails();
+                              return NewsDetails(index: index,);
                             }));
                           },
                           child: Container(
@@ -396,7 +480,9 @@ class _MainPageState extends State<MainPage> {
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
                                     image: DecorationImage(
-                                      image: NetworkImage("https://www.rmit.edu.au/content/dam/rmit/multimedia/video/youtube-images/marketing/online/flexible-study-02-1280x732.jpg"),fit: BoxFit.cover,
+                                      image: NetworkImage(
+                                        state.newsModel[index].image.toString()
+                                      ),fit: BoxFit.cover,
                                       )
                                   ),
                                   ),
@@ -404,8 +490,9 @@ class _MainPageState extends State<MainPage> {
                                   Padding(
                                     padding: const EdgeInsets.all(5.0),
                                     child: DText(
+                                      lines: 2,
                                       color: ColorManager.textColorBlack,
-                                      text: "Why are student preferring online study ?", 
+                                      text: state.newsModel[index].title.toString(), 
                                       weight: FontWeightManager.regular, 
                                       family: FontConstants.fontNoto, 
                                       size: FontSize.s11
@@ -416,11 +503,56 @@ class _MainPageState extends State<MainPage> {
                           ),
                         );
                         }),
-                    ),
+                    );
+                        }
+                        if(state is NewsError){
+                          print(state.message);
+                          return Center(child: Text("Something went wrong"));
+                        }
+                        return Text("error");
+                      }), listener: (context,state){}),
                     SizedBox(height: 60,)
             ]
           ),
           ),
+        ],
+      ),
+    );
+  }
+}
+
+class Loading extends StatelessWidget {
+  const Loading({
+    super.key,
+    required this.size,
+  });
+
+  final Size size;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 120,
+      width: size.width*0.44,
+      child: Column(
+        children: [
+          Container(
+            height: 90,
+            width: size.width*0.43,
+            decoration: BoxDecoration(
+              color: Colors.grey[200],
+              borderRadius: BorderRadius.circular(10)
+            ),
+          ),
+          SizedBox(height: 5,),
+          Container(
+            height: 20,
+            width: size.width*0.43,
+            decoration: BoxDecoration(
+              color: Colors.grey[200],
+              borderRadius: BorderRadius.circular(10)
+            ),
+          )
         ],
       ),
     );

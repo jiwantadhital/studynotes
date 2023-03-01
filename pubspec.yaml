@@ -53,6 +53,8 @@ dependencies:
   firebase_core_platform_interface: ^4.5.3 
   get: ^4.6.5
   flutter_local_notifications: ^9.0.1
+  http: ^0.13.5
+  intl: ^0.18.0
 
 dev_dependencies:
   flutter_test:

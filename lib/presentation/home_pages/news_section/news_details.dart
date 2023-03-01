@@ -1,14 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:studynotes/logic/news/bloc/news_bloc.dart';
 import 'package:studynotes/presentation/home_pages/widgets/home_page_widgets.dart';
 import 'package:studynotes/resources/colors.dart';
 import 'package:studynotes/resources/fonts.dart';
 
 class NewsDetails extends StatefulWidget {
-  const NewsDetails({super.key});
+  int index;
+   NewsDetails({super.key, required this.index});
 
   @override
   State<NewsDetails> createState() => _NewsDetailsState();
@@ -39,6 +40,7 @@ class _NewsDetailsState extends State<NewsDetails> {
   }
   @override
   Widget build(BuildContext context) {
+   final news = context.read<NewsBloc>().newsController.newsModel[widget.index];
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Stack(
@@ -47,7 +49,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                     height: 260,
                     decoration: BoxDecoration(
                       color: ColorManager.primaryColor,
-                      image: DecorationImage(image: NetworkImage("https://www.rmit.edu.au/content/dam/rmit/multimedia/video/youtube-images/marketing/online/flexible-study-02-1280x732.jpg"),fit: BoxFit.cover)
+                      image: DecorationImage(image: NetworkImage(news.image.toString()),fit: BoxFit.cover)
                     ),
                   ),),
           NestedScrollView(
@@ -96,7 +98,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                   background: Container(
                     // height: 300,
                     decoration: BoxDecoration(
-                      image: DecorationImage(image: NetworkImage("https://www.rmit.edu.au/content/dam/rmit/multimedia/video/youtube-images/marketing/online/flexible-study-02-1280x732.jpg"),fit: BoxFit.cover)
+                      image: DecorationImage(image: NetworkImage(news.image.toString()),fit: BoxFit.cover)
                     ),
                   ),
                 ),
@@ -119,11 +121,11 @@ class _NewsDetailsState extends State<NewsDetails> {
                         children: [
                           SizedBox(height: 10,),
                           DText(color:dark==true? ColorManager.textColorWhite:ColorManager.textColorBlack,
-                          text: "Why are student preferring online study ?", weight: FontWeightManager.extrabold,
+                          text: news.title??"", weight: FontWeightManager.extrabold,
                           family: FontConstants.fontPoppins, size: FontSize.s24),
                           SizedBox(height: 10,),
                           DText(color: dark==true? ColorManager.textColorWhite.withOpacity(0.4):ColorManager.textColorBlack.withOpacity(0.7),
-                          text: "Online education enables the teacher and the student to set their own learning pace, and there's the added flexibility of setting a schedule that fits everyone's agenda. As a result, using an online educational platform allows for a better balance of work and studies, so there's no need to give anything up. Online education enables the teacher and the student to set their own learning pace, and there's the added flexibility of setting a schedule that fits everyone's agenda. \n As a result, using an online educational platform allows for a better balance of work and studies, so there's no need to give anything up. Online education enables the teacher and the student to set their own learning pace, and there's the added flexibility of setting a schedule that fits everyone's agenda.\n As a result, using an online educational platform allows for a better balance of work and studies, so there's no need to give anything up. Online education enables the teacher and the student to set their own learning pace, and there's the added flexibility of setting a schedule that fits everyone's agenda. As a result, using an online educational platform allows for a better balance of work and studies, so there's no need to give anything up. Online education enables the teacher and the student to set their own learning pace, and there's the added flexibility of setting a schedule that fits everyone's agenda. As a result, using an online educational platform allows for a better balance of work and studies, so there's no need to give anything up. \n Online education enables the teacher and the student to set their own learning pace, and there's the added flexibility of setting a schedule that fits everyone's agenda. As a result, using an online educational platform allows for a better balance of work and studies, so there's no need to give anything up.Online education enables the teacher and the student to set their own learning pace, and there's the added flexibility of setting a schedule that fits everyone's agenda. As a result, using an online educational platform allows for a better balance of work and studies, so there's no need to give anything up. Online education enables the teacher and the student to set their own learning pace, and there's the added flexibility of setting a schedule that fits everyone's agenda. As a result, using an online educational platform allows for a better balance of work and studies, so there's no need to give anything up", weight: FontWeightManager.regular,
+                          text: news.desc??"", weight: FontWeightManager.regular,
                           family: FontConstants.fontNoto, size: FontSize.s16),
                         ],
                       ),
