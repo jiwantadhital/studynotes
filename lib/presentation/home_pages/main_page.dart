@@ -339,7 +339,7 @@ class _MainPageState extends State<MainPage> {
                             weight: FontWeightManager.bold,
                             size: FontSize.s16,
                             color: ColorManager.textColorWhite,
-                            text: "Hello, ${UserSimplePreferences.getUsername()??"User"}",
+                            text: "Hello, ${UserSimplePreferences.getUsername()?? "User"}",
                             
                           ),
                         ),

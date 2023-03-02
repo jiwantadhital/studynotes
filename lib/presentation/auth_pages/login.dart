@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:studynotes/local_databases/sharedpreferences/shared_pref.dart';
+import 'package:studynotes/logic/auth/login/bloc/login_bloc.dart';
 import 'package:studynotes/presentation/auth_pages/auth_widgets/auth_widgets.dart';
 import 'package:studynotes/presentation/auth_pages/social_login.dart';
 import 'package:studynotes/presentation/bottom_navigation/bottom_navigation_bar.dart';
@@ -17,13 +19,20 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
-
-  var emailController = TextEditingController();
-  var passwordController = TextEditingController();
-    bool remember = false;
+  var emailController = TextEditingController(text: UserSimplePreferences.getEmail());
+  var passwordController = TextEditingController(text:UserSimplePreferences.getPassword());
+    bool remember = UserSimplePreferences.getRemember()??false;
   bool hide = true;
   @override
+  void initState() {
+    
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
+    if(UserSimplePreferences.getRemember()==false){
+      UserSimplePreferences.removeEmailPassword();
+    }
     return Form(
       autovalidateMode: AutovalidateMode.onUserInteraction,
       key: _formKey,
@@ -73,6 +82,7 @@ class _LoginState extends State<Login> {
                                   value: remember,
                                    onChanged: (val){
                                     remember = val!;
+                                    UserSimplePreferences.setRemember(val);
                                     setState(() {
                                       
                                     });
@@ -82,25 +92,49 @@ class _LoginState extends State<Login> {
                             ),
                           ),
                           SizedBox(height: 10,),
-                       GestureDetector(
-                            onTap: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context){
-                                return BottomBarPage();
-                              }));
-                            },
-                            child: AuthButton(text: "Login",
-                            tap: (){
-                              if(_formKey.currentState!.validate()){
-                                UserSimplePreferences.setToken("12");
-                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
-                                return BottomBarPage();
-                              }));
-                              }
-                              else{
-                             print("err");
-                              }
-                            },
-                            )),
+                      BlocConsumer<LoginBloc,LoginState>(builder: (context,state){
+                        return AuthButton(
+                          text: "Login",
+                       tap: (){
+                         if(_formKey.currentState!.validate()){
+                             context.read<LoginBloc>()..add(LoggingEvent(email: emailController.text, password: passwordController.text));
+                             
+                         }
+                         else{
+                        print("err");
+                         }
+                       },
+                       );
+
+                      }, listener: (context,state){
+                        if(state is LoginLoading){
+                                  showDialog(
+                                    barrierDismissible: false,
+                                    context: context, builder: (context){
+                               return Center(
+                                 child: Container(
+                                  padding: EdgeInsets.all(10),
+                                      height: 60,
+                                      width: 60,
+                                decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Colors.white
+                                        ),
+                                  child: CircularProgressIndicator(color: ColorManager.primaryColor,strokeWidth: 5,),
+                                ),
+                              );
+                                        });
+                        }
+                        if(state is LoginError){
+                          Navigator.pop(context);
+                          print(state.message);
+                        }
+                        if(state is LoginDone){
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
+                           return BottomBarPage();
+                         }));
+                        }
+                      }),
                           SizedBox(height: 20,),
                           Align(
                             alignment: Alignment.centerRight,

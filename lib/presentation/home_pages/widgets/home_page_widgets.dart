@@ -3,6 +3,7 @@ import 'package:studynotes/resources/colors.dart';
 import 'package:studynotes/resources/fonts.dart';
 
 class DText extends StatelessWidget {
+  TextAlign align;
   int? lines;
 String text;
 FontWeight weight;
@@ -12,6 +13,7 @@ Color color;
    DText({
     Key? key,
     this.lines,
+    this.align=TextAlign.start,
     required this.color,
     required this.text,
     required this.weight,
@@ -24,6 +26,7 @@ Color color;
     return Text(
       text,
       overflow: TextOverflow.clip,
+      textAlign: align,
       maxLines: lines,
       style: TextStyle(
         fontSize: size,

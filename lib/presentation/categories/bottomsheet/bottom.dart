@@ -24,6 +24,7 @@ class _BottomOfCategoriesState extends State<BottomOfCategories> {
   bool extend = false;
   @override
   void initState() {
+
     _afterSomeTime();
     super.initState();
   }
@@ -39,96 +40,139 @@ class _BottomOfCategoriesState extends State<BottomOfCategories> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    print(size.height);
-    return Container(
-      padding: EdgeInsets.all(10),
-      height:size.height<687?size.height*0.77: size.height*0.75,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(20),
-          topRight: Radius.circular(20)
-        )
-      ),
-      child: Column(
-        children: [
-          SizedBox(height: 10,),
-          DText(color: ColorManager.textColorBlack, text: "Basic of computing and Math", weight: FontWeightManager.medium, family: FontConstants.fontPoppins, size: FontSize.s16),
-          SizedBox(height: 20,),
-          GestureDetector(
-            onTap: (){
-                   Navigator.push(context, 
-          MaterialPageRoute(builder: (context){
-            return Syllabus();
-          })
-              );
-            },
-            child: BottomWidget(extend: extend, size: size,text: "Syllabus",)),
-          SizedBox(height: 15,),
-          GestureDetector(
-            onTap: (){
-              Navigator.push(context, 
-          MaterialPageRoute(builder: (context){
-            return Notes();
-          })
-              );
-            },
-            child: BottomWidget(extend: extend, size: size,text: "Notes",
-            ),
-          ),
-                    SizedBox(height: 15,),
-          GestureDetector(
-            onTap: (){
-                Navigator.push(context, 
-          MaterialPageRoute(builder: (context){
-            return Questions();
-          })
-              );
-            },
-            child: BottomWidget(extend: extend, size: size,text: "Question Bank",)),
-            SizedBox(height: 15,),
-            GestureDetector(
-            onTap: (){
-                Navigator.push(context, 
-          MaterialPageRoute(builder: (context){
-            return CollegeQuestions();
-          })
-              );
-            },
-            child: BottomWidget(extend: extend, size: size,text: "College Questions",)),
-                    SizedBox(height: 15,),
-          GestureDetector(
-            onTap: (){
-                     Navigator.push(context, 
-          MaterialPageRoute(builder: (context){
-            return Solutions();
-          })
-              );
-            },
-            child: BottomWidget(extend: extend, size: size,text: "Solutions",)),
-                    SizedBox(height: 15,),
-          GestureDetector(
-            onTap: (){
-                    Navigator.push(context, 
-          MaterialPageRoute(builder: (context){
-            return ExtraNotes();
-          })
-              );
-            },
-            child: BottomWidget(extend: extend, size: size,text: "Extra Notes",)),
-                    SizedBox(height: 15,),
-          GestureDetector(
-            onTap: (){
+       return Scaffold(
+        floatingActionButton: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+           
+               Align(
+              alignment: Alignment.topRight,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 140,right: 0),
+                child: FloatingActionButton.extended(
+                  label: Row(
+                    children: [
+                      DText(color: ColorManager.primaryColor, text: "Download", weight: FontWeightManager.bold, family: FontConstants.fontPoppins, size: FontSize.s12),
+                      SizedBox(width: 10,),
+                      Icon(Icons.arrow_circle_down_outlined, color: ColorManager.primaryColor,size: 18,)
+                    ],
+                  ),
+                  backgroundColor: Colors.white,
+                  onPressed: (){
+                  }),
+              )),
+               Align(
+              alignment: Alignment.topRight,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 140,left: 5),
+                child: FloatingActionButton.small(
+                  backgroundColor: Colors.white,
+                  child: Icon(Icons.close_rounded,color: Colors.red,),
+                  onPressed: (){
+                                        Navigator.pop(context);
+                  }),
+              )),
+          ],
+        ),
+        backgroundColor: Colors.transparent,
+         body: Align(
+          alignment: Alignment.bottomCenter,
+           child: Container(
+            width: size.width,
+               padding: EdgeInsets.all(10),
+               height:size.height<687?size.height*0.77: size.height*0.75,
+               decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20)
+            )
+               ),
+               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(height: 10,),
+              DText(
+                align: TextAlign.center,
+                lines: 2,
+                color: ColorManager.textColorBlack, text: "Chapter 1 : Basic of computing and Math", weight: FontWeightManager.medium, family: FontConstants.fontPoppins, size: FontSize.s16),
+              SizedBox(height: 20,),
+              GestureDetector(
+                onTap: (){
+                       Navigator.push(context, 
+              MaterialPageRoute(builder: (context){
+                return Syllabus();
+              })
+                  );
+                },
+                child: BottomWidget(extend: extend, size: size,text: "Syllabus",)),
+              SizedBox(height: 15,),
+              GestureDetector(
+                onTap: (){
                   Navigator.push(context, 
-          MaterialPageRoute(builder: (context){
-            return Labs();
-          })
-              );
-            },
-            child: BottomWidget(extend: extend, size: size,text: "Labs",)),
-        ],
-      ),
-    );
+              MaterialPageRoute(builder: (context){
+                return Notes();
+              })
+                  );
+                },
+                child: BottomWidget(extend: extend, size: size,text: "Notes",
+                ),
+              ),
+                        SizedBox(height: 15,),
+              GestureDetector(
+                onTap: (){
+                    Navigator.push(context, 
+              MaterialPageRoute(builder: (context){
+                return Questions();
+              })
+                  );
+                },
+                child: BottomWidget(extend: extend, size: size,text: "Question Bank",)),
+                SizedBox(height: 15,),
+                GestureDetector(
+                onTap: (){
+                    Navigator.push(context, 
+              MaterialPageRoute(builder: (context){
+                return CollegeQuestions();
+              })
+                  );
+                },
+                child: BottomWidget(extend: extend, size: size,text: "College Questions",)),
+                        SizedBox(height: 15,),
+              GestureDetector(
+                onTap: (){
+                         Navigator.push(context, 
+              MaterialPageRoute(builder: (context){
+                return Solutions();
+              })
+                  );
+                },
+                child: BottomWidget(extend: extend, size: size,text: "Solutions",)),
+                        SizedBox(height: 15,),
+              GestureDetector(
+                onTap: (){
+                        Navigator.push(context, 
+              MaterialPageRoute(builder: (context){
+                return ExtraNotes();
+              })
+                  );
+                },
+                child: BottomWidget(extend: extend, size: size,text: "Extra Notes",)),
+                        SizedBox(height: 15,),
+              GestureDetector(
+                onTap: (){
+                      Navigator.push(context, 
+              MaterialPageRoute(builder: (context){
+                return Labs();
+              })
+                  );
+                },
+                child: BottomWidget(extend: extend, size: size,text: "Labs",)),
+            ],
+               ),
+             ),
+         ),
+       );
   }
 }
 
@@ -152,7 +196,7 @@ class BottomWidget extends StatelessWidget {
       height: 50,
       width: extend == false?0:size.width,
       decoration: BoxDecoration(
-        color: ColorManager.boxGreen,
+        color: ColorManager.primaryColor,
         borderRadius: BorderRadius.circular(10)
       ),
       child: DText(

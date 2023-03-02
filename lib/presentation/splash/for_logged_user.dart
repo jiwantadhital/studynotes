@@ -17,7 +17,7 @@ class ForLogged extends StatefulWidget {
 
 class _ForLoggedState extends State<ForLogged> {
     late RiveAnimationController _controller;
-
+  
   bool op = false;
   opac(){
     op=true;
@@ -32,6 +32,9 @@ class _ForLoggedState extends State<ForLogged> {
   }
   @override
   void initState() {
+    if(UserSimplePreferences.getRemember()==false){
+      UserSimplePreferences.removeEmailPassword();
+    }
     _controller = SimpleAnimation('Loading');
    opac();
    Timer(Duration(seconds: 3), _goNext);
