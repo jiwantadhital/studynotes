@@ -6,6 +6,7 @@ import 'package:studynotes/controllers/auth_controller.dart';
 import 'package:studynotes/controllers/news_controller.dart';
 import 'package:studynotes/controllers/notices_controller.dart';
 import 'package:studynotes/logic/auth/login/bloc/login_bloc.dart';
+import 'package:studynotes/logic/auth/register/bloc/register_bloc.dart';
 import 'package:studynotes/logic/news/bloc/news_bloc.dart';
 import 'package:studynotes/logic/notices/bloc/notices_bloc.dart';
 import 'package:studynotes/presentation/splash/splash_screen.dart';
@@ -29,6 +30,9 @@ class App extends StatelessWidget {
           ),
           BlocProvider<LoginBloc>(
             create: (BuildContext context) => LoginBloc(authController: AuthController()),
+          ),
+          BlocProvider<RegisterBloc>(
+            create: (BuildContext context) => RegisterBloc(authController: AuthController()),
           ),
     ], child: MaterialApp(
       title: "Study Notes",

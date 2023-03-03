@@ -34,6 +34,8 @@ Color color;
 
 class AuthTextBox extends StatelessWidget {
     IconData? icon;
+    int? maxlength;
+    var type;
     String labelText;
     bool hide;
     var tap;
@@ -42,6 +44,8 @@ class AuthTextBox extends StatelessWidget {
     TextEditingController? controller;
    AuthTextBox({
     Key? key,
+    this.type,
+    this.maxlength,
     this.readO=false,
     this.validation,
     this.controller,
@@ -59,6 +63,8 @@ class AuthTextBox extends StatelessWidget {
       validator: validation,
               cursorColor: ColorManager.primaryColor,
               obscureText: hide,
+              keyboardType: type,
+              maxLength: maxlength,
               decoration: InputDecoration(
                 suffixIcon: GestureDetector(
                   onTap: tap,

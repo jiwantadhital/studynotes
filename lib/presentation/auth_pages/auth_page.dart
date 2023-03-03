@@ -40,7 +40,7 @@ class _AuthPageState extends State<AuthPage> {
               Positioned(
                 child: 
               Container(
-                height: size.height*0.35,
+                height: size.height*0.32,
                 width: size.width,
                 decoration: BoxDecoration(
                   image: DecorationImage(image: AssetImage(
@@ -67,7 +67,7 @@ class _AuthPageState extends State<AuthPage> {
               Column(
                 children: [
                   Container(
-                    height: MediaQuery.of(context).size.height*0.25,
+                    height: MediaQuery.of(context).size.height*0.19,
                     width: MediaQuery.of(context).size.width,
                    
                   ),
@@ -76,7 +76,7 @@ class _AuthPageState extends State<AuthPage> {
                       Container(
                         margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.05),
                         padding: EdgeInsets.only(left: 10,right: 10,top: 60),
-                        height: MediaQuery.of(context).size.height*0.70,
+                        height: MediaQuery.of(context).size.height*0.74,
                         width: MediaQuery.of(context).size.width,
                         decoration: BoxDecoration(
                           color: Colors.grey[200],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:studynotes/resources/colors.dart';
 
 class DoubleTappableInteractiveViewer extends StatefulWidget {
   final double scale;
@@ -90,4 +91,29 @@ class _DoubleTappableInteractiveViewerState extends State<DoubleTappableInteract
   }
 }
 
+
+//loading
+
+class DialogBox{
+
+dialogbox(context){
+  return showDialog(
+                                    barrierDismissible: false,
+                                    context: context, builder: (context){
+                               return Center(
+                                 child: Container(
+                                  padding: EdgeInsets.all(10),
+                                      height: 60,
+                                      width: 60,
+                                decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Colors.white
+                                        ),
+                                  child: CircularProgressIndicator(color: ColorManager.primaryColor,strokeWidth: 5,),
+                                ),
+                              );
+                                        });
+}
+
+}
 

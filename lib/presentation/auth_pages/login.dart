@@ -5,6 +5,7 @@ import 'package:studynotes/logic/auth/login/bloc/login_bloc.dart';
 import 'package:studynotes/presentation/auth_pages/auth_widgets/auth_widgets.dart';
 import 'package:studynotes/presentation/auth_pages/social_login.dart';
 import 'package:studynotes/presentation/bottom_navigation/bottom_navigation_bar.dart';
+import 'package:studynotes/presentation/extra_widgets/extra_widgets.dart';
 import 'package:studynotes/resources/colors.dart';
 import 'package:studynotes/resources/fonts.dart';
 
@@ -108,22 +109,7 @@ class _LoginState extends State<Login> {
 
                       }, listener: (context,state){
                         if(state is LoginLoading){
-                                  showDialog(
-                                    barrierDismissible: false,
-                                    context: context, builder: (context){
-                               return Center(
-                                 child: Container(
-                                  padding: EdgeInsets.all(10),
-                                      height: 60,
-                                      width: 60,
-                                decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: Colors.white
-                                        ),
-                                  child: CircularProgressIndicator(color: ColorManager.primaryColor,strokeWidth: 5,),
-                                ),
-                              );
-                                        });
+                                  DialogBox().dialogbox(context);
                         }
                         if(state is LoginError){
                           Navigator.pop(context);

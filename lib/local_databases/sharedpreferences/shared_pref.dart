@@ -11,6 +11,7 @@ class UserSimplePreferences {
   static const _userID = 'USERID';
   static const _biometrics = 'BIOMETRICS';
   static const _remember = 'REMEMBER';
+  static const _otp = 'OTP';
 
   static Future init() async =>
       _preferences = await SharedPreferences.getInstance();
@@ -22,6 +23,9 @@ class UserSimplePreferences {
 
   static Future setUserID(int userID) async {
     await _preferences?.setInt(_userID, userID);
+  }
+  static Future setOTP(int otp) async {
+    await _preferences?.setInt(_userID, otp);
   }
    static Future setUserName(String username) async {
     await _preferences?.setString(_username, username);
@@ -49,6 +53,7 @@ class UserSimplePreferences {
   static String? getPassword() => _preferences?.getString(_password);
   static String? getToken() => _preferences?.getString(_token);
   static int? getUserID() => _preferences?.getInt(_userID);
+  static int? getOtp() => _preferences?.getInt(_otp);
   static bool? getBiometric() => _preferences?.getBool(_biometrics);
   static bool? getRemember() => _preferences?.getBool(_remember);
 
@@ -60,6 +65,9 @@ class UserSimplePreferences {
   static Future removeUserDetails()async{
     await _preferences?.remove(_username);
     await _preferences?.remove(_googlePhoto);
+  }
+  static Future removeOtp()async{
+    await _preferences?.remove(_otp);
   }
   static Future logout()async{
     await _preferences?.remove(_token);

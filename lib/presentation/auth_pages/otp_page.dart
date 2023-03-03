@@ -1,0 +1,90 @@
+import 'dart:async';
+
+import 'package:flutter/material.dart';
+import 'package:studynotes/presentation/auth_pages/auth_widgets/auth_widgets.dart';
+import 'package:studynotes/presentation/home_pages/widgets/home_page_widgets.dart';
+import 'package:studynotes/resources/fonts.dart';
+
+import '../../resources/colors.dart';
+
+class OTPPage extends StatefulWidget {
+  const OTPPage({super.key});
+
+  @override
+  State<OTPPage> createState() => _OTPPageState();
+}
+
+class _OTPPageState extends State<OTPPage> {
+  final _counterNotifier = ValueNotifier<int>(40);
+
+bool active = true;
+Timer? timer;
+
+ deactive(){
+  active = false;
+  Timer _timer =  Timer(const Duration(seconds: 39), () {
+    timer!.cancel();
+      setState(() {
+        active = true;
+      });
+    });
+}
+decrease(){
+ timer= Timer.periodic(Duration(seconds: 1), (timer) {
+        _counterNotifier.value--;
+     });
+}
+
+@override
+  void dispose() {
+    timer!.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Center(child: DText(text: "Verify Phone Number",color: ColorManager.textColorWhite,weight: FontWeightManager.semibold,size: FontSize.s20, family: FontConstants.fontNunito,),),
+      ),
+      body: Container(
+        margin: EdgeInsets.all(10),
+        child: Column(
+          children: [
+            SizedBox(height: MediaQuery.of(context).size.height*0.06,),
+                AuthTextBox(labelText: "OTP",type: TextInputType.number,maxlength: 4,),
+                SizedBox(height: 40,),
+                  AuthButton(text: "Verify"),
+                  SizedBox(height: 20,),
+                 active == true? Align(
+                    alignment: Alignment.centerRight,
+                    child: Container(
+                      margin: EdgeInsets.only(right: 10),
+                      child: GestureDetector(
+                        onTap: (){
+                          setState(() {
+                            _counterNotifier.value = 40;
+                            deactive();
+                            decrease();
+                          });
+                        },
+                        child: DText(color: ColorManager.primaryColor, text: "Resend OTP", weight: FontWeightManager.bold, family: FontConstants.fontNunito, size: FontSize.s14)))):
+                        Align(
+                    alignment: Alignment.centerRight,
+                    child: Container(
+                      margin: EdgeInsets.only(right: 10),
+                    child:  ValueListenableBuilder(
+                          valueListenable: _counterNotifier,
+                       builder: (context, value, _) {
+                            return DText(color: Colors.grey, text: "Resend otp again in $value", weight: FontWeightManager.bold, family: FontConstants.fontNunito, size: FontSize.s14);
+                       },
+                         ),
+                      )
+                        )
+          ],
+        ),
+      ),
+    );
+  }
+}
