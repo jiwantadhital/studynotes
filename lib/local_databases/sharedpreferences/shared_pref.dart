@@ -12,6 +12,7 @@ class UserSimplePreferences {
   static const _biometrics = 'BIOMETRICS';
   static const _remember = 'REMEMBER';
   static const _otp = 'OTP';
+  static const _verfified = 'Verified';
 
   static Future init() async =>
       _preferences = await SharedPreferences.getInstance();
@@ -24,8 +25,8 @@ class UserSimplePreferences {
   static Future setUserID(int userID) async {
     await _preferences?.setInt(_userID, userID);
   }
-  static Future setOTP(int otp) async {
-    await _preferences?.setInt(_userID, otp);
+  static Future setOTP(String otp) async {
+    await _preferences?.setString(_otp, otp);
   }
    static Future setUserName(String username) async {
     await _preferences?.setString(_username, username);
@@ -41,6 +42,9 @@ class UserSimplePreferences {
   static Future setBiometrics(bool biometricsEnabled) async {
     await _preferences?.setBool(_biometrics, biometricsEnabled);
   }
+   static Future setVerified(bool verified) async {
+    await _preferences?.setBool(_verfified, verified);
+  }
   static Future setRemember(bool remember) async {
     await _preferences?.setBool(_remember, remember);
   }
@@ -53,8 +57,9 @@ class UserSimplePreferences {
   static String? getPassword() => _preferences?.getString(_password);
   static String? getToken() => _preferences?.getString(_token);
   static int? getUserID() => _preferences?.getInt(_userID);
-  static int? getOtp() => _preferences?.getInt(_otp);
+  static String? getOtp() => _preferences?.getString(_otp);
   static bool? getBiometric() => _preferences?.getBool(_biometrics);
+  static bool? getVerified() => _preferences?.getBool(_verfified);
   static bool? getRemember() => _preferences?.getBool(_remember);
 
   //remove

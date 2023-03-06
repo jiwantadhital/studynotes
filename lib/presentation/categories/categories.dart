@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:studynotes/logic/notes/semesters/bloc/semesters_bloc.dart';
+import 'package:studynotes/logic/notes/subjects/bloc/subjects_bloc.dart';
+import 'package:studynotes/models/subject_model.dart';
 import 'package:studynotes/presentation/categories/bottomsheet/bottom.dart';
 import 'package:studynotes/presentation/home_pages/widgets/home_page_widgets.dart';
 import 'package:studynotes/resources/colors.dart';
@@ -14,7 +18,9 @@ class Categories extends StatefulWidget {
 }
 
 class _CategoriesState extends State<Categories> {
-  int selected = 1;
+  List<SubjectModel> subject = [];
+  int semester = 1;
+  int selected = 0;
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -25,16 +31,25 @@ class _CategoriesState extends State<Categories> {
         child: SafeArea(
           child: Column(
             children: [
-              Container(
+              BlocBuilder<SemestersBloc,SemestersState>(builder: (context,state){
+                if(state is SemesterLoading){
+                  return Container(
+                    height: 50,
+                    width: size.width,
+                  );
+                }
+                if(state is SemesterGot){
+                  return Container(
                 height: 50,
                 width: size.width,
                 child: ListView.builder(
-                  itemCount: 5,
+                  itemCount: state.semesterModel.length,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context,index){
                   return GestureDetector(
                     onTap: (){
                       selected = index;
+                      semester = state.semesterModel[index].id!.toInt();
                       setState(() {
                         
                       });
@@ -49,12 +64,18 @@ class _CategoriesState extends State<Categories> {
                         border: Border.all(width: 2,color: Colors.white),
                       ),
                       child: Center(
-                        child: DText(color: ColorManager.textColorWhite, text: "Sem 1", weight: FontWeightManager.semibold, family: FontConstants.fontPoppins, size: FontSize.s16),
+                        child: DText(color: ColorManager.textColorWhite, text: state.semesterModel[index].name??"", weight: FontWeightManager.semibold, family: FontConstants.fontPoppins, size: FontSize.s16),
                       ),
                     ),
                   );
                 }),
-              ),
+              );
+                }
+                if(state is SemesterError){
+
+                }
+                return Container();
+              }),
               SizedBox(height: 10,),
               SingleChildScrollView(
                 child: Container(
@@ -75,10 +96,15 @@ class _CategoriesState extends State<Categories> {
                       weight: FontWeightManager.semibold, family: FontConstants.fontPoppins, size: FontSize.s16),
                       SizedBox(height: 10,),
                       Expanded(
-                        child: GridView.builder(
+                        child: BlocBuilder<SubjectsBloc,SubjectsState>(builder: (context,state){
+                          if(state is SubjectLoading){
+
+                          }
+                          if(state is SubjectGot){
+                            return GridView.builder(
                           shrinkWrap: true,
                           physics: BouncingScrollPhysics(),
-                          itemCount: 6,
+                          itemCount: state.subjectModel.length,
                           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 3,  
                           crossAxisSpacing: 7.0,  
@@ -120,7 +146,14 @@ class _CategoriesState extends State<Categories> {
                               ),
                             ),
                           );
-                        }),
+                 
+                        });
+                          }
+                          if(state is SubjectError){
+                            return Container();
+                          }
+                          return Container();
+                        })
                       )  ,
                       SizedBox(height: 80,)
 

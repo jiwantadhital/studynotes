@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:studynotes/local_databases/sharedpreferences/shared_pref.dart';
 import 'package:studynotes/logic/auth/login/bloc/login_bloc.dart';
 import 'package:studynotes/presentation/auth_pages/auth_widgets/auth_widgets.dart';
+import 'package:studynotes/presentation/auth_pages/otp_page.dart';
 import 'package:studynotes/presentation/auth_pages/social_login.dart';
 import 'package:studynotes/presentation/bottom_navigation/bottom_navigation_bar.dart';
 import 'package:studynotes/presentation/extra_widgets/extra_widgets.dart';
@@ -115,11 +116,17 @@ class _LoginState extends State<Login> {
                           Navigator.pop(context);
                           print(state.message);
                         }
+                          if(state is LoginOtp){
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
+                           return OTPPage();
+                         }));
+                        }
                         if(state is LoginDone){
                           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
                            return BottomBarPage();
                          }));
                         }
+                        
                       }),
                           SizedBox(height: 20,),
                           Align(

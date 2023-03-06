@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:studynotes/local_databases/sharedpreferences/shared_pref.dart';
 import 'package:studynotes/models/auth_model.dart';
 import 'package:studynotes/repositories/auth_repo.dart';
 import 'package:studynotes/resources/constants.dart';
@@ -24,10 +25,23 @@ var registerModel;
 
   Future<RegisterModel> register(email, password, phone, name)async{
 
-var response = await authRepo.registerRepo("${ApiClass.registerApi}", email, password, phone, name);
+var response = await authRepo.registerRepo("${ApiClass.registerApi}", name, email, password, phone);
     var data = jsonDecode(response.body);
     registerModel = RegisterModel.fromJson(data);
     print(response.body);
     return registerModel;
+}
+
+
+//otp
+var otpModel;
+
+  Future<OtpModel> otp(num)async{
+
+var response = await authRepo.otpRepo("${ApiClass.otpApi}/${UserSimplePreferences.getUserID()}", num);
+    var data = jsonDecode(response.body);
+    otpModel = OtpModel.fromJson(data);
+    print(response.body);
+    return otpModel;
 }
 }

@@ -184,6 +184,7 @@ setState(() => this.image = imageTemp);
                         onTap: (){
                           UserSimplePreferences.logout();
                           UserSimplePreferences.removeUserDetails();
+                          UserSimplePreferences.setVerified(false);
                           GoogleSignInApi.logout();
                                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
                                 return SocialLogin();

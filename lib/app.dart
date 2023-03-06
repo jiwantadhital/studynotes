@@ -4,10 +4,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:studynotes/controllers/auth_controller.dart';
 import 'package:studynotes/controllers/news_controller.dart';
+import 'package:studynotes/controllers/notes_controller.dart';
 import 'package:studynotes/controllers/notices_controller.dart';
 import 'package:studynotes/logic/auth/login/bloc/login_bloc.dart';
+import 'package:studynotes/logic/auth/otp/bloc/otp_bloc.dart';
 import 'package:studynotes/logic/auth/register/bloc/register_bloc.dart';
 import 'package:studynotes/logic/news/bloc/news_bloc.dart';
+import 'package:studynotes/logic/notes/semesters/bloc/semesters_bloc.dart';
+import 'package:studynotes/logic/notes/subjects/bloc/subjects_bloc.dart';
 import 'package:studynotes/logic/notices/bloc/notices_bloc.dart';
 import 'package:studynotes/presentation/splash/splash_screen.dart';
 import 'package:studynotes/resources/colors.dart';
@@ -25,6 +29,12 @@ class App extends StatelessWidget {
       BlocProvider<NewsBloc>(
             create: (BuildContext context) => NewsBloc(newsController: NewsController())..add(NewsGetEvent())
           ),
+            BlocProvider<SubjectsBloc>(
+            create: (BuildContext context) => SubjectsBloc(notesController: NotesController())..add(SubjectGettingEvent())
+          ),
+           BlocProvider<SemestersBloc>(
+            create: (BuildContext context) => SemestersBloc(notesController: NotesController())..add(SemesterGettingEvent())
+          ),
           BlocProvider<NoticesBloc>(
             create: (BuildContext context) => NoticesBloc(noticeController: NoticeController())..add(NoticeGetEvent())
           ),
@@ -33,6 +43,9 @@ class App extends StatelessWidget {
           ),
           BlocProvider<RegisterBloc>(
             create: (BuildContext context) => RegisterBloc(authController: AuthController()),
+          ),
+          BlocProvider<OtpBloc>(
+            create: (BuildContext context) => OtpBloc(authController: AuthController()),
           ),
     ], child: MaterialApp(
       title: "Study Notes",

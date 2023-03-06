@@ -18,4 +18,6 @@ class RegisteringEvent extends RegisterEvent {
     required this.phone,
     required this.password,
   });
+  @override
+  List<Object> get props => [email,phone,password,name];
 }

@@ -18,13 +18,19 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             UserSimplePreferences.setToken(loginData.token.toString());
             UserSimplePreferences.setUserID(loginData.userId!.toInt());
             UserSimplePreferences.setUserName(loginData.userName.toString());
+            UserSimplePreferences.setOTP(loginData.otp.toString());
             if(UserSimplePreferences.getRemember()==true){
               UserSimplePreferences.setEmailPassword(event.email, event.password);
             }
             else if(UserSimplePreferences.getRemember()==false){
               UserSimplePreferences.removeEmailPassword();
             }
-            emit(LoginDone());
+            if(loginData.phoneVerified == 0){
+              emit(LoginOtp());
+            }
+            else if(loginData.phoneVerified == 1){
+              emit(LoginDone());
+            }
           }
           else{
             emit(LoginError(message: loginData.message.toString()));

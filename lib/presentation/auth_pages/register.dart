@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:studynotes/logic/auth/register/bloc/register_bloc.dart';
 import 'package:studynotes/presentation/auth_pages/auth_widgets/auth_widgets.dart';
+import 'package:studynotes/presentation/auth_pages/otp_page.dart';
 import 'package:studynotes/presentation/bottom_navigation/bottom_navigation_bar.dart';
 import 'package:studynotes/presentation/extra_widgets/extra_widgets.dart';
 import 'package:studynotes/resources/colors.dart';
@@ -111,6 +112,11 @@ class _RegisterState extends State<Register> {
                           if(state is RegisterError){
                             Navigator.pop(context);
                             print(state.message);
+                          }
+                          if(state is RegisterOtp){
+                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
+                             return OTPPage();
+                           }));
                           }
                           if(state is RegisterDone){
                             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){

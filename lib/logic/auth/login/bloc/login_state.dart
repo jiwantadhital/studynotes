@@ -11,6 +11,8 @@ abstract class LoginState extends Equatable {
 class LoginInitial extends LoginState {}
 class LoginLoading extends LoginState {}
 class LoginDone extends LoginState {}
+
+class LoginOtp extends LoginState {}
 class LoginError extends LoginState {
   String message;
   LoginError({

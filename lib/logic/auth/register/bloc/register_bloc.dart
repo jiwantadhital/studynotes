@@ -17,8 +17,19 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
           UserSimplePreferences.setToken(registerData.token.toString());
             UserSimplePreferences.setUserID(registerData.userId!.toInt());
             UserSimplePreferences.setUserName(registerData.student.toString());
-            UserSimplePreferences.setOTP(registerData.otp!.toInt());
+            UserSimplePreferences.setOTP(registerData.otp.toString());
+            print(registerData.otp);
+            if(registerData.phoneVerified == 0){
+              UserSimplePreferences.setVerified(false);
+              emit(RegisterOtp());
+            }
+            else if(registerData.phoneVerified == 1){
+              UserSimplePreferences.setVerified(true);
           emit(RegisterDone());
+          }
+          else{
+                      emit(RegisterError(message: registerData.message.toString()));
+          }
         }
         else{
           emit(RegisterError(message: registerData.message.toString()));
