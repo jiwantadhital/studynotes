@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:studynotes/logic/notes/qyear/bloc/qyear_bloc.dart';
 import 'package:studynotes/resources/colors.dart';
 import 'package:studynotes/resources/fonts.dart';
 
@@ -27,9 +29,14 @@ class SolutionDrawer extends StatelessWidget {
               color: Colors.white,
             ),
             Expanded(
-              child: ListView.builder(
+              child: BlocBuilder<QyearBloc,QyearState>(builder: (context,state){
+                if(state is QyearLoading){
+                  
+                }
+                if(state is QyearGot){
+                  return ListView.builder(
                 shrinkWrap: true,
-                itemCount: 5,
+                itemCount: state.qyearModel.length,
                 itemBuilder: (context,index){
                   return Column(
                     children: [
@@ -37,7 +44,7 @@ class SolutionDrawer extends StatelessWidget {
                         padding: EdgeInsets.all(10),
                         height: 50,
                         width: 200,
-                        child: DText(color: ColorManager.textColorWhite, text: "2017 Re-Exam", weight: FontWeightManager.semibold, family: FontConstants.fontNunito, size: FontSize.s13),
+                        child: DText(color: ColorManager.textColorWhite, text: state.qyearModel[index].name??"", weight: FontWeightManager.semibold, family: FontConstants.fontNunito, size: FontSize.s13),
                       ),
                       Divider(
               height: 2,
@@ -45,7 +52,13 @@ class SolutionDrawer extends StatelessWidget {
             ),
                     ],
                   );
-              }),
+              });
+                }
+                if(state is QyearError){
+
+                }
+                return Container();
+              })
             )
           ],
         );

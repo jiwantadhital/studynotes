@@ -17,6 +17,7 @@ class _NotesState extends State<Notes> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: Colors.grey[200],
       appBar: AppBar(
         actions: [
           const Padding(
@@ -39,9 +40,9 @@ class _NotesState extends State<Notes> {
         ),
       ),
       body: Container(
-        margin: EdgeInsets.all(10),
+        margin: EdgeInsets.only(top: 5,bottom: 5),
         child: ListView.builder(
-          itemCount: 5,
+          itemCount: 9,
           itemBuilder: (context,index){
           return GestureDetector(
             onTap: (){
@@ -50,54 +51,55 @@ class _NotesState extends State<Notes> {
               }));
             },
             child: Container(
-              margin: EdgeInsets.all(5),
-              height: 60,
+              margin: EdgeInsets.only(top: 5,bottom: 5),
+              height: 80,
               width: size.width,
               decoration: BoxDecoration(
-                gradient: LinearGradient(colors: [
-                 ColorManager.boxBlue,
-                 Colors.lightBlue
-                ]),
-                borderRadius: BorderRadius.circular(10)
+                // gradient: LinearGradient(colors: [
+                //  ColorManager.boxBlue,
+                //  Colors.lightBlue
+                // ]),
+                color: Colors.white,
+                // borderRadius: BorderRadius.circular(10)
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [Row(
                 children: [
-                  SizedBox(width: 10,),
+                  SizedBox(width: 5,),
                   Container(
-                    height: 40,
-                    width: 40,
+                    height: 50,
+                    width: 50,
                     decoration: BoxDecoration(
-                      color: ColorManager.boxGreen,
+                      color: ColorManager.primaryColor,
                       shape: BoxShape.circle,
-                      border: Border.all(width: 3,color: Colors.white)
+                      border: Border.all(width: 3,color: Color.fromARGB(255, 234, 233, 233))
                     ),
                     child: Center(
                       child: DText(
                         color: Colors.white,
                         family: FontConstants.fontPoppins,
                         weight: FontWeightManager.bold,
-                        text: "1",
+                        text: "${index+1}",
                         size: FontSize.s16,
                       ),
                     ),
                   ),
                   SizedBox(width: 10,),
                   Container(
-                    width: size.width*0.6,
+                    width: size.width*0.72,
                     child: DText(
                       lines: 2,
-                      color: ColorManager.textColorWhite,
+                      color: ColorManager.textColorBlack,
                       family: FontConstants.fontPoppins,
-                      text: "Chapter 1 - Introduction",
-                      weight: FontWeightManager.semibold,
+                      text: "Introduction and the base of every around the math",
+                      weight: FontWeightManager.regular,
                       size: FontSize.s15,
                     ),
                   )
                 ],
               ),
-              Icon(Icons.arrow_circle_right_sharp,color: Colors.white,),
+              Icon(Icons.arrow_circle_down,color: ColorManager.primaryColor,size: 35,),
               SizedBox(width: 5,)
               ],
               )
