@@ -48,10 +48,10 @@ class _CategoriesState extends State<Categories> {
                   itemBuilder: (context,index){
                   return GestureDetector(
                     onTap: (){
-                      selected = index;
-                      semester = state.semesterModel[index].id!.toInt();
+                     
                       setState(() {
-                        
+                         selected = index;
+                      context.read<SubjectsBloc>()..add(SubjectGettingEvent(id: state.semesterModel[index].id!.toInt()));
                       });
                     },
                     child: Container(
@@ -105,19 +105,21 @@ class _CategoriesState extends State<Categories> {
                           shrinkWrap: true,
                           physics: BouncingScrollPhysics(),
                           itemCount: state.subjectModel.length,
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,  
-                          crossAxisSpacing: 7.0,  
-                        childAspectRatio: 2/2.1,
-                          mainAxisSpacing: 10.0
-                        ), itemBuilder: (context,index){
+                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                         crossAxisCount: 3,  
+                         crossAxisSpacing: 7.0,  
+                       childAspectRatio: 2/2.1,
+                         mainAxisSpacing: 10.0
+                        ),
+                         itemBuilder: (context,index){
+
                           return GestureDetector(
                             onTap: (){
                               showModalBottomSheet(
                                 isScrollControlled: true,
                                 context: context,
                                builder: (BuildContext context) {
-                                return BottomOfCategories();
+                                return BottomOfCategories(sub_id: state.subjectModel[index].id!.toInt(),);
                               }).whenComplete(() {
                                 setState(() {
                                   
@@ -126,7 +128,7 @@ class _CategoriesState extends State<Categories> {
                             },
                             child: Container(
                               padding: EdgeInsets.all(5),
-                              width: 200,
+                              //width: 200,
                               decoration: BoxDecoration(
                                 color: Theme.of(context).buttonColor,
                                 borderRadius: BorderRadius.circular(10)
@@ -135,19 +137,21 @@ class _CategoriesState extends State<Categories> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Container(
-                                    height: 80,
-                                    child: DText(color: ColorManager.textColorWhite, text: "Basic of computing and Math", weight: FontWeightManager.medium, family: FontConstants.fontPoppins, size: FontSize.s13),
+                                    margin: EdgeInsets.only(top: 10),
+                                    height: 60,
+                                    child: DText(color: ColorManager.textColorWhite, text: state.subjectModel[index].title.toString(), weight: FontWeightManager.medium, family: FontConstants.fontPoppins, size: FontSize.s13),
                                   ),
                                   Container(
-                                    height: 20,
+                                    height: 30,
                                     child: DText(color: ColorManager.textColorWhite, text: "Chapters: 12", weight: FontWeightManager.light, family: FontConstants.fontPoppins, size: FontSize.s12),
                                   )
                                 ],
                               ),
                             ),
                           );
-                 
-                        });
+                          }
+        
+                        );
                           }
                           if(state is SubjectError){
                             return Container();

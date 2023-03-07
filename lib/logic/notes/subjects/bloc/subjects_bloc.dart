@@ -12,7 +12,7 @@ class SubjectsBloc extends Bloc<SubjectsEvent, SubjectsState> {
     on<SubjectGettingEvent>((event, emit) async{
        emit(SubjectLoading());
       try{
-      var data = await notesController.getSubject();
+      var data = await notesController.getSubject(event.id);
       emit(SubjectGot(subjectModel: data));
       }
       catch(e){

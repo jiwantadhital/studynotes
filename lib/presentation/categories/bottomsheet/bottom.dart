@@ -1,8 +1,13 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:studynotes/logic/notes/syllabus/bloc/syllabus_bloc.dart';
+import 'package:studynotes/logic/questions/bloc/question_bloc.dart';
+
 import 'package:studynotes/presentation/home_pages/widgets/home_page_widgets.dart';
 import 'package:studynotes/presentation/subject_details/college_questions/college_questions.dart';
 import 'package:studynotes/presentation/subject_details/extra_notes/extra_notes.dart';
@@ -15,6 +20,11 @@ import 'package:studynotes/resources/colors.dart';
 import 'package:studynotes/resources/fonts.dart';
 
 class BottomOfCategories extends StatefulWidget {
+  int sub_id;
+   BottomOfCategories({
+    Key? key,
+    required this.sub_id,
+  }) : super(key: key);
 
   @override
   State<BottomOfCategories> createState() => _BottomOfCategoriesState();
@@ -99,6 +109,7 @@ class _BottomOfCategoriesState extends State<BottomOfCategories> {
               SizedBox(height: 20,),
               GestureDetector(
                 onTap: (){
+                  context.read<SyllabusBloc>()..add(SyllabusGettingEvent(id: widget.sub_id));
                        Navigator.push(context, 
               MaterialPageRoute(builder: (context){
                 return Syllabus();
@@ -121,9 +132,10 @@ class _BottomOfCategoriesState extends State<BottomOfCategories> {
                         SizedBox(height: 15,),
               GestureDetector(
                 onTap: (){
+                context.read<QuestionBloc>()..add(QuestionGettingEvent(id: widget.sub_id, year_id: 1));
                     Navigator.push(context, 
               MaterialPageRoute(builder: (context){
-                return Questions();
+                return Questions(sub_id: widget.sub_id,);
               })
                   );
                 },

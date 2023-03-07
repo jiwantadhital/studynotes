@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:studynotes/logic/notes/syllabus/bloc/syllabus_bloc.dart';
 import 'package:studynotes/presentation/extra_widgets/extra_widgets.dart';
-import 'package:studynotes/presentation/subject_details/solutions/drawer/solution_drawers.dart';
 import 'package:studynotes/resources/colors.dart';
+import 'package:studynotes/resources/constants.dart';
 import 'package:studynotes/resources/fonts.dart';
 
 import '../../home_pages/widgets/home_page_widgets.dart';
@@ -21,8 +21,6 @@ class _SyllabusState extends State<Syllabus> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-
- 
         centerTitle: true,
         backgroundColor: ColorManager.primaryColor,
         title: DText(color: ColorManager.textColorWhite, text: "Syllabus - Basic Math", weight: FontWeightManager.bold, family: FontConstants.fontNunito, size: FontSize.s15),
@@ -30,8 +28,13 @@ class _SyllabusState extends State<Syllabus> {
       body: DoubleTappableInteractiveViewer(
           scaleDuration: const Duration(milliseconds: 600),
 
-        child: ListView.builder(
-          itemCount: 2,
+        child: BlocBuilder<SyllabusBloc,SyllabusState>(builder: (context,state){
+          if(state is SyllabusLoading){
+            return Center(child: CircularProgressIndicator());
+          }
+          if(state is SyllabusGot){
+            return ListView.builder(
+          itemCount: state.syllabusModel.length,
           itemBuilder: (context,index){
             return Container(
               margin: EdgeInsets.only(left: 5,right: 5,top: 5,bottom: 10),
@@ -39,13 +42,19 @@ class _SyllabusState extends State<Syllabus> {
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                 image: DecorationImage(image: NetworkImage(
-                  "https://img.yumpu.com/32772445/1/500x640/math-113-introduction-to-applied-statistics-fall-2009-course-syllabus.jpg"
+                 "${ApiClass.local}uploads/images/syllabus/${state.syllabusModel[index].image}"
                 ),
                 fit: BoxFit.contain
                 )
               ),
             );
-        }),
+        });
+          }
+          if(state is SyllabusError){
+            return Center(child: Text("Error"));
+          }
+          return Text("something went wrong");
+        })
       ),
     );
   }

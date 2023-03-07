@@ -19,9 +19,11 @@ Future<http.Response> getRepository(api) async{
   var response = await http.get(Uri.parse("${ApiClass.local}${api}")
   );
   if(response.statusCode==200){
+    // print(response.body);
     return response;
   }
   else{
+    // print(response.statusCode);
     throw Exception(response.reasonPhrase);
   }
 }
