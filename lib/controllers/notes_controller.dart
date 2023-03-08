@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:studynotes/models/all_notes_model.dart';
+import 'package:studynotes/models/chapter_model.dart';
 import 'package:studynotes/models/question_model.dart';
 import 'package:studynotes/models/qyear_model.dart';
 import 'package:studynotes/models/semester_model.dart';
@@ -61,5 +63,25 @@ class NotesController{
     List data = jsonDecode(response.body);
    qyearModel = data.map((e) => QyearModel.fromJson(e)).toList();
     return data.map(((e)=> QyearModel.fromJson(e))).toList();  
+  }
+
+  //chapters
+  List<ChapterModel>  chapterModel = [];
+
+  Future<List<ChapterModel>> getChapters(id) async{
+    var response = await getRepository.getRepository("${ApiClass.chapterApi}/${id}");
+    List data = jsonDecode(response.body);
+   chapterModel = data.map((e) => ChapterModel.fromJson(e)).toList();
+    return data.map(((e)=> ChapterModel.fromJson(e))).toList();  
+  }
+
+  //all notes
+  AllNotesModel allNotesModel = AllNotesModel();
+
+  Future<AllNotesModel> getNotes(id) async{
+    var response = await getRepository.getRepository("${ApiClass.allNotesApi}/${id}");
+    var data = jsonDecode(response.body);
+   allNotesModel = AllNotesModel.fromJson(data);
+    return AllNotesModel.fromJson(data);  
   }
 }

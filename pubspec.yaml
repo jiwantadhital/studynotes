@@ -55,6 +55,8 @@ dependencies:
   flutter_local_notifications: ^9.0.1
   http: ^0.13.5
   intl: ^0.18.0
+  sqflite: ^2.2.5
+  path_provider: ^2.0.13
 
 dev_dependencies:
   flutter_test:

@@ -9,7 +9,7 @@ class NoticeController{
   GetRepo getRepo = GetRepo();
 
   Future<List<NoticeModel>> getNotice() async{
-    var response = await getRepo.getRepo("${ApiClass.noticeApi}");
+    var response = await getRepo.getRepository("${ApiClass.noticeApi}");
     List data = jsonDecode(response.body);
    noticeModel = data.map((e) => NoticeModel.fromJson(e)).toList();
     return data.map(((e)=> NoticeModel.fromJson(e))).toList();  

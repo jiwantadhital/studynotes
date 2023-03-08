@@ -1,5 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:studynotes/logic/notes/allNotes/bloc/allnotes_bloc.dart';
+import 'package:studynotes/logic/notes/chapters/bloc/chapter_bloc.dart';
 import 'package:studynotes/presentation/home_pages/widgets/home_page_widgets.dart';
 import 'package:studynotes/presentation/subject_details/notes/note_details/notes_details.dart';
 import 'package:studynotes/resources/colors.dart';
@@ -13,6 +18,24 @@ class Notes extends StatefulWidget {
 }
 
 class _NotesState extends State<Notes> {
+    final _counterNotifier1 = ValueNotifier<int>(0);
+
+  Timer? timer;
+  bool active = true;
+ deactive(){
+  active = false;
+  Timer _timer =  Timer(const Duration(seconds: 13), () {
+    timer!.cancel();
+      setState(() {
+        active = true;
+      });
+    });
+}
+decrease(){
+ timer= Timer.periodic(Duration(seconds: 1), (timer) {
+        _counterNotifier1.value=_counterNotifier1.value+10;
+     });
+}
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -39,13 +62,19 @@ class _NotesState extends State<Notes> {
           statusBarIconBrightness: Brightness.light,
         ),
       ),
-      body: Container(
+      body: BlocBuilder<ChapterBloc,ChapterState>(builder: (context,state){
+        if(state is ChapterLoading){
+          return Center(child: CircularProgressIndicator());
+        }
+        if(state is ChapterGot){
+          return Container(
         margin: EdgeInsets.only(top: 5,bottom: 5),
         child: ListView.builder(
-          itemCount: 9,
+          itemCount: state.chapterModel.length,
           itemBuilder: (context,index){
           return GestureDetector(
             onTap: (){
+              context.read<AllnotesBloc>()..add(AllnotesGettingEvent(id: state.chapterModel[index].id!.toInt()));
               Navigator.push(context, MaterialPageRoute(builder: (context){
                 return NotesDetails();
               }));
@@ -80,7 +109,7 @@ class _NotesState extends State<Notes> {
                         color: Colors.white,
                         family: FontConstants.fontPoppins,
                         weight: FontWeightManager.bold,
-                        text: "${index+1}",
+                        text: state.chapterModel[index].number.toString(),
                         size: FontSize.s16,
                       ),
                     ),
@@ -92,7 +121,7 @@ class _NotesState extends State<Notes> {
                       lines: 2,
                       color: ColorManager.textColorBlack,
                       family: FontConstants.fontPoppins,
-                      text: "Introduction and the base of every around the math",
+                      text: state.chapterModel[index].name.toString(),
                       weight: FontWeightManager.regular,
                       size: FontSize.s15,
                     ),
@@ -106,7 +135,54 @@ class _NotesState extends State<Notes> {
             ),
           );
         }),
-      ),
+      );
+        }
+        if(state is ChapterError){
+                  return Center(child: Text(state.message));
+        }
+        return Center(child: Text("Something Went Wrong"));
+      }),
+      floatingActionButton: GestureDetector(
+        onTap: (){
+          deactive();
+          decrease();
+        },
+        child:ValueListenableBuilder(valueListenable: _counterNotifier1, builder: (context,value,child){
+          return Container(
+          height: 50,
+          width: 120,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: ColorManager.boxBlue
+          ),
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+          
+              Align(
+                alignment: Alignment.centerLeft,
+                child: AnimatedContainer(
+                  duration: Duration(seconds: 1),
+                  height: 50,
+                  width: value.toDouble(),
+                  decoration: BoxDecoration(
+                    borderRadius:value!=120? BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      bottomLeft: Radius.circular(10),
+                    ):BorderRadius.circular(10),
+                    color: ColorManager.primaryColor
+                  ),
+         
+                ),
+              ),
+                  Positioned(child: DText(color: Colors.white,
+       text:value>10&&value<120?"Downloading...":value==120?"Downloaded":"Download All", weight: FontWeightManager.semibold, family: FontConstants.fontNunito, size: FontSize.s13)),
+            ],
+          ),
+        );
+        }
+        )
+      )
     );
   }
 }

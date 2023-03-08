@@ -2,9 +2,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:studynotes/logic/notes/chapters/bloc/chapter_bloc.dart';
 import 'package:studynotes/logic/notes/syllabus/bloc/syllabus_bloc.dart';
 import 'package:studynotes/logic/questions/bloc/question_bloc.dart';
 
@@ -20,9 +19,11 @@ import 'package:studynotes/resources/colors.dart';
 import 'package:studynotes/resources/fonts.dart';
 
 class BottomOfCategories extends StatefulWidget {
+  String subject;
   int sub_id;
    BottomOfCategories({
     Key? key,
+    required this.subject,
     required this.sub_id,
   }) : super(key: key);
 
@@ -105,7 +106,7 @@ class _BottomOfCategoriesState extends State<BottomOfCategories> {
               DText(
                 align: TextAlign.center,
                 lines: 2,
-                color: ColorManager.textColorBlack, text: "Chapter 1 : Basic of computing and Math", weight: FontWeightManager.medium, family: FontConstants.fontPoppins, size: FontSize.s16),
+                color: ColorManager.textColorBlack, text: widget.subject, weight: FontWeightManager.medium, family: FontConstants.fontPoppins, size: FontSize.s16),
               SizedBox(height: 20,),
               GestureDetector(
                 onTap: (){
@@ -120,6 +121,7 @@ class _BottomOfCategoriesState extends State<BottomOfCategories> {
               SizedBox(height: 15,),
               GestureDetector(
                 onTap: (){
+                  context.read<ChapterBloc>()..add(ChapterGettingEvent(id: widget.sub_id));
                   Navigator.push(context, 
               MaterialPageRoute(builder: (context){
                 return Notes();

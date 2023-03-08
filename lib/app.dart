@@ -10,6 +10,8 @@ import 'package:studynotes/logic/auth/login/bloc/login_bloc.dart';
 import 'package:studynotes/logic/auth/otp/bloc/otp_bloc.dart';
 import 'package:studynotes/logic/auth/register/bloc/register_bloc.dart';
 import 'package:studynotes/logic/news/bloc/news_bloc.dart';
+import 'package:studynotes/logic/notes/allNotes/bloc/allnotes_bloc.dart';
+import 'package:studynotes/logic/notes/chapters/bloc/chapter_bloc.dart';
 import 'package:studynotes/logic/notes/qyear/bloc/qyear_bloc.dart';
 import 'package:studynotes/logic/notes/semesters/bloc/semesters_bloc.dart';
 import 'package:studynotes/logic/notes/subjects/bloc/subjects_bloc.dart';
@@ -37,6 +39,12 @@ class App extends StatelessWidget {
           ),
             BlocProvider<SyllabusBloc>(
             create: (BuildContext context) => SyllabusBloc(notesController: NotesController())
+          ),
+            BlocProvider<ChapterBloc>(
+            create: (BuildContext context) => ChapterBloc(notesController: NotesController())
+          ),
+           BlocProvider<AllnotesBloc>(
+            create: (BuildContext context) => AllnotesBloc(notesController: NotesController())
           ),
             BlocProvider<QyearBloc>(
             create: (BuildContext context) => QyearBloc(notesController: NotesController())..add(QyearGettingEvent())

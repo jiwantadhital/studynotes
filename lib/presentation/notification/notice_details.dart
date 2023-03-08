@@ -29,7 +29,7 @@ class _NoticeDetailsState extends State<NoticeDetails> {
       ),
       body: Container(
         padding: EdgeInsets.all(10),
-        child: Html(data: notice.desc),
+        child: Html(data: notice.description),
       ),
     );
   }

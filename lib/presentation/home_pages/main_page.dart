@@ -67,7 +67,7 @@ _notices(size){
               itemBuilder: (context,index){
                 return GestureDetector(
                   onTap: (){
-                    state.noticeModel[index].desc!.isEmpty?
+                    state.noticeModel[index].description==null?
                     showDialog(
                       barrierDismissible: false,
                       context: context, builder: (context){
@@ -101,7 +101,7 @@ _notices(size){
                                     padding: const EdgeInsets.all(8.0),
                                     child: DText(
                                       lines: 9,
-                                      color: ColorManager.textColorBlack, text: state.noticeModel[index].shortDesc??"", weight: FontWeightManager.light, family: FontConstants.fontPoppins, size: FontSize.s14),
+                                      color: ColorManager.textColorBlack, text: state.noticeModel[index].title??"", weight: FontWeightManager.light, family: FontConstants.fontPoppins, size: FontSize.s14),
                                   ),
                                 ),
                                 SizedBox(height: 10,),

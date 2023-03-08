@@ -119,7 +119,7 @@ class _CategoriesState extends State<Categories> {
                                 isScrollControlled: true,
                                 context: context,
                                builder: (BuildContext context) {
-                                return BottomOfCategories(sub_id: state.subjectModel[index].id!.toInt(),);
+                                return BottomOfCategories(sub_id: state.subjectModel[index].id!.toInt(),subject: state.subjectModel[index].title??"",);
                               }).whenComplete(() {
                                 setState(() {
                                   

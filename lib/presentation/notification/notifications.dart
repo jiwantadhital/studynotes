@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get_utils/get_utils.dart';
 import 'package:intl/intl.dart';
 import 'package:studynotes/logic/notices/bloc/notices_bloc.dart';
 
@@ -124,7 +125,11 @@ class _NotificationsState extends State<Notifications> {
           SizedBox(height: 10,),
 
           //this week
-            BlocBuilder<NoticesBloc,NoticesState>(builder: (context,state){
+            BlocConsumer<NoticesBloc,NoticesState>(
+              listener: (context,state){
+                context.read<NoticesBloc>()..add(NoticeGetEvent());
+              },
+              builder: (context,state){
                 if(state is NoticesLoading){
 
                 }
@@ -213,8 +218,8 @@ String time;
   Widget build(BuildContext context) {
     return  GestureDetector(
       onTap: (){
-        state.noticeModel[index].desc!.isEmpty?
-                    showDialog(
+      
+                  state.noticeModel[index].description==null?  showDialog(
                       barrierDismissible: false,
                       context: context, builder: (context){
                       return Center(
@@ -247,7 +252,7 @@ String time;
                                     padding: const EdgeInsets.all(8.0),
                                     child: DText(
                                       lines: 9,
-                                      color: ColorManager.textColorBlack, text: state.noticeModel[index].shortDesc??"", weight: FontWeightManager.light, family: FontConstants.fontPoppins, size: FontSize.s14),
+                                      color: ColorManager.textColorBlack, text: state.noticeModel[index].shortDescription??"", weight: FontWeightManager.light, family: FontConstants.fontPoppins, size: FontSize.s14),
                                   ),
                                 ),
                                 SizedBox(height: 10,),
@@ -293,7 +298,7 @@ String time;
                         width: 13,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: state.noticeModel[index].desc.isEmpty? Colors.red:Colors.green,
+                          color:  state.noticeModel[index].description==null? Colors.red:Colors.green,
                           border: Border.all(width: 2,color: Colors.white)
                         ),
                       )
