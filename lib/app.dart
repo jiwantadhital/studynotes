@@ -6,9 +6,11 @@ import 'package:studynotes/controllers/auth_controller.dart';
 import 'package:studynotes/controllers/news_controller.dart';
 import 'package:studynotes/controllers/notes_controller.dart';
 import 'package:studynotes/controllers/notices_controller.dart';
+import 'package:studynotes/local_databases/sqlite/chapter_database_controller.dart';
 import 'package:studynotes/logic/auth/login/bloc/login_bloc.dart';
 import 'package:studynotes/logic/auth/otp/bloc/otp_bloc.dart';
 import 'package:studynotes/logic/auth/register/bloc/register_bloc.dart';
+import 'package:studynotes/logic/database/chapters/bloc/chapters_bloc.dart';
 import 'package:studynotes/logic/news/bloc/news_bloc.dart';
 import 'package:studynotes/logic/notes/allNotes/bloc/allnotes_bloc.dart';
 import 'package:studynotes/logic/notes/chapters/bloc/chapter_bloc.dart';
@@ -45,6 +47,9 @@ class App extends StatelessWidget {
           ),
            BlocProvider<AllnotesBloc>(
             create: (BuildContext context) => AllnotesBloc(notesController: NotesController())
+          ),
+          BlocProvider<ChaptersBloc>(
+            create: (BuildContext context) => ChaptersBloc(chapterDatabaseController: ChapterDatabaseController())..add(ChaptersGettingEvent())
           ),
             BlocProvider<QyearBloc>(
             create: (BuildContext context) => QyearBloc(notesController: NotesController())..add(QyearGettingEvent())

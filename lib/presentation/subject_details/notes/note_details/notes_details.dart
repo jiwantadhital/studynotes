@@ -16,6 +16,7 @@ class _NotesDetailsState extends State<NotesDetails> {
   bool show = false;
   double minZoo = 0.5;
   double maxZoom = 4;
+  String intro = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,7 +54,7 @@ class _NotesDetailsState extends State<NotesDetails> {
                   ),
                 ),
                 Center(
-                  child: Text("Chapter 1 - Introduction",
+                  child: Text("Chapter 1 - ${intro}",
                       style: const TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.normal,
@@ -73,7 +74,13 @@ class _NotesDetailsState extends State<NotesDetails> {
                   onDoubleTap: (){
 
                   },
-                  child: BlocBuilder<AllnotesBloc,AllnotesState>(builder: (context,state){
+                  child: BlocConsumer<AllnotesBloc,AllnotesState>(
+                    listener: (context,state){
+                      if(state is AllnotesGot){
+                       intro = state.allNotesModel.chapter!.name.toString();
+                      }
+                    },
+                    builder: (context,state){
                     if(state is AllnotesLoading){
                       return Center(child: CircularProgressIndicator(),);
                     }

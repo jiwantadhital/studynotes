@@ -77,7 +77,7 @@ class NotesController{
 
   //all notes
   AllNotesModel allNotesModel = AllNotesModel();
-
+  
   Future<AllNotesModel> getNotes(id) async{
     var response = await getRepository.getRepository("${ApiClass.allNotesApi}/${id}");
     var data = jsonDecode(response.body);

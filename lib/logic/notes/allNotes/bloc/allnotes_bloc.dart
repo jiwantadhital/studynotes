@@ -19,6 +19,7 @@ class AllnotesBloc extends Bloc<AllnotesEvent, AllnotesState> {
         print(e);
         emit(AllnotesError(message: e.toString()));
       }
+
     });
   }
 }

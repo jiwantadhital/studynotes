@@ -19,6 +19,7 @@ class Notes extends StatefulWidget {
 
 class _NotesState extends State<Notes> {
     final _counterNotifier1 = ValueNotifier<int>(0);
+    int? chaptId;
 
   Timer? timer;
   bool active = true;
@@ -72,6 +73,7 @@ decrease(){
         child: ListView.builder(
           itemCount: state.chapterModel.length,
           itemBuilder: (context,index){
+            chaptId=state.chapterModel[index].id;
           return GestureDetector(
             onTap: (){
               context.read<AllnotesBloc>()..add(AllnotesGettingEvent(id: state.chapterModel[index].id!.toInt()));
@@ -84,12 +86,7 @@ decrease(){
               height: 80,
               width: size.width,
               decoration: BoxDecoration(
-                // gradient: LinearGradient(colors: [
-                //  ColorManager.boxBlue,
-                //  Colors.lightBlue
-                // ]),
                 color: Colors.white,
-                // borderRadius: BorderRadius.circular(10)
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -128,7 +125,17 @@ decrease(){
                   )
                 ],
               ),
-              Icon(Icons.arrow_circle_down,color: ColorManager.primaryColor,size: 35,),
+               GestureDetector(
+                onTap: (){
+                  context.read<AllnotesBloc>()..add(AllnotesGettingEvent(id: state.chapterModel[index].id!.toInt()));
+                  var data = context.read<AllnotesBloc>().notesController.allNotesModel.id;
+
+                  print(data);
+                  
+                },
+                child:Icon(Icons.arrow_circle_down,color: ColorManager.primaryColor,size: 35,)),
+          
+              
               SizedBox(width: 5,)
               ],
               )

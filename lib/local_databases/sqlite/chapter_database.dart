@@ -33,10 +33,49 @@ Future _createDB(Database db, int version) async{
     '''
     CREATE TABLE $tableChapter(
       ${ChapterFields.id} $idType,
+      ${ChapterFields.semester} $textType,
+      ${ChapterFields.subject} $textType,
+      ${ChapterFields.c_id} $integerType,
+      ${ChapterFields.c_name} $textType,
+      ${ChapterFields.c_number} $textType,
+      ${ChapterFields.c_desc} $textType,
     )
     '''
   );
 }
+//create database
+Future<ChapterModelDatabase> create(ChapterModelDatabase chapterModelDatabase)async{
+  final db = await instance.database;
 
+  final id = await db.insert(tableChapter, chapterModelDatabase.toJson());
+  return chapterModelDatabase.copy(id:id);
+}
+
+//readall
+Future<List<ChapterModelDatabase>> readAll()async{
+final db = await  instance.database;
+final orderBy = '${ChapterFields.id} ASC';
+
+final result = await db.query(tableChapter,orderBy: orderBy);
+return result.map((json) => ChapterModelDatabase.fromJson(json)).toList();
+}
+
+//update
+Future<int> update(ChapterModelDatabase chapterModelDatabase)async{
+  final db = await instance.database;
+  return db.update(tableChapter, chapterModelDatabase.toJson(),
+  where: '${ChapterFields.id} = ?',
+  whereArgs: [chapterModelDatabase.id],
+  );
+}
+
+//delete
+Future<int> delete(int id) async{
+  final db = await instance.database;
+  return await db.delete(tableChapter,
+  where: '${ChapterFields.id} = ?',
+  whereArgs: [id]
+  );
+}
 }
 
