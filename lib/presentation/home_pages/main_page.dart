@@ -158,11 +158,11 @@ _continueReading(size){
               itemBuilder: (context,index){
                 return GestureDetector(
                   onTap: (){
-                    Navigator.push(context, 
-                             MaterialPageRoute(builder: (context){
-                           return Notes();
-                             })
-              );
+              //       Navigator.push(context, 
+              //                MaterialPageRoute(builder: (context){
+              //              return Notes();
+              //                })
+              // );
                   },
                   child: Container(
                     padding: EdgeInsets.all(10),
@@ -295,7 +295,7 @@ class _MainPageState extends State<MainPage> {
             collapsedHeight: 70,
             expandedHeight: size.height*0.20,
           shape:  RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(round),bottomRight: Radius.circular(round)),
+          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(0),bottomRight: Radius.circular(0)),
         ),
             flexibleSpace: FlexibleSpaceBar(
               background: Padding(

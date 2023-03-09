@@ -16,6 +16,12 @@ class ChaptersLoaded extends ChaptersState {
     required this.chapterModelDatabase,
   });
 }
+class SubjectChapterLoaded extends ChaptersState {
+  final List<SubjectDatabaseModel> subjectModelDatabase;
+  SubjectChapterLoaded({
+    required this.subjectModelDatabase,
+  });
+}
 class ChaptersLoadedClass extends ChaptersState {
   final List<ChapterModelDatabase> chapterModelDatabase;
   ChaptersLoadedClass({

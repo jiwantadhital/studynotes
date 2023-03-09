@@ -77,11 +77,14 @@ class NotesController{
 
   //all notes
   AllNotesModel allNotesModel = AllNotesModel();
-  
+  List allnotes = [];
+
   Future<AllNotesModel> getNotes(id) async{
     var response = await getRepository.getRepository("${ApiClass.allNotesApi}/${id}");
     var data = jsonDecode(response.body);
    allNotesModel = AllNotesModel.fromJson(data);
+   allnotes =[];
+   allnotes.add(allNotesModel);
     return AllNotesModel.fromJson(data);  
   }
 }

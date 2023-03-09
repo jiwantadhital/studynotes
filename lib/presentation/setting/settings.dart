@@ -1,11 +1,14 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:studynotes/local_databases/sharedpreferences/shared_pref.dart';
+import 'package:studynotes/logic/database/chapters/bloc/chapters_bloc.dart';
 import 'package:studynotes/presentation/auth_pages/google/google_sign.dart';
 import 'package:studynotes/presentation/auth_pages/social_login.dart';
 import 'package:studynotes/presentation/home_pages/widgets/home_page_widgets.dart';
+import 'package:studynotes/presentation/setting/downloads/downloaded.dart';
 import 'package:studynotes/presentation/setting/edit_profile/edit_profile.dart';
 import 'package:studynotes/presentation/setting/report/report.dart';
 import 'package:studynotes/resources/colors.dart';
@@ -123,7 +126,14 @@ setState(() => this.image = imageTemp);
                           },
                           child: ProfileBoxes(fIcon: Icons.person,sIcon: Icons.arrow_forward_ios,boxText: "Edit Profile",)),
                         SizedBox(height: 10,),
-                        ProfileBoxes(fIcon: Icons.download_done,sIcon: Icons.arrow_forward_ios,boxText: "Downloads",),
+                        ProfileBoxes(fIcon: Icons.download_done,sIcon: Icons.arrow_forward_ios,boxText: "Downloads",tap: (){
+                          context.read<ChaptersBloc>()..add(ChaptersSubjectEvent());
+                                Navigator.push(context, 
+                             MaterialPageRoute(builder: (context){
+                               return Downloaded();
+                           })
+                                );
+                        },),
                         SizedBox(height: 10,),
                         ProfileBoxes(fIcon: Icons.error,sIcon: Icons.arrow_forward_ios,boxText: "Report a problem",
                         tap: (){

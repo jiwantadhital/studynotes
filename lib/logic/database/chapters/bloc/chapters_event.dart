@@ -9,6 +9,7 @@ abstract class ChaptersEvent extends Equatable {
 }
 class ChaptersCreatingEvent extends ChaptersEvent {
   String semester;
+  int subjectId;
   String subject;
   int chapterId;
   String chapterName;
@@ -16,6 +17,7 @@ class ChaptersCreatingEvent extends ChaptersEvent {
   String chapterDesc;
   ChaptersCreatingEvent({
     required this.semester,
+    required this.subjectId,
     required this.subject,
     required this.chapterId,
     required this.chapterName,
@@ -23,10 +25,16 @@ class ChaptersCreatingEvent extends ChaptersEvent {
     required this.chapterDesc,
   });
   @override
-  List<Object> get props => [semester,subject,chapterId,chapterName,chapterNumber,chapterDesc];
+  List<Object> get props => [semester,subjectId,subject,chapterId,chapterName,chapterNumber,chapterDesc];
 }
 
-class ChaptersGettingEvent extends ChaptersEvent{}
+class ChaptersGettingEvent extends ChaptersEvent {
+  int id;
+  ChaptersGettingEvent({
+    required this.id,
+  });
+}
+class ChaptersSubjectEvent extends ChaptersEvent{}
 class ChaptersUpdatingEvent extends ChaptersEvent {
   int id;
   ChaptersUpdatingEvent({

@@ -49,7 +49,7 @@ class App extends StatelessWidget {
             create: (BuildContext context) => AllnotesBloc(notesController: NotesController())
           ),
           BlocProvider<ChaptersBloc>(
-            create: (BuildContext context) => ChaptersBloc(chapterDatabaseController: ChapterDatabaseController())..add(ChaptersGettingEvent())
+            create: (BuildContext context) => ChaptersBloc(chapterDatabaseController: ChapterDatabaseController())
           ),
             BlocProvider<QyearBloc>(
             create: (BuildContext context) => QyearBloc(notesController: NotesController())..add(QyearGettingEvent())

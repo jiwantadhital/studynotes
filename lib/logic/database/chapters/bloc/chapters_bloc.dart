@@ -13,18 +13,29 @@ class ChaptersBloc extends Bloc<ChaptersEvent, ChaptersState> {
     on<ChaptersGettingEvent>((event, emit) async{
       try{
         emit(ChaptersLoading());
-        await chapterDatabaseController.getChapter();
+        await chapterDatabaseController.getChapter(event.id);
         emit(ChaptersLoaded(chapterModelDatabase: chapterDatabaseController.chapter));
       }
       catch(e){
         emit(ChaptersError(message: "Something Went Wrong"));
       }
     });
+     //readSubject
+    on<ChaptersSubjectEvent>((event, emit) async{
+      try{
+        emit(ChaptersLoading());
+        await chapterDatabaseController.getSubject();
+        emit(SubjectChapterLoaded(subjectModelDatabase: chapterDatabaseController.subject));
+      }
+      catch(e){
+        emit(ChaptersError(message: e.toString()));
+      }
+    });
     //add
     on<ChaptersCreatingEvent>((event, emit) async{
       try{
         emit(ChaptersLoading());
-        await chapterDatabaseController.addChapterData(event.semester,event.subject,event.chapterId,event.chapterNumber,event.chapterName,event.chapterDesc);
+        await chapterDatabaseController.addChapterData(event.semester,event.subjectId,event.subject,event.chapterId,event.chapterName,event.chapterNumber,event.chapterDesc);
         emit(ChaptersAdded());
       }
       catch(e){

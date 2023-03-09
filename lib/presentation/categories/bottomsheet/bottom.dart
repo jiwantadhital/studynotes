@@ -124,7 +124,7 @@ class _BottomOfCategoriesState extends State<BottomOfCategories> {
                   context.read<ChapterBloc>()..add(ChapterGettingEvent(id: widget.sub_id));
                   Navigator.push(context, 
               MaterialPageRoute(builder: (context){
-                return Notes();
+                return Notes(id:widget.sub_id);
               })
                   );
                 },

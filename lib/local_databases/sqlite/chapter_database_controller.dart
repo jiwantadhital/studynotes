@@ -2,15 +2,19 @@ import 'package:studynotes/local_databases/sqlite/chapter_database.dart';
 import 'package:studynotes/local_databases/sqlite/chapter_database_model.dart';
 
 class ChapterDatabaseController{
-  late List<ChapterModelDatabase> chapter;
+   List<ChapterModelDatabase> chapter =[];
+   List<SubjectDatabaseModel> subject =[];
 
 
-  Future getChapter()async{
-  this.chapter = await ChapterDatabase.instance.readAll();
+  Future getChapter(cid)async{
+  this.chapter = await ChapterDatabase.instance.readAll(cid);
+}
+Future getSubject()async{
+  this.subject = await ChapterDatabase.instance.readSubject();
 }
 
-Future addChapterData(semester,subject,chapterId,chapterName,chapterNumber,chapterDesc)async{
-final chapters =  ChapterModelDatabase(semester: semester, subject: subject, c_id: chapterId,
+Future addChapterData(semester,s_id,subject,chapterId,chapterName,chapterNumber,chapterDesc)async{
+final chapters =  ChapterModelDatabase(semester: semester,s_id: s_id, subject: subject, c_id: chapterId,
  c_name: chapterName, c_number: chapterNumber, c_desc: chapterDesc);
 await ChapterDatabase.instance.create(chapters);
 }

@@ -54,7 +54,7 @@ class _NotesDetailsState extends State<NotesDetails> {
                   ),
                 ),
                 Center(
-                  child: Text("Chapter 1 - ${intro}",
+                  child: Text("Chapter 1 - ",
                       style: const TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.normal,
@@ -77,7 +77,7 @@ class _NotesDetailsState extends State<NotesDetails> {
                   child: BlocConsumer<AllnotesBloc,AllnotesState>(
                     listener: (context,state){
                       if(state is AllnotesGot){
-                       intro = state.allNotesModel.chapter!.name.toString();
+                       print("object");
                       }
                     },
                     builder: (context,state){
