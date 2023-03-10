@@ -114,6 +114,25 @@ dialogbox(context){
                               );
                                         });
 }
+//download
+downloadbox(context){
+  return showDialog(
+                                    barrierDismissible: false,
+                                    context: context, builder: (context){
+                               return Center(
+                                 child: Container(
+                                  padding: EdgeInsets.all(10),
+                                      height: 60,
+                                      width: 60,
+                                decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Colors.white
+                                        ),
+                                  child: CircularProgressIndicator(color: ColorManager.primaryColor,strokeWidth: 5,),
+                                ),
+                              );
+                                        });
+}
 
 }
 

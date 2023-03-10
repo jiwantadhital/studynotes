@@ -16,54 +16,45 @@ import 'package:studynotes/resources/fonts.dart';
 
 class Notes extends StatefulWidget {
   int id;
-   Notes({super.key, required this.id});
+  Notes({super.key, required this.id});
 
   @override
   State<Notes> createState() => _NotesState();
 }
 
 class _NotesState extends State<Notes> {
-  ChapterDatabaseController chapterDatabaseController = ChapterDatabaseController();
-  List local = [];
+
+  ChapterDatabaseController chapterDatabaseController =
+      ChapterDatabaseController();
+      List local =[];
   NotesFunction notesFunction = NotesFunction();
   final _counterNotifier1 = ValueNotifier<int>(0);
-  int? chaptId;
-
-  Timer? timer;
+  final _counteradded = ValueNotifier<List>([]);
   bool active = true;
-  deactive() {
-    active = false;
-    Timer _timer = Timer(const Duration(seconds: 13), () {
-      timer!.cancel();
-      setState(() {
-        active = true;
-      });
-    });
-  }
 
-  decrease() {
-    timer = Timer.periodic(Duration(seconds: 1), (timer) {
-      _counterNotifier1.value = _counterNotifier1.value + 10;
-    });
+  refresh(){
+   Future.delayed(Duration(milliseconds: 300), () {
+  if(mounted){
+    setState(() {
+    
+  });
   }
-
-getdata()async{
-  await chapterDatabaseController.getChapter(widget.id);
-local = chapterDatabaseController.chapter;
-setState(() {
-  
 });
-}
+  }
 
-@override
-void initState() {
-  getdata();
-  super.initState();
-}
+  @override
+  void initState() {
+    refresh();
+    super.initState();
+  }
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-      print("data is $local");
-
+    context.read<ChaptersBloc>()..add(ChaptersGettingEvent(id: widget.id));
     var size = MediaQuery.of(context).size;
     return Scaffold(
         backgroundColor: Colors.grey[200],
@@ -163,28 +154,37 @@ void initState() {
                                 ],
                               ),
                               GestureDetector(
-                                  onTap: () async {
-                                    notesFunction.dataSave(
-                                        state.chapterModel[index].id, context);
+                                onTap: () async {
+                                  notesFunction.dataSave(
+                                      state.chapterModel[index].id, context);
+                                     refresh();
+                                      print(local);
+                                },
+                                child: BlocConsumer<ChaptersBloc, ChaptersState>(
+                                  listener: (context, stat) {
+                                   if(stat is ChaptersLoaded){
+                                      _counteradded.value = [];
+                                    for(int i=0;i<stat.chapterModelDatabase.length;i++){
+                                      _counteradded.value.add(stat.chapterModelDatabase[i].c_id);
+                                    }
+                                     refresh();
+                                    // print(stat.chapterModelDatabase.);
+                                    //  print(stat.chapterModelDatabase.length);
+                                   }
                                   },
-                                  child:
-                                      BlocConsumer<ChaptersBloc, ChaptersState>(
-                                    listener: (context, stat) {
-                                      if (stat is ChaptersAdded) {
-                                        print("successful");
-                                      }
-                                      if (stat is ChaptersError) {
-                                        print(stat.message);
-                                      }
-                                    },
-                                    builder: (context, state) {
-                                      return Icon(
-                                        Icons.arrow_circle_down,
-                                        color: ColorManager.primaryColor,
-                                        size: 35,
-                                      );
-                                    },
-                                  )),
+                                  builder: (context, stat) {
+                                     return _counteradded.value.contains(state.chapterModel[index].id)?Icon(
+                                      Icons.done,
+                                      color: ColorManager.primaryColor,
+                                      size: 35,
+                                     ): Icon(
+                                      Icons.arrow_circle_down_outlined,
+                                      color: ColorManager.primaryColor,
+                                      size: 35,
+                                     );
+                                  },
+                                ),
+                              ),
                               SizedBox(
                                 width: 5,
                               )
@@ -201,62 +201,70 @@ void initState() {
         }),
         floatingActionButton: BlocBuilder<ChapterBloc, ChapterState>(
           builder: (context, stat) {
-           if(stat is ChapterGot){
+            if (stat is ChapterGot) {
               return GestureDetector(
-                onTap: () {
-                  // deactive();
-                  // decrease();
-                  for(int i=0;i<stat.chapterModel.length;i++){
-                       notesFunction.dataSave(
-                    stat.chapterModel[i].id, context);
-                      print(stat.chapterModel[i].name);
-                  }
-                },
-                child: ValueListenableBuilder(
-                    valueListenable: _counterNotifier1,
-                    builder: (context, value, child) {
-                      return Container(
-                        height: 50,
-                        width: 120,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: ColorManager.boxBlue),
-                        child: Center(
-                          child: DText(
-                              color: Colors.white,
-                              text: "Download now",
-                              weight: FontWeightManager.semibold,
-                              family: FontConstants.fontNunito,
-                              size: FontSize.s13),
-                        ),
-                        //     child: Stack(
-                        //       alignment: Alignment.center,
-                        //       children: [
-
-                        //         Align(
-                        //           alignment: Alignment.centerLeft,
-                        //           child: AnimatedContainer(
-                        //             duration: Duration(seconds: 1),
-                        //             height: 50,
-                        //             width: value.toDouble(),
-                        //             decoration: BoxDecoration(
-                        //               borderRadius:value!=120? BorderRadius.only(
-                        //                 topLeft: Radius.circular(10),
-                        //                 bottomLeft: Radius.circular(10),
-                        //               ):BorderRadius.circular(10),
-                        //               color: ColorManager.primaryColor
-                        //             ),
-
-                        //           ),
-                        //         ),
-                        //             Positioned(child: DText(color: Colors.white,
-                        //  text:value>10&&value<120?"Downloading...":value==120?"Downloaded":"Download All", weight: FontWeightManager.semibold, family: FontConstants.fontNunito, size: FontSize.s13)),
-                        //       ],
-                        //     ),
-                      );
-                    }));
-           }
-           return Container();
+                  onTap: () {
+                    _counterNotifier1.value = 20;
+                    for (int i = 0; i < stat.chapterModel.length; i++) {
+                      notesFunction.dataSave(stat.chapterModel[i].id, context);
+                      _counterNotifier1.value = 110;
+                    }
+                    _counterNotifier1.value = 120;
+                  },
+                  child: ValueListenableBuilder(
+                      valueListenable: _counterNotifier1,
+                      builder: (context, value, child) {
+                        return Container(
+                            height: 50,
+                            width: 120,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: ColorManager.boxBlue),
+                            child: Center(
+                              //   child: DText(
+                              //       color: Colors.white,
+                              //       text: "Download now",
+                              //       weight: FontWeightManager.semibold,
+                              //       family: FontConstants.fontNunito,
+                              //       size: FontSize.s13),
+                              // ),
+                              child: Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: AnimatedContainer(
+                                      duration: Duration(seconds: 1),
+                                      height: 50,
+                                      width: value.toDouble(),
+                                      decoration: BoxDecoration(
+                                          borderRadius: value != 120
+                                              ? BorderRadius.only(
+                                                  topLeft: Radius.circular(10),
+                                                  bottomLeft:
+                                                      Radius.circular(10),
+                                                )
+                                              : BorderRadius.circular(10),
+                                          color: ColorManager.primaryColor),
+                                    ),
+                                  ),
+                                  Positioned(
+                                      child: DText(
+                                          color: Colors.white,
+                                          text: value > 10 && value < 120
+                                              ? "Downloading..."
+                                              : value == 120
+                                                  ? "Downloaded"
+                                                  : "Download All",
+                                          weight: FontWeightManager.semibold,
+                                          family: FontConstants.fontNunito,
+                                          size: FontSize.s13)),
+                                ],
+                              ),
+                            ));
+                      }));
+            }
+            return Container();
           },
         ));
   }

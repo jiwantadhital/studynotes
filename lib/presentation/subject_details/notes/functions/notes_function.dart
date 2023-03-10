@@ -12,6 +12,7 @@ dataSave(id,context)async{
                  var data = notesController.allnotes;
                   for(i=0;i>notesController.allnotes.length;i++){
                   }
+                  print(data[i].semester.name);
                  BlocProvider.of<ChaptersBloc>(context).add(ChaptersCreatingEvent(
                   semester: data[i].semester.name,
                   subject: data[i].subject.title,
