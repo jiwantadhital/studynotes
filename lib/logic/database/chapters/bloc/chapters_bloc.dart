@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:studynotes/local_databases/sqlite/chapter_database_controller.dart';
 import 'package:studynotes/local_databases/sqlite/chapter_database_model.dart';
+import 'package:studynotes/logic/notes/chapters/bloc/chapter_bloc.dart';
 
 part 'chapters_event.dart';
 part 'chapters_state.dart';
@@ -40,6 +41,17 @@ class ChaptersBloc extends Bloc<ChaptersEvent, ChaptersState> {
       }
       catch(e){
         emit(ChaptersError(message: "Something Went Wrong"));
+      }
+    });
+    //realallchapters
+ on<AllChaptersEvent>((event, emit) async{
+      try{
+        emit(AllChaptersLoading());
+        await chapterDatabaseController.getAllChapters();
+        emit(AllChaptersLoaded(chapterModelDatabase: chapterDatabaseController.allChapters));
+      }
+      catch(e){
+        emit(ChaptersError(message: e.toString()));
       }
     });
     //update

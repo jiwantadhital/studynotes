@@ -45,22 +45,29 @@ Future _createDB(Database db, int version) async{
   );
 }
 //create database
-Future<ChapterModelDatabase> create(ChapterModelDatabase chapterModelDatabase)async{
+Future create(ChapterModelDatabase chapterModelDatabase,aid)async{
   final db = await instance.database;
-
+  final existingRecord = await db.query(tableChapter, where: '${ChapterFields.c_id} = ?', whereArgs: [aid]);
+  if(existingRecord.isEmpty){
   final id = await db.insert(tableChapter, chapterModelDatabase.toJson());
   return chapterModelDatabase.copy(id:id);
+  }
+  else{
+   return db.update(tableChapter, chapterModelDatabase.toJson(),
+  where: '${ChapterFields.id} = ?',
+  whereArgs: [chapterModelDatabase.id],
+  );
+  }
 }
 
-//readall
-// Future<List<ChapterModelDatabase>> readAll()async{
-// final db = await  instance.database;
-// final orderBy = '${ChapterFields.id} ASC';
+//read all
+Future<List<ChapterModelDatabase>> readChapters()async{
+final db = await  instance.database;
+final orderBy = '${ChapterFields.id} ASC';
 
-// final result = await db.query(tableChapter,orderBy: orderBy);
-// return result.map((json) => ChapterModelDatabase.fromJson(json)).toList();
-// }
-
+final result = await db.query(tableChapter,orderBy: orderBy);
+return result.map((json) => ChapterModelDatabase.fromJson(json)).toList();
+}
 //read subjects
 Future<List<SubjectDatabaseModel>> readSubject()async{
 final db = await  instance.database;

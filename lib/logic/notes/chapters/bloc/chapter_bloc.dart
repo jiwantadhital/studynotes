@@ -13,7 +13,8 @@ class ChapterBloc extends Bloc<ChapterEvent, ChapterState> {
         emit(ChapterLoading());
       try{
       var data = await notesController.getChapters(event.id);
-      emit(ChapterGot(chapterModel: data));
+     var chapId= data.map((e) => e.id).toList();
+      emit(ChapterGot(chapterModel: data,chapterId: chapId));
       }
       catch(e){
         emit(ChapterError(message: e.toString()));

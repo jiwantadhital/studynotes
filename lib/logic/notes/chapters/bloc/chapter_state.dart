@@ -12,8 +12,10 @@ class ChapterInitial extends ChapterState {}
 class ChapterLoading extends ChapterState{}
 
 class ChapterGot extends ChapterState {
+  List chapterId;
   List<ChapterModel> chapterModel;
   ChapterGot({
+    required this.chapterId,
     required this.chapterModel,
   });
    @override

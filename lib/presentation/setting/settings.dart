@@ -104,7 +104,7 @@ setState(() => this.image = imageTemp);
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 DText(text: UserSimplePreferences.getUsername()??"User",color: ColorManager.textColorBlack,weight: FontWeightManager.bold,family: FontConstants.fontNunito,size: FontSize.s15,),
-                                DText(text: "9815261522",color: ColorManager.textColorBlack,weight: FontWeightManager.regular,family: FontConstants.fontNunito,size: FontSize.s13,),
+                                DText(text: UserSimplePreferences.getEmail()??"",color: ColorManager.textColorBlack,weight: FontWeightManager.regular,family: FontConstants.fontNunito,size: FontSize.s13,),
                               ],
                             ))
                       ],

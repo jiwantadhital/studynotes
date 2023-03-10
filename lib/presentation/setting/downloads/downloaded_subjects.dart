@@ -99,7 +99,7 @@ class _DownloadedChaptersState extends State<DownloadedChapters> {
                         ),
                         Container(
                           height: 100,
-                          width: MediaQuery.of(context).size.width * 0.8,
+                          width: MediaQuery.of(context).size.width * 0.7,
                           // color: Colors.yellow,
                           padding: EdgeInsets.all(10),
                           child: Column(

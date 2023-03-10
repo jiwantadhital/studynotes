@@ -35,6 +35,8 @@ class ChaptersGettingEvent extends ChaptersEvent {
   });
 }
 class ChaptersSubjectEvent extends ChaptersEvent{}
+
+class AllChaptersEvent extends ChaptersEvent{}
 class ChaptersUpdatingEvent extends ChaptersEvent {
   int id;
   ChaptersUpdatingEvent({

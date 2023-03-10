@@ -10,6 +10,7 @@ import 'package:studynotes/local_databases/sqlite/chapter_database_controller.da
 import 'package:studynotes/logic/auth/login/bloc/login_bloc.dart';
 import 'package:studynotes/logic/auth/otp/bloc/otp_bloc.dart';
 import 'package:studynotes/logic/auth/register/bloc/register_bloc.dart';
+import 'package:studynotes/logic/database/chapter_load/bloc/loadchapter_bloc.dart';
 import 'package:studynotes/logic/database/chapters/bloc/chapters_bloc.dart';
 import 'package:studynotes/logic/news/bloc/news_bloc.dart';
 import 'package:studynotes/logic/notes/allNotes/bloc/allnotes_bloc.dart';
@@ -50,6 +51,9 @@ class App extends StatelessWidget {
           ),
           BlocProvider<ChaptersBloc>(
             create: (BuildContext context) => ChaptersBloc(chapterDatabaseController: ChapterDatabaseController())
+          ),
+          BlocProvider<LoadchapterBloc>(
+            create: (BuildContext context) => LoadchapterBloc(chapterDatabaseController: ChapterDatabaseController())..add(LoadingAllChapterEvent())
           ),
             BlocProvider<QyearBloc>(
             create: (BuildContext context) => QyearBloc(notesController: NotesController())..add(QyearGettingEvent())

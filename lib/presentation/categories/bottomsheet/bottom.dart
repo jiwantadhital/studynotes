@@ -3,6 +3,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:studynotes/logic/database/chapter_load/bloc/loadchapter_bloc.dart';
+import 'package:studynotes/logic/database/chapters/bloc/chapters_bloc.dart';
 import 'package:studynotes/logic/notes/chapters/bloc/chapter_bloc.dart';
 import 'package:studynotes/logic/notes/syllabus/bloc/syllabus_bloc.dart';
 import 'package:studynotes/logic/questions/bloc/question_bloc.dart';
@@ -55,23 +57,6 @@ class _BottomOfCategoriesState extends State<BottomOfCategories> {
         floatingActionButton: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-           
-               Align(
-              alignment: Alignment.topRight,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 140,right: 0),
-                child: FloatingActionButton.extended(
-                  label: Row(
-                    children: [
-                      DText(color: ColorManager.primaryColor, text: "Download", weight: FontWeightManager.bold, family: FontConstants.fontPoppins, size: FontSize.s12),
-                      SizedBox(width: 10,),
-                      Icon(Icons.arrow_circle_down_outlined, color: ColorManager.primaryColor,size: 18,)
-                    ],
-                  ),
-                  backgroundColor: Colors.white,
-                  onPressed: (){
-                  }),
-              )),
                Align(
               alignment: Alignment.topRight,
               child: Padding(
@@ -122,6 +107,7 @@ class _BottomOfCategoriesState extends State<BottomOfCategories> {
               GestureDetector(
                 onTap: (){
                   context.read<ChapterBloc>()..add(ChapterGettingEvent(id: widget.sub_id));
+                context.read<LoadchapterBloc>().add(LoadingAllChapterEvent());
                   Navigator.push(context, 
               MaterialPageRoute(builder: (context){
                 return Notes(id:widget.sub_id);

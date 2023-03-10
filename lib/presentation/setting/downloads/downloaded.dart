@@ -45,7 +45,7 @@ class _DownloadedState extends State<Downloaded> {
           return Center(child: CircularProgressIndicator(),);
         }
         if(state is SubjectChapterLoaded){
-          return GridView.builder(
+          return state.subjectModelDatabase.isEmpty?Center(child: Image.asset("assets/images/not.png")): GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           childAspectRatio: 2/1,
@@ -101,7 +101,7 @@ class _DownloadedState extends State<Downloaded> {
       });
         }
         if(state is ChaptersError){
-          return Center(child: Text(state.message));
+          return Center(child: Text("Something went wrong"));
         }
         return Center(child: Text("Empty"));
       }),

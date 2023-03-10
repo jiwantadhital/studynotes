@@ -136,3 +136,15 @@ downloadbox(context){
 
 }
 
+class ShowSnackBar{
+  snack(String text, Color color){
+    final snackBar = SnackBar(
+      backgroundColor: color,
+  content: Text(text),
+);
+
+  return snackBar;
+
+
+  }
+}
