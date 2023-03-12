@@ -45,7 +45,14 @@ class _DownloadedState extends State<Downloaded> {
           return Center(child: CircularProgressIndicator(),);
         }
         if(state is SubjectChapterLoaded){
-          return state.subjectModelDatabase.isEmpty?Center(child: Image.asset("assets/images/not.png")): GridView.builder(
+          return state.subjectModelDatabase.isEmpty?Center(child: Column(
+            children: [
+              Image.asset("assets/images/not.png"),
+              SizedBox(height: 10,),
+              DText(color: ColorManager.textColorBlack, text: "You've downloaded nothing",
+                               weight: FontWeightManager.regular, family: FontConstants.fontPoppins, size: FontSize.s14)
+            ],
+          )): GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           childAspectRatio: 2/1,

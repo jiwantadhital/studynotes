@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:studynotes/logic/notes/semesters/bloc/semesters_bloc.dart';
 import 'package:studynotes/logic/notes/subjects/bloc/subjects_bloc.dart';
 import 'package:studynotes/models/subject_model.dart';
@@ -19,6 +20,10 @@ class Categories extends StatefulWidget {
 
 class _CategoriesState extends State<Categories> {
   List<SubjectModel> subject = [];
+  final spinkit = SpinKitThreeBounce(
+    color: ColorManager.primaryColor,
+    size: 20,
+);
   int semester = 1;
   int selected = 0;
   @override
@@ -33,10 +38,7 @@ class _CategoriesState extends State<Categories> {
             children: [
               BlocBuilder<SemestersBloc,SemestersState>(builder: (context,state){
                 if(state is SemesterLoading){
-                  return Container(
-                    height: 50,
-                    width: size.width,
-                  );
+                 return LoadError(size: size, selected: selected);
                 }
                 if(state is SemesterGot){
                   return Container(
@@ -72,7 +74,7 @@ class _CategoriesState extends State<Categories> {
               );
                 }
                 if(state is SemesterError){
-
+                  return LoadError(size: size, selected: selected);
                 }
                 return Container();
               }),
@@ -95,25 +97,27 @@ class _CategoriesState extends State<Categories> {
                       text: "Subjects",
                       weight: FontWeightManager.semibold, family: FontConstants.fontPoppins, size: FontSize.s16),
                       SizedBox(height: 10,),
-                      Expanded(
-                        child: BlocBuilder<SubjectsBloc,SubjectsState>(builder: (context,state){
-                          if(state is SubjectLoading){
-
-                          }
-                          if(state is SubjectGot){
-                            return GridView.builder(
-                          shrinkWrap: true,
-                          physics: BouncingScrollPhysics(),
-                          itemCount: state.subjectModel.length,
-                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                         crossAxisCount: 3,  
-                         crossAxisSpacing: 7.0,  
-                       childAspectRatio: 2/2.1,
-                         mainAxisSpacing: 10.0
-                        ),
-                         itemBuilder: (context,index){
-
-                          return GestureDetector(
+                      BlocBuilder<SubjectsBloc,SubjectsState>(builder: (context,state){
+                        if(state is SubjectLoading){
+                          return Container(
+                            margin: EdgeInsets.only(top: 40),
+                            child: spinkit);
+                        }
+                        if(state is SubjectGot){
+                          return Expanded(
+                            child: GridView.builder(
+                                                  shrinkWrap: true,
+                                                  physics: BouncingScrollPhysics(),
+                                                  itemCount: state.subjectModel.length,
+                                                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                                 crossAxisCount: 3,  
+                                                 crossAxisSpacing: 7.0,  
+                                                 childAspectRatio: 2/2.1,
+                                                 mainAxisSpacing: 10.0
+                                                ),
+                                                 itemBuilder: (context,index){
+                          
+                                                  return GestureDetector(
                             onTap: (){
                               showModalBottomSheet(
                                 isScrollControlled: true,
@@ -148,17 +152,28 @@ class _CategoriesState extends State<Categories> {
                                 ],
                               ),
                             ),
+                                                  );
+                                                  }
+                                  
+                                                ),
                           );
-                          }
-        
-                        );
-                          }
-                          if(state is SubjectError){
-                            return Container();
-                          }
-                          return Container();
-                        })
-                      )  ,
+                        }
+                        if(state is SubjectError){
+                         return Container(
+                          margin: EdgeInsets.only(top: 40),
+                          height: 250,
+                          width: 200,
+                          child: Column(
+                            children: [
+                              Image.asset("assets/images/wrong.png"),
+                              SizedBox(height: 10,),
+                              DText(color: ColorManager.textColorBlack, text: "Something went wrong",
+                               weight: FontWeightManager.regular, family: FontConstants.fontPoppins, size: FontSize.s14)
+                            ],
+                          ));
+                        }
+                        return Container();
+                      })  ,
                       SizedBox(height: 80,)
 
                     ],
@@ -174,6 +189,40 @@ class _CategoriesState extends State<Categories> {
   }
 }
 
-// _subjects(size){
-//   return 
-// }
+class LoadError extends StatelessWidget {
+   LoadError({
+    super.key,
+    required this.size,
+    required this.selected,
+  });
+ final spinkit = SpinKitPulse(
+    color: Colors.white,
+    size: 20,
+);
+  final Size size;
+  final int selected;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+                height: 50,
+                width: size.width,
+                child: ListView.builder(
+     itemCount: 5,
+     scrollDirection: Axis.horizontal,
+     itemBuilder: (context,index){
+     return Container(
+       margin: EdgeInsets.only(top: 10,bottom: 5,right: 7,left: 7),
+       height: 25,
+       width: 100,
+       decoration: BoxDecoration(
+         color: selected==index?Theme.of(context).buttonColor: Theme.of(context).hoverColor,
+         borderRadius: BorderRadius.circular(20),
+         border: Border.all(width: 2,color: Colors.white),
+       ),
+       child: Center(child: spinkit,),
+     );
+                }),
+              );
+  }
+}
