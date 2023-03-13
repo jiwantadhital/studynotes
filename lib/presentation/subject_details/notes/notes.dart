@@ -94,7 +94,7 @@ class _NotesState extends State<Notes> {
                             id: state.chapterModel[index].id!.toInt()));
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
-                          return NotesDetails();
+                          return NotesDetails(chaptername: state.chapterModel[index].name??"",number: state.chapterModel[index].number??0,);
                         }));
                       },
                       child: BlocConsumer<LoadchapterBloc, LoadchapterState>(

@@ -84,7 +84,7 @@ return result.map((json) => SubjectDatabaseModel.fromJson(json)).toList();
 //readChapters
 Future<List<ChapterModelDatabase>> readAll(cid)async{
 final db = await  instance.database;
-final orderBy = '${ChapterFields.id} ASC';
+final orderBy = '${ChapterFields.c_id} ASC';
 
 final result = await db.query(tableChapter,orderBy: orderBy,
 where: "${ChapterFields.s_id} = ? ",

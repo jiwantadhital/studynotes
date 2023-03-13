@@ -7,6 +7,7 @@ import 'package:studynotes/controllers/news_controller.dart';
 import 'package:studynotes/controllers/notes_controller.dart';
 import 'package:studynotes/controllers/notices_controller.dart';
 import 'package:studynotes/local_databases/sqlite/chapter_database_controller.dart';
+import 'package:studynotes/logic/auth/editProfile/bloc/editprofile_bloc.dart';
 import 'package:studynotes/logic/auth/login/bloc/login_bloc.dart';
 import 'package:studynotes/logic/auth/otp/bloc/otp_bloc.dart';
 import 'package:studynotes/logic/auth/register/bloc/register_bloc.dart';
@@ -72,6 +73,9 @@ class App extends StatelessWidget {
           ),
           BlocProvider<RegisterBloc>(
             create: (BuildContext context) => RegisterBloc(authController: AuthController()),
+          ),
+           BlocProvider<EditprofileBloc>(
+            create: (BuildContext context) => EditprofileBloc(authController: AuthController()),
           ),
           BlocProvider<OtpBloc>(
             create: (BuildContext context) => OtpBloc(authController: AuthController()),

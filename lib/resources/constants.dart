@@ -2,8 +2,8 @@ class ApiClass{
   //localhost
     // static const mainApi = "http://10.0.2.2:8000/";
     // static const local = "http://10.0.2.2:8000/" ;
-    static const mainApi = "http://192.168.18.62:8000/";
-    static const local = "http://192.168.18.62:8000/" ;
+    static const mainApi = "http://192.168.42.223:8000/";
+    static const local = "http://192.168.42.223:8000/" ;
 
   //mock
   static const apiStart = "https://mocki.io/v1/";
@@ -14,6 +14,7 @@ class ApiClass{
   static const registerApi = "api/register";
   static const loginApi = "api/login";
   static const otpApi = "api/user";
+  static const editProfileApi = "api/update/profile";
 
   //notes
     static const subjectApi = "api/subjects/showAll";

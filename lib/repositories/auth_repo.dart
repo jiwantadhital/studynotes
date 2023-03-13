@@ -53,6 +53,33 @@ final body = {
 
 }
 
+//edit profile
+Future<http.Response> editProfileRepo(api,name,phone,sem,image) async{
+final body = {
+   "name" : name,
+    "phone" : phone,
+    "sem_id" : sem,
+    "image" : image
+  }; 
+  print(sem);
+   var res =await http.put(Uri.parse("${ApiClass.local}${api}"),
+  headers: {
+    "Content-Type": "application/json",
+    "Accept" : "application/json"
+  },
+  body: jsonEncode(body)
+  ).timeout(Duration(seconds: 10));
+  if(res.statusCode==200){
+    print("200");
+    return res;
+  }
+  else{
+    print(res.reasonPhrase);
+   throw Exception(res.reasonPhrase);
+  }
+
+}
+
 
 //otp
 Future<http.Response> otpRepo(api,num) async{

@@ -1,12 +1,20 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
+
 import 'package:studynotes/logic/notes/allNotes/bloc/allnotes_bloc.dart';
 import 'package:studynotes/presentation/extra_widgets/extra_widgets.dart';
 import 'package:studynotes/resources/colors.dart';
 
 class NotesDetails extends StatefulWidget {
-  const NotesDetails({super.key});
+  String chaptername;
+  int number;
+   NotesDetails({
+    Key? key,
+    required this.chaptername,
+    required this.number,
+  }) : super(key: key);
 
   @override
   State<NotesDetails> createState() => _NotesDetailsState();
@@ -46,19 +54,12 @@ class _NotesDetailsState extends State<NotesDetails> {
                   children: [
                 Center(
                   child: Text(
-                    "1",
+                    "Chapter ${widget.number} - ${widget.chaptername}",
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                ),
-                Center(
-                  child: Text("Chapter 1 - ",
-                      style: const TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.normal,
-                          fontFamily: 'Roboto')),
                 ),
                   ],
                 ),

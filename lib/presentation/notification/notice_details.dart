@@ -27,9 +27,11 @@ class _NoticeDetailsState extends State<NoticeDetails> {
         centerTitle: true,
         title: DText(color: ColorManager.textColorWhite, text: "New Notice", weight: font.FontWeightManager.bold, family: font.FontConstants.fontNunito, size: font.FontSize.s16),
       ),
-      body: Container(
-        padding: EdgeInsets.all(10),
-        child: Html(data: notice.description),
+      body: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.all(10),
+          child: Html(data: notice.description),
+        ),
       ),
     );
   }

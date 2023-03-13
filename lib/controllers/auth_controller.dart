@@ -31,6 +31,17 @@ var response = await authRepo.registerRepo("${ApiClass.registerApi}", name, emai
     print(response.body);
     return registerModel;
 }
+//editProfile
+var editProfileModel;
+
+  Future<EditProfileModel> editProfile(name, phone, sem,image)async{
+
+var response = await authRepo.editProfileRepo("${ApiClass.editProfileApi}/${UserSimplePreferences.getUserID()}", name, phone, sem,image);
+    var data = jsonDecode(response.body);
+    editProfileModel = EditProfileModel.fromJson(data);
+    print(response.body);
+    return editProfileModel;
+}
 
 
 //otp
