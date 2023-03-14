@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:studynotes/local_databases/sharedpreferences/shared_pref.dart';
 import 'package:studynotes/logic/notes/semesters/bloc/semesters_bloc.dart';
 import 'package:studynotes/logic/notes/subjects/bloc/subjects_bloc.dart';
 import 'package:studynotes/models/subject_model.dart';
@@ -19,6 +20,8 @@ class Categories extends StatefulWidget {
 }
 
 class _CategoriesState extends State<Categories> {
+    List<String> continueReading = UserSimplePreferences.getContinue()??[];
+
   List<SubjectModel> subject = [];
   final spinkit = SpinKitThreeBounce(
     color: ColorManager.primaryColor,
@@ -26,6 +29,11 @@ class _CategoriesState extends State<Categories> {
 );
   int semester = 1;
   int selected = 0;
+  @override
+  void initState() {
+    context.read<SubjectsBloc>()..add(SubjectGettingEvent(id: 1));
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -119,6 +127,13 @@ class _CategoriesState extends State<Categories> {
                           
                                                   return GestureDetector(
                             onTap: (){
+                                    if(continueReading.length>4){
+                         continueReading.contains(state.subjectModel[index].id.toString())?print("j"): continueReading.remove(continueReading.first);
+                        }
+                      continueReading.add(state.subjectModel[index].id.toString());
+                        continueReading = continueReading.toSet().toList();
+                        UserSimplePreferences.setContinue(continueReading);
+                        print(UserSimplePreferences.getContinue());
                               showModalBottomSheet(
                                 isScrollControlled: true,
                                 context: context,

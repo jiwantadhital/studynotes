@@ -18,7 +18,17 @@ import 'package:studynotes/resources/fonts.dart';
 import '../../home_pages/widgets/home_page_widgets.dart';
 
 class EditProfile extends StatefulWidget {
-  const EditProfile({super.key});
+  String? image;
+  String phone;
+  String college;
+  String sem;
+   EditProfile({
+    Key? key,
+    required this.image,
+    required this.phone,
+    required this.college,
+    required this.sem,
+  }) : super(key: key);
 
   @override
   State<EditProfile> createState() => _EditProfileState();
@@ -26,7 +36,10 @@ class EditProfile extends StatefulWidget {
 
 class _EditProfileState extends State<EditProfile> {
   File? image;
-  String? img;
+  String photo="";
+  String phone="";
+  String sem="";
+  String img = UserSimplePreferences.getGooglePhoto()??"";
   Future pickImage() async {
     try {
       final image = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -48,6 +61,17 @@ class _EditProfileState extends State<EditProfile> {
   var phoneController = TextEditingController();
   var collegeDrop = SingleValueDropDownController();
   var semesterDrop = SingleValueDropDownController();
+
+getAllData(){
+  phoneController = TextEditingController(text: widget.phone);
+ img = (widget.image??UserSimplePreferences.getGooglePhoto())!;
+}
+
+@override
+  void initState() {
+    getAllData();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +118,7 @@ class _EditProfileState extends State<EditProfile> {
                                 borderRadius: BorderRadius.circular(100),
                                 border: Border.all(width: 7, color: Colors.white),
                                 image: DecorationImage(
-                                    image: MemoryImage(base64Decode(img!)), fit: BoxFit.cover)),
+                                    image: MemoryImage(base64Decode(img)), fit: BoxFit.cover)),
                           )
                         : Container(
                             height: 100,
@@ -214,7 +238,7 @@ class _EditProfileState extends State<EditProfile> {
                           name: nameController.text,
                           phone: phoneController.text,
                           sem: semesterDrop.dropDownValue!.value.toString(),
-                          image: img!
+                          image: img
                           ));
                     },
                   );

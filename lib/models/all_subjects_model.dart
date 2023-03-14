@@ -1,4 +1,4 @@
-class SubjectModel {
+class AllSubjectModel {
   int? id;
   String? title;
   int? semId;
@@ -6,7 +6,7 @@ class SubjectModel {
   String? updatedAt;
   Semester? semester;
 
-  SubjectModel(
+  AllSubjectModel(
       {this.id,
       this.title,
       this.semId,
@@ -14,7 +14,7 @@ class SubjectModel {
       this.updatedAt,
       this.semester});
 
-  SubjectModel.fromJson(Map<String, dynamic> json) {
+  AllSubjectModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     title = json['title'];
     semId = json['sem_id'];
@@ -63,4 +63,3 @@ class Semester {
     return data;
   }
 }
-

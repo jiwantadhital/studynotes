@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:studynotes/local_databases/sharedpreferences/shared_pref.dart';
 import 'package:studynotes/local_databases/sqlite/chapter_database_controller.dart';
 import 'package:studynotes/logic/database/chapter_load/bloc/loadchapter_bloc.dart';
 import 'package:studynotes/logic/database/chapters/bloc/chapters_bloc.dart';
@@ -31,24 +32,6 @@ class _NotesState extends State<Notes> {
   NotesFunction notesFunction = NotesFunction();
   bool active = true;
   bool done = false;
-
-  // stoprefresh(){
-  //     Future.delayed(Duration(seconds: 1),(){
-  //     active = false;
-  //   });
-  // }
-
-//   refresh(){
-//      active=true;
-//    Future.delayed(Duration(milliseconds: 200), () {
-//   if(mounted){
-//     setState(() {
-//       if(active==true){
-//          }
-//   });
-//   }
-// });
-//   }
 
   @override
   void initState() {
@@ -89,7 +72,7 @@ class _NotesState extends State<Notes> {
                   itemCount: state.chapterModel.length,
                   itemBuilder: (context, index) {
                     return GestureDetector(
-                      onTap: () {
+                      onTap: () { 
                         context.read<AllnotesBloc>().add(AllnotesGettingEvent(
                             id: state.chapterModel[index].id!.toInt()));
                         Navigator.push(context,
@@ -238,7 +221,7 @@ class _NotesState extends State<Notes> {
                         child: Center(
                           child: DText(
                               color: Colors.white,
-                              text: "Downloaded",
+                              text: state.chapterId.isEmpty?"No Data": "Downloaded",
                               weight: FontWeightManager.semibold,
                               family: FontConstants.fontNunito,
                               size: FontSize.s13),
@@ -298,20 +281,7 @@ class _NotesState extends State<Notes> {
                             ));
                   }
                 }
-                return Container(
-                    height: 50,
-                    width: 120,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: ColorManager.primaryColor),
-                    child: Center(
-                      child: DText(
-                          color: Colors.white,
-                          text: "Downloaded",
-                          weight: FontWeightManager.semibold,
-                          family: FontConstants.fontNunito,
-                          size: FontSize.s13),
-                    ));
+                return Container();
               },
             );
             }

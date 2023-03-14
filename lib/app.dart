@@ -7,7 +7,9 @@ import 'package:studynotes/controllers/news_controller.dart';
 import 'package:studynotes/controllers/notes_controller.dart';
 import 'package:studynotes/controllers/notices_controller.dart';
 import 'package:studynotes/local_databases/sqlite/chapter_database_controller.dart';
+import 'package:studynotes/logic/allsubjects/bloc/allsubject_bloc.dart';
 import 'package:studynotes/logic/auth/editProfile/bloc/editprofile_bloc.dart';
+import 'package:studynotes/logic/auth/getProfile/bloc/profile_bloc.dart';
 import 'package:studynotes/logic/auth/login/bloc/login_bloc.dart';
 import 'package:studynotes/logic/auth/otp/bloc/otp_bloc.dart';
 import 'package:studynotes/logic/auth/register/bloc/register_bloc.dart';
@@ -62,11 +64,17 @@ class App extends StatelessWidget {
             BlocProvider<QuestionBloc>(
             create: (BuildContext context) => QuestionBloc(notesController: NotesController())
           ),
+            BlocProvider<AllsubjectBloc>(
+            create: (BuildContext context) => AllsubjectBloc(notesController: NotesController())..add(AllSubjectGettingEvent())
+          ),
            BlocProvider<SemestersBloc>(
             create: (BuildContext context) => SemestersBloc(notesController: NotesController())..add(SemesterGettingEvent())
           ),
           BlocProvider<NoticesBloc>(
             create: (BuildContext context) => NoticesBloc(noticeController: NoticeController())..add(NoticeGetEvent())
+          ),
+           BlocProvider<ProfileBloc>(
+            create: (BuildContext context) => ProfileBloc(authController: AuthController())..add(GetProfileEvent())
           ),
           BlocProvider<LoginBloc>(
             create: (BuildContext context) => LoginBloc(authController: AuthController()),

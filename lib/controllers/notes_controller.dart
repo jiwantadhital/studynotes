@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:studynotes/models/all_notes_model.dart';
+import 'package:studynotes/models/all_subjects_model.dart';
 import 'package:studynotes/models/chapter_model.dart';
 import 'package:studynotes/models/question_model.dart';
 import 'package:studynotes/models/qyear_model.dart';
@@ -33,6 +34,17 @@ class NotesController{
     List data = jsonDecode(response.body);
    subjectModel = data.map((e) => SubjectModel.fromJson(e)).toList();
     return data.map(((e)=> SubjectModel.fromJson(e))).toList();  
+  }
+
+
+  //allsubjects
+  List<AllSubjectModel>  allSubjectmodel = [];
+
+  Future<List<AllSubjectModel>> getAllSubject() async{
+    var response = await getRepository.getRepository("${ApiClass.allsubjectApi}");
+    List data = jsonDecode(response.body);
+   allSubjectmodel = data.map((e) => AllSubjectModel.fromJson(e)).toList();
+    return data.map(((e)=> AllSubjectModel.fromJson(e))).toList();  
   }
 
   //syllabus

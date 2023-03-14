@@ -19,11 +19,13 @@ class Notifications extends StatefulWidget {
 }
 
 class _NotificationsState extends State<Notifications> {
+  bool thisDay = true;
+  bool thisWeek = true;
   DateTime now = DateTime.now();
-  var fh = new DateFormat('H');
-    final f = new DateFormat('yyyy-M-d');
-    final f2 = new DateFormat('yyyy-MM-dd');
-    final fyear = new DateFormat('yyyy');
+  var fh =  DateFormat('H');
+    final f =  DateFormat('yyyy-M-d');
+    final f2 =  DateFormat('yyyy-MM-dd');
+    final fyear =  DateFormat('yyyy');
     int getWeekNumber(DateTime date) {
   int year = date.year;
   int dayOfYear = date.difference(DateTime(year, 1, 1)).inDays + 1;
@@ -36,6 +38,19 @@ class _NotificationsState extends State<Notifications> {
   return weekNumber;
 }
   bool search = false;
+  refresh(){
+    Future.delayed(Duration(milliseconds: 100),(){
+ setState(() {
+      
+    });
+    });
+   
+  }
+  @override
+  void initState() {
+    refresh();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,12 +113,12 @@ class _NotificationsState extends State<Notifications> {
                 if(state is NoticesGot){
                   return Column(
       children: [
-        Align(
+       thisDay==false? Align(
           alignment: Alignment.centerLeft,
           child: Padding(
             padding: const EdgeInsets.only(left: 10,top: 10),
             child: DText(color: ColorManager.textColorBlack, text: "Today", weight: FontWeightManager.bold, family: FontConstants.fontPoppins, size: FontSize.s20),
-          )),
+          )):Container(),
         ListView.builder(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
@@ -113,6 +128,10 @@ class _NotificationsState extends State<Notifications> {
            var mobileToday = "${now.year}-${now.month}-${now.day}"; 
            var hour =int.parse(fh.format(DateTime.parse(state.noticeModel[index].createdAt.toString())));
            var ago = now.hour-hour;
+           if(today == mobileToday){
+            thisDay = false;
+           }
+           else{thisDay = true;}
             return today==mobileToday?  NotificationsWidget(index: index,state: state,title: state.noticeModel[index].title??"", time: ago==0?"Just Now":"$ago h ago"):Container();
           })
             ]);
@@ -136,12 +155,12 @@ class _NotificationsState extends State<Notifications> {
                 if(state is NoticesGot){
                   return Column(
       children: [
-        Align(
+       thisWeek==false? Align(
           alignment: Alignment.centerLeft,
           child: Padding(
             padding: const EdgeInsets.only(left: 10,top: 10),
             child: DText(color: ColorManager.textColorBlack, text: "This Week", weight: FontWeightManager.bold, family: FontConstants.fontPoppins, size: FontSize.s20),
-          )),
+          )):Container(),
         ListView.builder(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
@@ -152,6 +171,10 @@ class _NotificationsState extends State<Notifications> {
             var backweek = getWeekNumber(DateTime.parse(tday));
             var frontWeek = getWeekNumber(DateTime.now());
             if(thisyear==now.year){
+                if(backweek == frontWeek){
+            thisWeek = false;
+           }
+           else{thisWeek = true;}
               return backweek==frontWeek? NotificationsWidget(index: index,state: state,title: state.noticeModel[index].title.toString(), time: tday):Container();
             }
             return Container();

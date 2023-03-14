@@ -13,6 +13,7 @@ class UserSimplePreferences {
   static const _remember = 'REMEMBER';
   static const _otp = 'OTP';
   static const _verfified = 'Verified';
+  static const _continueReading = 'Continue';
 
   static Future init() async =>
       _preferences = await SharedPreferences.getInstance();
@@ -38,6 +39,9 @@ class UserSimplePreferences {
    static Future setToken(String token) async {
     await _preferences?.setString(_token, token);
   }
+   static Future setContinue(List<String> continueReading) async {
+    await _preferences?.setStringList(_continueReading, continueReading);
+  }
 
   static Future setBiometrics(bool biometricsEnabled) async {
     await _preferences?.setBool(_biometrics, biometricsEnabled);
@@ -61,6 +65,7 @@ class UserSimplePreferences {
   static bool? getBiometric() => _preferences?.getBool(_biometrics);
   static bool? getVerified() => _preferences?.getBool(_verfified);
   static bool? getRemember() => _preferences?.getBool(_remember);
+   static List<String>? getContinue() => _preferences?.getStringList(_continueReading);
 
   //remove
   static Future removeEmailPassword()async{

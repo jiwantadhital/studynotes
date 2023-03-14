@@ -3,10 +3,12 @@ import 'dart:convert';
 import 'package:studynotes/local_databases/sharedpreferences/shared_pref.dart';
 import 'package:studynotes/models/auth_model.dart';
 import 'package:studynotes/repositories/auth_repo.dart';
+import 'package:studynotes/repositories/get_repo.dart';
 import 'package:studynotes/resources/constants.dart';
 
 class AuthController{
 AuthRepo authRepo = AuthRepo();
+GetRepo getRepo = GetRepo();
 
 //login
 var loginModel;
@@ -55,4 +57,17 @@ var response = await authRepo.otpRepo("${ApiClass.otpApi}/${UserSimplePreference
     print(response.body);
     return otpModel;
 }
+
+//all notes
+  ProfileModel profileModel = ProfileModel();
+  List profiles = [];
+
+  Future<ProfileModel> getProfile() async{
+    var response = await getRepo.getRepository("${ApiClass.showProfileApi}/${UserSimplePreferences.getUserID()}");
+    var data = jsonDecode(response.body);
+   profileModel = ProfileModel.fromJson(data);
+   profiles =[];
+   profiles.add(profileModel);
+    return ProfileModel.fromJson(data);  
+  }
 }
