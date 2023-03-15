@@ -8,6 +8,7 @@ import 'package:studynotes/logic/database/chapters/bloc/chapters_bloc.dart';
 import 'package:studynotes/logic/notes/chapters/bloc/chapter_bloc.dart';
 import 'package:studynotes/logic/notes/syllabus/bloc/syllabus_bloc.dart';
 import 'package:studynotes/logic/questions/bloc/question_bloc.dart';
+import 'package:studynotes/logic/solution/bloc/solutions_bloc.dart';
 
 import 'package:studynotes/presentation/home_pages/widgets/home_page_widgets.dart';
 import 'package:studynotes/presentation/subject_details/college_questions/college_questions.dart';
@@ -141,9 +142,10 @@ class _BottomOfCategoriesState extends State<BottomOfCategories> {
                         SizedBox(height: 15,),
               GestureDetector(
                 onTap: (){
+                 context.read<SolutionsBloc>()..add(SolutionGettingEvent(id: widget.sub_id, year_id: 1));
                          Navigator.push(context, 
               MaterialPageRoute(builder: (context){
-                return Solutions();
+                return Solutions(sub_id: widget.sub_id,);
               })
                   );
                 },

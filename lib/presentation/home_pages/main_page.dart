@@ -139,7 +139,7 @@ _notices(size) {
                                                 color:
                                                     ColorManager.textColorBlack,
                                                 text: state.noticeModel[index]
-                                                        .title ??
+                                                        .shortDescription ??
                                                     "",
                                                 weight: FontWeightManager.light,
                                                 family:
@@ -179,7 +179,7 @@ _notices(size) {
                         child: DText(
                             lines: 1,
                             color: ColorManager.textColorWhite,
-                            text: text,
+                            text: state.noticeModel[index].title??text,
                             weight: FontWeightManager.light,
                             family: FontConstants.fontNoto,
                             size: FontSize.s12),
@@ -350,6 +350,7 @@ class _MainPageState extends State<MainPage> {
     print(size.width);
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         elevation: 0,
         toolbarHeight: 65,
         title:  Top(size: size),

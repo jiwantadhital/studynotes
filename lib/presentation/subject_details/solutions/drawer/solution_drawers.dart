@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:studynotes/logic/notes/qyear/bloc/qyear_bloc.dart';
+import 'package:studynotes/logic/solution/bloc/solutions_bloc.dart';
 import 'package:studynotes/resources/colors.dart';
 import 'package:studynotes/resources/fonts.dart';
 
 import '../../../home_pages/widgets/home_page_widgets.dart';
 
 class SolutionDrawer extends StatelessWidget {
-  const SolutionDrawer({super.key});
+    final ValueChanged<String> onItemSelected;
+  int sub_id;
+   SolutionDrawer({required this.onItemSelected,required this.sub_id});
 
    @override
   Widget build(BuildContext context) {
@@ -40,11 +43,17 @@ class SolutionDrawer extends StatelessWidget {
                 itemBuilder: (context,index){
                   return Column(
                     children: [
-                      Container(
-                        padding: EdgeInsets.all(10),
-                        height: 50,
-                        width: 200,
-                        child: DText(color: ColorManager.textColorWhite, text: state.qyearModel[index].name??"", weight: FontWeightManager.semibold, family: FontConstants.fontNunito, size: FontSize.s13),
+                      GestureDetector(
+                        onTap: (){
+                          onItemSelected(state.qyearModel[index].name??"");
+                          context.read<SolutionsBloc>()..add(SolutionGettingEvent(id: sub_id, year_id: state.qyearModel[index].id!.toInt()));
+                        },
+                        child: Container(
+                          padding: EdgeInsets.all(10),
+                          height: 50,
+                          width: 200,
+                          child: DText(color: ColorManager.textColorWhite, text: state.qyearModel[index].name??"", weight: FontWeightManager.semibold, family: FontConstants.fontNunito, size: FontSize.s13),
+                        ),
                       ),
                       Divider(
               height: 2,

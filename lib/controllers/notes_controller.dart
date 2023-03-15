@@ -6,6 +6,7 @@ import 'package:studynotes/models/chapter_model.dart';
 import 'package:studynotes/models/question_model.dart';
 import 'package:studynotes/models/qyear_model.dart';
 import 'package:studynotes/models/semester_model.dart';
+import 'package:studynotes/models/solution_model.dart';
 import 'package:studynotes/models/subject_model.dart';
 import 'package:studynotes/models/syllabus_model.dart';
 import 'package:studynotes/repositories/get_repo.dart';
@@ -65,6 +66,16 @@ class NotesController{
     List data = jsonDecode(response.body);
    questionModel = data.map((e) => QuestionModel.fromJson(e)).toList();
     return data.map(((e)=> QuestionModel.fromJson(e))).toList();  
+  }
+
+  //solutions
+  List<SolutionModel>  solutionModel = [];
+
+  Future<List<SolutionModel>> getSolutions(id, year_id) async{
+    var response = await getRepository.getRepository("${ApiClass.solutionApi}/${id}/${year_id}");
+    List data = jsonDecode(response.body);
+   solutionModel = data.map((e) => SolutionModel.fromJson(e)).toList();
+    return data.map(((e)=> SolutionModel.fromJson(e))).toList();  
   }
 
   //question year

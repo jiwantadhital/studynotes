@@ -24,6 +24,7 @@ import 'package:studynotes/logic/notes/subjects/bloc/subjects_bloc.dart';
 import 'package:studynotes/logic/notes/syllabus/bloc/syllabus_bloc.dart';
 import 'package:studynotes/logic/notices/bloc/notices_bloc.dart';
 import 'package:studynotes/logic/questions/bloc/question_bloc.dart';
+import 'package:studynotes/logic/solution/bloc/solutions_bloc.dart';
 import 'package:studynotes/presentation/splash/splash_screen.dart';
 import 'package:studynotes/resources/colors.dart';
 
@@ -51,6 +52,9 @@ class App extends StatelessWidget {
           ),
            BlocProvider<AllnotesBloc>(
             create: (BuildContext context) => AllnotesBloc(notesController: NotesController())
+          ),
+          BlocProvider<SolutionsBloc>(
+            create: (BuildContext context) => SolutionsBloc(notesController: NotesController())
           ),
           BlocProvider<ChaptersBloc>(
             create: (BuildContext context) => ChaptersBloc(chapterDatabaseController: ChapterDatabaseController())

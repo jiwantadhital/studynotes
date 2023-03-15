@@ -12,6 +12,7 @@ import 'package:studynotes/presentation/setting/downloads/downloaded.dart';
 import 'package:studynotes/presentation/setting/edit_profile/edit_profile.dart';
 import 'package:studynotes/presentation/setting/report/report.dart';
 import 'package:studynotes/resources/colors.dart';
+import 'package:studynotes/resources/constants.dart';
 import 'package:studynotes/resources/fonts.dart';
 
 class SettingPage extends StatefulWidget {
@@ -78,7 +79,7 @@ class _SettingPageState extends State<SettingPage> {
                                   border:
                                       Border.all(width: 7, color: Colors.white),
                                   image: DecorationImage(
-                                      image: MemoryImage(base64Decode(state.profileModel.image??UserSimplePreferences.getGooglePhoto() ?? "")),
+                                      image: MemoryImage(base64Decode(state.profileModel.image??UserSimplePreferences.getGooglePhoto() ?? imageAll)),
                                       fit: BoxFit.cover)),
                             ),
                             Positioned(
