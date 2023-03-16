@@ -1,13 +1,13 @@
 class ApiClass{
   //localhost
-    static const mainApi = "http://10.0.2.2:8000/";
-    static const local = "http://10.0.2.2:8000/" ;
-    // static const mainApi = "http://192.168.42.206:8000/";
-    // static const local = "http://192.168.42.206:8000/" ;
+    // static const mainApi = "http://10.0.2.2:8000/";
+    // static const local = "http://10.0.2.2:8000/" ;
+    static const mainApi = "http://10.3.6.13:8000/";
+    static const local = "http://10.3.6.13:8000/" ;
 
   //mock
   static const apiStart = "https://mocki.io/v1/";
-  static const newsApi = "fcf31f03-913f-457f-8b05-950b91f6b45e";
+  static const newsApi = "api/news/showAll";
   static const noticeApi = "api/notices/showAll";
 
   //auth
@@ -27,6 +27,7 @@ class ApiClass{
      static const qyearApi = "api/questionyear/showAll";
      static const chapterApi = "api/chapters/showAll";
      static const allNotesApi = "api/notes/showAll";
+     static const labApi = "api/labs/showAll";
 }
 
 

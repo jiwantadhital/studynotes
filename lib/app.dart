@@ -18,6 +18,7 @@ import 'package:studynotes/logic/database/chapters/bloc/chapters_bloc.dart';
 import 'package:studynotes/logic/news/bloc/news_bloc.dart';
 import 'package:studynotes/logic/notes/allNotes/bloc/allnotes_bloc.dart';
 import 'package:studynotes/logic/notes/chapters/bloc/chapter_bloc.dart';
+import 'package:studynotes/logic/notes/lab/bloc/lab_bloc.dart';
 import 'package:studynotes/logic/notes/qyear/bloc/qyear_bloc.dart';
 import 'package:studynotes/logic/notes/semesters/bloc/semesters_bloc.dart';
 import 'package:studynotes/logic/notes/subjects/bloc/subjects_bloc.dart';
@@ -55,6 +56,9 @@ class App extends StatelessWidget {
           ),
           BlocProvider<SolutionsBloc>(
             create: (BuildContext context) => SolutionsBloc(notesController: NotesController())
+          ),
+          BlocProvider<LabBloc>(
+            create: (BuildContext context) => LabBloc(notesController: NotesController())
           ),
           BlocProvider<ChaptersBloc>(
             create: (BuildContext context) => ChaptersBloc(chapterDatabaseController: ChapterDatabaseController())

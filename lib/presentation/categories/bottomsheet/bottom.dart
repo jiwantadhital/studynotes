@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:studynotes/logic/database/chapter_load/bloc/loadchapter_bloc.dart';
 import 'package:studynotes/logic/database/chapters/bloc/chapters_bloc.dart';
 import 'package:studynotes/logic/notes/chapters/bloc/chapter_bloc.dart';
+import 'package:studynotes/logic/notes/lab/bloc/lab_bloc.dart';
 import 'package:studynotes/logic/notes/syllabus/bloc/syllabus_bloc.dart';
 import 'package:studynotes/logic/questions/bloc/question_bloc.dart';
 import 'package:studynotes/logic/solution/bloc/solutions_bloc.dart';
@@ -163,6 +164,7 @@ class _BottomOfCategoriesState extends State<BottomOfCategories> {
                         SizedBox(height: 15,),
               GestureDetector(
                 onTap: (){
+                  context.read<LabBloc>().add(LabGettingEvent(id: widget.sub_id));
                       Navigator.push(context, 
               MaterialPageRoute(builder: (context){
                 return Labs();

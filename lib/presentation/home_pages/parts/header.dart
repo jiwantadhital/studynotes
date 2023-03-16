@@ -184,6 +184,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:studynotes/logic/auth/getProfile/bloc/profile_bloc.dart';
 import 'package:studynotes/presentation/home_pages/widgets/home_page_widgets.dart';
 import 'package:studynotes/presentation/notification/notifications.dart';
 import 'package:studynotes/resources/colors.dart';
@@ -199,6 +201,13 @@ class Top extends StatelessWidget {
   });
 
   final Size size;
+
+getProfile(BuildContext context){
+  Future.delayed(Duration(milliseconds: 200),(){
+    context.read<ProfileBloc>().add(GetProfileEvent());
+  });
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -220,9 +229,9 @@ class Top extends StatelessWidget {
                                   Border.all(width: 2, color: Colors.white),
                               image: DecorationImage(
                                   image: MemoryImage(base64Decode(
-                                      UserSimplePreferences
+                                     context.read<ProfileBloc>().authController.profileModel.image??UserSimplePreferences
                                               .getGooglePhoto() ??
-                                          imageAll)),
+                                        imageAll)),
                                   fit: BoxFit.cover),
                             ),
                           ),

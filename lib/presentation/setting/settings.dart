@@ -157,7 +157,7 @@ class _SettingPageState extends State<SettingPage> {
                                       phone: state.profileModel.phone.toString(),
                                       college: "a",
                                       sem: state.profileModel.semId.toString(),
-                                      image: state.profileModel.image.toString(),
+                                      image: state.profileModel.image??imageAll,
                                     );
                                   })).then((value) {
                                     context.read<ProfileBloc>().add(GetProfileEvent());

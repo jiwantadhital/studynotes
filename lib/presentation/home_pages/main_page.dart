@@ -290,14 +290,13 @@ class _MainPageState extends State<MainPage> {
     FirebaseMessaging.instance.getToken().then((value) {
       token = value.toString();
     });
-
     // scrollController
     //   ..addListener(() {
     //     _appBarCollapsed ? round = 0 : round = 20;
     //     setState(() {});
     //   });
     super.initState();
-
+  FirebaseMessaging.instance.subscribeToTopic("all");
     FirebaseMessaging.instance.getInitialMessage().then(
       (message) {
         print("FirebaseMessaging.instance.getInitialMessage");
@@ -346,6 +345,7 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    print(token);
     var size = MediaQuery.of(context).size;
     print(size.width);
     return Scaffold(
@@ -367,7 +367,7 @@ class _MainPageState extends State<MainPage> {
         child:  Column(
             children: [
                   Container(
-                    padding: EdgeInsets.all(10),
+                    padding: EdgeInsets.all(12),
                     height: 70,
                     width: size.width,
                     color: ColorManager.primaryColor,
@@ -515,9 +515,11 @@ class _MainPageState extends State<MainPage> {
                                                 borderRadius:
                                                     BorderRadius.circular(10),
                                                 image: DecorationImage(
-                                                  image: NetworkImage(state
+                                                  image: NetworkImage(
+                                                    "http://10.3.6.13:8000/uploads/images/news/${state
                                                       .newsModel[index].image
-                                                      .toString()),
+                                                      .toString()}"
+                                                  ),
                                                   fit: BoxFit.cover,
                                                 )),
                                           ),

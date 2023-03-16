@@ -49,7 +49,8 @@ class _NewsDetailsState extends State<NewsDetails> {
                     height: 260,
                     decoration: BoxDecoration(
                       color: ColorManager.primaryColor,
-                      image: DecorationImage(image: NetworkImage(news.image.toString()),fit: BoxFit.cover)
+                      image: DecorationImage(image: NetworkImage("http://10.3.6.13:8000/uploads/images/news/${news.image
+                                                      .toString()}"),fit: BoxFit.cover)
                     ),
                   ),),
           NestedScrollView(
@@ -98,7 +99,8 @@ class _NewsDetailsState extends State<NewsDetails> {
                   background: Container(
                     // height: 300,
                     decoration: BoxDecoration(
-                      image: DecorationImage(image: NetworkImage(news.image.toString()),fit: BoxFit.cover)
+                      image: DecorationImage(image: NetworkImage("http://10.3.6.13:8000/uploads/images/news/${news.image
+                                                      .toString()}"),fit: BoxFit.cover)
                     ),
                   ),
                 ),
@@ -125,7 +127,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                           family: FontConstants.fontPoppins, size: FontSize.s24),
                           SizedBox(height: 10,),
                           DText(color: dark==true? ColorManager.textColorWhite.withOpacity(0.4):ColorManager.textColorBlack.withOpacity(0.7),
-                          text: news.desc??"", weight: FontWeightManager.regular,
+                          text: news.description??"", weight: FontWeightManager.regular,
                           family: FontConstants.fontNoto, size: FontSize.s16),
                         ],
                       ),

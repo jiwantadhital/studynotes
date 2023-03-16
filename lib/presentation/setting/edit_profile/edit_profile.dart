@@ -13,6 +13,7 @@ import 'package:studynotes/logic/auth/editProfile/bloc/editprofile_bloc.dart';
 import 'package:studynotes/presentation/auth_pages/auth_widgets/auth_widgets.dart';
 import 'package:studynotes/presentation/extra_widgets/extra_widgets.dart';
 import 'package:studynotes/resources/colors.dart';
+import 'package:studynotes/resources/constants.dart';
 import 'package:studynotes/resources/fonts.dart';
 
 import '../../home_pages/widgets/home_page_widgets.dart';
@@ -127,9 +128,7 @@ getAllData(){
                                 borderRadius: BorderRadius.circular(100),
                                 border: Border.all(width: 7, color: Colors.white),
                                 image: DecorationImage(
-                                    image: NetworkImage(UserSimplePreferences
-                                            .getGooglePhoto() ??
-                                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2WPSnSP44UbxEKVUsVg8AT2Sf43whBNwsHw&usqp=CAU"),
+                                    image:MemoryImage(base64Decode(imageAll)),
                                     fit: BoxFit.cover)),
                           ),
                     Positioned(
