@@ -27,6 +27,28 @@ final body = {
 
 }
 
+//google
+Future<http.Response> googleRepo(api, token) async{
+final body = {
+    "token" : token,
+  };
+  var res =await http.post(Uri.parse("${ApiClass.local}${api}"),
+  headers: {
+    "Content-Type": "application/json",
+    "Accept" : "application/json"
+  },
+  body: jsonEncode(body)
+  ).timeout(Duration(seconds: 10));
+  if(res.statusCode==200){
+    return res;
+  }
+  else{
+    print(res.statusCode);
+   throw Exception(res.reasonPhrase);
+  }
+
+}
+
 //register
 Future<http.Response> registerRepo(api,name,email, password,phone,) async{
 final body = {

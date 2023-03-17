@@ -16,6 +16,7 @@ class ApiClass{
   static const otpApi = "api/user";
   static const editProfileApi = "api/update/profile";
   static const showProfileApi = "api/profile/getProfile";
+  static const googleApi = "api/requestTokenGoogle";
 
   //notes
     static const subjectApi = "api/subjects/showAll";

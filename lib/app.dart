@@ -10,6 +10,7 @@ import 'package:studynotes/local_databases/sqlite/chapter_database_controller.da
 import 'package:studynotes/logic/allsubjects/bloc/allsubject_bloc.dart';
 import 'package:studynotes/logic/auth/editProfile/bloc/editprofile_bloc.dart';
 import 'package:studynotes/logic/auth/getProfile/bloc/profile_bloc.dart';
+import 'package:studynotes/logic/auth/google/bloc/google_bloc.dart';
 import 'package:studynotes/logic/auth/login/bloc/login_bloc.dart';
 import 'package:studynotes/logic/auth/otp/bloc/otp_bloc.dart';
 import 'package:studynotes/logic/auth/register/bloc/register_bloc.dart';
@@ -89,6 +90,9 @@ class App extends StatelessWidget {
           ),
           BlocProvider<RegisterBloc>(
             create: (BuildContext context) => RegisterBloc(authController: AuthController()),
+          ),
+           BlocProvider<GoogleBloc>(
+            create: (BuildContext context) => GoogleBloc(authController: AuthController()),
           ),
            BlocProvider<EditprofileBloc>(
             create: (BuildContext context) => EditprofileBloc(authController: AuthController()),
