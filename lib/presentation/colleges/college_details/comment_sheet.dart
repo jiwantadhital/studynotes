@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:studynotes/presentation/home_pages/widgets/home_page_widgets.dart';
 import 'package:studynotes/resources/colors.dart';
 import 'package:studynotes/resources/fonts.dart';
@@ -13,7 +14,7 @@ class CommentSheet extends StatelessWidget {
       child: Scaffold(
         resizeToAvoidBottomInset: true,
         body: Container(
-          padding: EdgeInsets.only(left: 10, right: 10, top: 20, bottom: 10),
+          padding: const EdgeInsets.only(left: 10, right: 10, top: 20, bottom: 10),
           // width: double.infinity,
           height: MediaQuery.of(context).size.height * 0.65,
           decoration: BoxDecoration(
@@ -68,128 +69,36 @@ class _ItemsState extends State<Items> {
                 size: FontSize.s14,
               )),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Container(
               height: 80,
-              width: double.maxFinite,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Container(
-                    padding: EdgeInsets.only(left: 10, right: 10),
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Column(
-                          children: [
-                             DText(
-                          text: "1⭐",
-                          color: ColorManager.primaryColor,
-                          family: FontConstants.fontNunito,
-                          weight: FontWeightManager.bold,
-                          size: 15,
-                        ),
-                        Radio(
-                            value: 1,
-                            groupValue: _value,
-                            onChanged: (int? value) {
-                              setState(() {
-                                _value = value!;
-                              });
-                            }),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                                DText(
-                          text: "2⭐",
-                          color: ColorManager.primaryColor,
-                          family: FontConstants.fontNunito,
-                          weight: FontWeightManager.bold,
-                          size: 15,
-                        ),
-                        Radio(
-                            value: 2,
-                            groupValue: _value,
-                            onChanged: (int? value) {
-                              setState(() {
-                                _value = value!;
-                              });
-                            }),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                                 DText(
-                          text: "3⭐",
-                          color: ColorManager.primaryColor,
-                          family: FontConstants.fontNunito,
-                          weight: FontWeightManager.bold,
-                          size: 15,
-                        ),
-                        Radio(
-                            value: 3,
-                            groupValue: _value,
-                            onChanged: (int? value) {
-                              setState(() {
-                                _value = value!;
-                              });
-                            }),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                                DText(
-                          text: "4⭐",
-                          color: ColorManager.primaryColor,
-                          family: FontConstants.fontNunito,
-                          weight: FontWeightManager.bold,
-                          size: 15,
-                        ),
-                        Radio(
-                            value: 4,
-                            groupValue: _value,
-                            onChanged: (int? value) {
-                              setState(() {
-                                _value = value!;
-                              });
-                            }),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                                 DText(
-                          text: "5⭐",
-                          color: ColorManager.primaryColor,
-                          family: FontConstants.fontNunito,
-                          weight: FontWeightManager.bold,
-                          size: 15,
-                        ),
-                        Radio(
-                            value: 5,
-                            groupValue: _value,
-                            onChanged: (int? value) {
-                              setState(() {
-                                _value = value!;
-                              });
-                            })
-                          ],
-                        ),
-                       
-                   
-                    
-                     
-                       
-                      ],
-                    ),
+              width: MediaQuery.of(context).size.width,
+              child: Container(
+                padding: const EdgeInsets.only(left: 10, right: 10),
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: Align(
+                  alignment: Alignment.center,
+                  child: RatingBar.builder(
+                    initialRating: 3,
+                          minRating: 1,
+                    direction: Axis.horizontal,
+                       itemCount: 5,
+                          itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                   itemBuilder: (context, _) => const Icon(
+                              Icons.star,
+                              color: Colors.amber,
+                              ),
+                    onRatingUpdate: (rating) {
+                      _value = rating.toInt();
+                        print(rating);
+                             }, 
                   ),
-                ],
+                )
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             TextField(
@@ -205,17 +114,17 @@ class _ItemsState extends State<Items> {
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10))),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
-            SizedBox(height: 20,),
+            const SizedBox(height: 20,),
             GestureDetector(
               onTap: ()async {
                 setState(() {
                   afterSubmit = Container(
                       height: 25,
                       width: 25,
-                      child: CircularProgressIndicator(
+                      child: const CircularProgressIndicator(
                         color: Colors.white,
                       ));
                 });
@@ -234,7 +143,7 @@ class _ItemsState extends State<Items> {
                   afterSubmit = Container(
                       height: 25,
                       width: 25,
-                      child: CircularProgressIndicator(
+                      child: const CircularProgressIndicator(
                         color: Colors.white,
                       ));
                 });

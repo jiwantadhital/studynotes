@@ -1,14 +1,19 @@
+import 'dart:convert';
+
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:studynotes/local_databases/sharedpreferences/shared_pref.dart';
 import 'package:studynotes/logic/auth/google/bloc/google_bloc.dart';
+import 'package:studynotes/presentation/extra_widgets/extra_widgets.dart';
+import 'package:studynotes/resources/constants.dart';
 
 class GoogleSignInApi{
   static final _googleSignIn = GoogleSignIn();
   static Future<GoogleSignInAccount?> login(context) => _googleSignIn.signIn().then((userData) {
-    userData!.authentication.then((gkey){
-      BlocProvider.of<GoogleBloc>(context).add(GoogleLoginEvent(token: gkey.toString()));
-    UserSimplePreferences.setGooglePhoto(userData.photoUrl!);
+    userData!.authentication.then((gkey)async{
+      BlocProvider.of<GoogleBloc>(context).add(GoogleLoginEvent(token: gkey.accessToken.toString()));
+      await networkImageToBase64(userData.photoUrl.toString());
+    UserSimplePreferences.setGooglePhoto(bytes);
     });
   }
    );

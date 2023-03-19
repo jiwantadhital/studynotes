@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:studynotes/resources/colors.dart';
+import 'package:http/http.dart' as http;
 
 class DoubleTappableInteractiveViewer extends StatefulWidget {
   final double scale;
@@ -93,7 +96,13 @@ class _DoubleTappableInteractiveViewerState extends State<DoubleTappableInteract
 
 
 //loading
-
+//base convert
+var bytes="";
+Future<String> networkImageToBase64(String imageUrl) async {
+    http.Response response = await http.get(Uri.parse(imageUrl));
+     bytes = base64Encode(response.bodyBytes);
+    return bytes;
+}
 class DialogBox{
 
 dialogbox(context){
@@ -114,6 +123,7 @@ dialogbox(context){
                               );
                                         });
 }
+
 //download
 downloadbox(context){
   return showDialog(
