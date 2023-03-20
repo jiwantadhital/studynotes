@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:studynotes/logic/institute/comments/bloc/comments_bloc.dart';
+import 'package:studynotes/logic/institute/images/bloc/image_bloc.dart';
+import 'package:studynotes/logic/institute/main/bloc/institute_bloc.dart';
 import 'package:studynotes/presentation/bottom_navigation/bottom_navigation_bar.dart';
 import 'package:studynotes/presentation/colleges/college_details/college_details.dart';
 import 'package:studynotes/presentation/home_pages/widgets/home_page_widgets.dart';
@@ -38,7 +42,7 @@ class _CollegesState extends State<Colleges> {
         ],
         centerTitle: true,
         // backgroundColor: ColorManager.primaryColor,
-        title: search==false? DText(color: ColorManager.textColorWhite, text: "Colleges", weight: FontWeightManager.bold, family: FontConstants.fontNunito, size: FontSize.s16):
+        title: search==false? DText(color: ColorManager.textColorWhite, text: "Institutes", weight: FontWeightManager.bold, family: FontConstants.fontNunito, size: FontSize.s16):
         TextField(
           onTap: (){
            BottomBarPage.setLocale(context,true);
@@ -59,7 +63,7 @@ setState(() {
           autofocus: true,
         decoration: InputDecoration(
           border: InputBorder.none,
-          hintText: "Search for colleges",
+          hintText: "Search for institutes",
           labelStyle: TextStyle(
             color: Colors.white
           ),
@@ -85,14 +89,22 @@ setState(() {
         child: Column(
           children: [
             SizedBox(height: 10,),
-            GridView.builder(
+            BlocBuilder<InstituteBloc,InstituteState>(builder: (context,state){
+              if(state is InstituteLoading){
+                return Center(child: CircularProgressIndicator(),);
+              }
+              if(state is InstituteError){
+                return Center(child: Text("Error"),);
+              }
+              if(state is InstituteLoaded){
+                return GridView.builder(
               shrinkWrap: true,
                         physics: BouncingScrollPhysics(),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
                   childAspectRatio: 0.66,
                 ), 
-                itemCount: 12,
+                itemCount: state.instituteModel.length,
                 itemBuilder: (context, index){
                   return GestureDetector(
                     child: Container(
@@ -102,8 +114,10 @@ setState(() {
                         children: [
                           GestureDetector(
                             onTap: (){
+                              context.read<ImageBloc>()..add(ImageGettingEvent(id: state.instituteModel[index].id!.toInt()));
+                              context.read<CommentsBloc>()..add(CommentsGettingEvent(id: state.instituteModel[index].id!.toInt()));
                          Navigator.push(context, MaterialPageRoute(builder: (context){
-                        return CollegeDetail();
+                        return CollegeDetail(index: index,);
                       }));
                             },
                             child: Container(
@@ -123,7 +137,7 @@ setState(() {
                         padding: const EdgeInsets.only(left: 5,right: 5),
                         child:  DText(
                           lines: 3,
-                          color: ColorManager.textColorBlack, text: "Orchild International College", weight: FontWeightManager.regular, family: FontConstants.fontNunito, size: FontSize.s12),
+                          color: ColorManager.textColorBlack, text: state.instituteModel[index].name.toString(), weight: FontWeightManager.regular, family: FontConstants.fontNunito, size: FontSize.s12),
                         
                       ),
                         ],
@@ -131,7 +145,10 @@ setState(() {
                     ),
                   );
                 }
-                      ),
+                      );
+              }
+              return Center(child: Text("Something went wrong"),);
+            }),
                       SizedBox(height: 35,)
           ],
         ),

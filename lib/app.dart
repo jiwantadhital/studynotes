@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:studynotes/controllers/auth_controller.dart';
+import 'package:studynotes/controllers/institute_controller.dart';
 import 'package:studynotes/controllers/news_controller.dart';
 import 'package:studynotes/controllers/notes_controller.dart';
 import 'package:studynotes/controllers/notices_controller.dart';
@@ -16,6 +17,10 @@ import 'package:studynotes/logic/auth/otp/bloc/otp_bloc.dart';
 import 'package:studynotes/logic/auth/register/bloc/register_bloc.dart';
 import 'package:studynotes/logic/database/chapter_load/bloc/loadchapter_bloc.dart';
 import 'package:studynotes/logic/database/chapters/bloc/chapters_bloc.dart';
+import 'package:studynotes/logic/institute/comments/bloc/comments_bloc.dart';
+import 'package:studynotes/logic/institute/images/bloc/image_bloc.dart';
+import 'package:studynotes/logic/institute/main/bloc/institute_bloc.dart';
+import 'package:studynotes/logic/institute/pcomments/bloc/pcomments_bloc.dart';
 import 'package:studynotes/logic/news/bloc/news_bloc.dart';
 import 'package:studynotes/logic/notes/allNotes/bloc/allnotes_bloc.dart';
 import 'package:studynotes/logic/notes/chapters/bloc/chapter_bloc.dart';
@@ -93,6 +98,18 @@ class App extends StatelessWidget {
           ),
            BlocProvider<GoogleBloc>(
             create: (BuildContext context) => GoogleBloc(authController: AuthController()),
+          ),
+          BlocProvider<InstituteBloc>(
+            create: (BuildContext context) => InstituteBloc(instituteController: InstituteController())..add(InstituteGettingEvent()),
+          ),
+          BlocProvider<ImageBloc>(
+            create: (BuildContext context) => ImageBloc(instituteController: InstituteController()),
+          ),
+          BlocProvider<CommentsBloc>(
+            create: (BuildContext context) => CommentsBloc(instituteController: InstituteController()),
+          ),
+          BlocProvider<PcommentsBloc>(
+            create: (BuildContext context) => PcommentsBloc(instituteController: InstituteController()),
           ),
            BlocProvider<EditprofileBloc>(
             create: (BuildContext context) => EditprofileBloc(authController: AuthController()),
