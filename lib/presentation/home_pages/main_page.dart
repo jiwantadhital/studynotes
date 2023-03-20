@@ -6,6 +6,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:studynotes/controllers/news_controller.dart';
 import 'package:studynotes/local_databases/sharedpreferences/shared_pref.dart';
 import 'package:studynotes/logic/allsubjects/bloc/allsubject_bloc.dart';
 import 'package:studynotes/logic/news/bloc/news_bloc.dart';
@@ -28,47 +29,7 @@ _notices(size) {
   return BlocConsumer<NoticesBloc, NoticesState>(
       builder: (context, state) {
         if (state is NoticesLoading) {
-          return Container(
-            height: 140,
-            width: double.maxFinite,
-            child: Column(
-              children: [
-                Container(
-                  padding: EdgeInsets.only(left: 10, right: 10),
-                  margin: EdgeInsets.only(
-                    left: 15,
-                    right: 15,
-                    bottom: 5,
-                  ),
-                  height: 40,
-                  width: double.maxFinite,
-                  decoration: BoxDecoration(color: Colors.grey[200]),
-                ),
-                Container(
-                  padding: EdgeInsets.only(left: 10, right: 10),
-                  margin: EdgeInsets.only(
-                    left: 15,
-                    right: 15,
-                    bottom: 5,
-                  ),
-                  height: 40,
-                  width: double.maxFinite,
-                  decoration: BoxDecoration(color: Colors.grey[200]),
-                ),
-                Container(
-                  padding: EdgeInsets.only(left: 10, right: 10),
-                  margin: EdgeInsets.only(
-                    left: 15,
-                    right: 15,
-                    bottom: 5,
-                  ),
-                  height: 40,
-                  width: double.maxFinite,
-                  decoration: BoxDecoration(color: Colors.grey[200]),
-                ),
-              ],
-            ),
-          );
+          return NoticeLoadError();
         }
         if (state is NoticesGot) {
           return Container(
@@ -77,7 +38,7 @@ _notices(size) {
                 padding: EdgeInsets.only(top: 5),
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
-                itemCount: 3,
+                itemCount: state.noticeModel.isEmpty?0: 3,
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () {
@@ -190,11 +151,62 @@ _notices(size) {
           );
         }
         if (state is NoticesError) {
-          print("error");
+        return NoticeLoadError();
         }
-        return Text("wrong");
+        return NoticeLoadError();
       },
       listener: (context, state) {});
+}
+
+class NoticeLoadError extends StatelessWidget {
+  const NoticeLoadError({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 140,
+      width: double.maxFinite,
+      child: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.only(left: 10, right: 10),
+            margin: EdgeInsets.only(
+              left: 15,
+              right: 15,
+              bottom: 5,
+            ),
+            height: 40,
+            width: double.maxFinite,
+            decoration: BoxDecoration(color: Colors.grey[200]),
+          ),
+          Container(
+            padding: EdgeInsets.only(left: 10, right: 10),
+            margin: EdgeInsets.only(
+              left: 15,
+              right: 15,
+              bottom: 5,
+            ),
+            height: 40,
+            width: double.maxFinite,
+            decoration: BoxDecoration(color: Colors.grey[200]),
+          ),
+          Container(
+            padding: EdgeInsets.only(left: 10, right: 10),
+            margin: EdgeInsets.only(
+              left: 15,
+              right: 15,
+              bottom: 5,
+            ),
+            height: 40,
+            width: double.maxFinite,
+            decoration: BoxDecoration(color: Colors.grey[200]),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 //continue reading
@@ -215,7 +227,7 @@ _continueReading(size) {
         child: ListView.builder(
             shrinkWrap: true,
             scrollDirection: Axis.horizontal,
-            itemCount:data.isEmpty?4: data.length,
+            itemCount:state.allSubjectModel.isEmpty?0: data.isEmpty?4: data.length,
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
@@ -348,219 +360,234 @@ class _MainPageState extends State<MainPage> {
     print(token);
     var size = MediaQuery.of(context).size;
     print(size.width);
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        elevation: 0,
-        toolbarHeight: 65,
-        title:  Top(size: size),
-      ),
-      body:
-      NotificationListener<OverscrollIndicatorNotification>(
-  onNotification: (OverscrollIndicatorNotification overscroll) {
-    overscroll.disallowIndicator();
-    return false;
+    return RefreshIndicator(
+       displacement: 250,
+  backgroundColor: Colors.white,
+  color: ColorManager.primaryColor,
+  strokeWidth: 3,
+  triggerMode: RefreshIndicatorTriggerMode.onEdge,
+  onRefresh: () async {
+    await Future.delayed(Duration(milliseconds: 1000));
+    setState(() {
+      context.read<AllsubjectBloc>().add(AllSubjectGettingEvent());
+      context.read<NoticesBloc>().add(NoticeGetEvent());
+      context.read<NewsBloc>().add(NewsGetEvent());
+    });
   },
-      child: SingleChildScrollView(   
-
-        physics: ClampingScrollPhysics(),      
-        child:  Column(
-            children: [
-                  Container(
-                    padding: EdgeInsets.all(12),
-                    height: 70,
-                    width: size.width,
-                    color: ColorManager.primaryColor,
-                    child:  OpenContainer(
-              transitionDuration: Duration(milliseconds: 500),
-              transitionType: _transitionType,
-              closedBuilder: (BuildContext _, VoidCallback openContainer){
-                return  Stack(
-              alignment: Alignment.centerRight,
+      child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          elevation: 0,
+          toolbarHeight: 65,
+          title:  Top(size: size),
+        ),
+        body:
+        NotificationListener<OverscrollIndicatorNotification>(
+      onNotification: (OverscrollIndicatorNotification overscroll) {
+      overscroll.disallowIndicator();
+      return false;
+      },
+        child: SingleChildScrollView(   
+    
+          physics: ClampingScrollPhysics(),      
+          child:  Column(
               children: [
-               
-                Container(
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10)
-                  ),
-                    child: Row(
-                      children: [
-                        SizedBox(width: 10,),
-                        Icon(Icons.search,color: Colors.grey,),
-                        SizedBox(width: 10,),
-                        DText(color: Colors.grey, text: "Search all subjects", weight: FontWeightManager.medium, family: FontConstants.fontNunito, size: FontSize.s12)
-                      ],
-                    ),
-                ),
-                Positioned(
-                  right: 10,
-                  child: Container(
-                    height: 40,
-                    width: 40,
+                    Container(
+                      padding: EdgeInsets.all(12),
+                      height: 70,
+                      width: size.width,
+                      color: ColorManager.primaryColor,
+                      child:  OpenContainer(
+                transitionDuration: Duration(milliseconds: 500),
+                transitionType: _transitionType,
+                closedBuilder: (BuildContext _, VoidCallback openContainer){
+                  return  Stack(
+                alignment: Alignment.centerRight,
+                children: [
+                 
+                  Container(
+                    height: 50,
                     decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor,
+                      color: Colors.white,
                       borderRadius: BorderRadius.circular(10)
                     ),
-                    child: const Center(child: Icon(Icons.menu,color: Colors.white,),),
+                      child: Row(
+                        children: [
+                          SizedBox(width: 10,),
+                          Icon(Icons.search,color: Colors.grey,),
+                          SizedBox(width: 10,),
+                          DText(color: Colors.grey, text: "Search all subjects", weight: FontWeightManager.medium, family: FontConstants.fontNunito, size: FontSize.s12)
+                        ],
+                      ),
                   ),
-                  ),
-              ],
-            );
-              },
-               openBuilder: (BuildContext _, VoidCallback __){
-                    return OpenSearchPage();
-                   }
-              ),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Topics(
-                    text: "Continue reading",
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  _continueReading(size),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Topics(
-                    text: "Recent Notices",
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) {
-                        return Notifications();
-                      }));
-                    },
-                  ),
-                  // SizedBox(height: 5,),
-                  _notices(size),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Topics(text: "Latest News"),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  BlocConsumer<NewsBloc, NewsState>(
-                      builder: ((context, state) {
-                        if (state is NewsLoading) {
-                          return Column(
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(
-                                    left: 15, right: 15, top: 10, bottom: 10),
-                                height: 120,
-                                width: double.maxFinite,
-                                child: Row(
-                                  children: [
-                                    Loading(size: size),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Loading(size: size)
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(left: 15, right: 15),
-                                height: 120,
-                                width: double.maxFinite,
-                                child: Row(
-                                  children: [
-                                    Loading(size: size),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Loading(size: size)
-                                  ],
-                                ),
-                              ),
-                            ],
-                          );
-                        }
-                        if (state is NewsGot) {
-                          return Container(
-                            child: GridView.builder(
-                                padding: EdgeInsets.all(0),
-                                shrinkWrap: true,
-                                physics: NeverScrollableScrollPhysics(),
-                                gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2,
-                                  childAspectRatio:
-                                      size.width < 370 ? 4 / 3.7 : 4 / 3.5,
-                                ),
-                                itemCount: state.newsModel.length,
-                                itemBuilder: (context, index) {
-                                  return GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(context,
-                                          MaterialPageRoute(builder: (context) {
-                                        return NewsDetails(
-                                          index: index,
-                                        );
-                                      }));
-                                    },
-                                    child: Container(
-                                      margin: EdgeInsets.all(10),
-                                      child: Column(
-                                        children: [
-                                          Container(
-                                            // margin: EdgeInsets.only(left: 5,right: 5),
-                                            height: 100,
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                image: DecorationImage(
-                                                  image: NetworkImage(
-                                                    "http://10.3.6.13:8000/uploads/images/news/${state
-                                                      .newsModel[index].image
-                                                      .toString()}"
-                                                  ),
-                                                  fit: BoxFit.cover,
-                                                )),
-                                          ),
-                                          SizedBox(
-                                            height: 5,
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(5.0),
-                                            child: DText(
-                                                lines: 2,
-                                                color: ColorManager.textColorBlack,
-                                                text: state.newsModel[index].title
-                                                    .toString(),
-                                                weight: FontWeightManager.regular,
-                                                family: FontConstants.fontNoto,
-                                                size: FontSize.s11),
-                                          )
-                                        ],
+                  Positioned(
+                    right: 10,
+                    child: Container(
+                      height: 40,
+                      width: 40,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).primaryColor,
+                        borderRadius: BorderRadius.circular(10)
+                      ),
+                      child: const Center(child: Icon(Icons.menu,color: Colors.white,),),
+                    ),
+                    ),
+                ],
+              );
+                },
+                 openBuilder: (BuildContext _, VoidCallback __){
+                      return OpenSearchPage();
+                     }
+                ),
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Topics(
+                      text: "Continue reading",
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    _continueReading(size),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Topics(
+                      text: "Recent Notices",
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) {
+                          return Notifications();
+                        }));
+                      },
+                    ),
+                    // SizedBox(height: 5,),
+                    _notices(size),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Topics(text: "Latest News"),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    BlocConsumer<NewsBloc, NewsState>(
+                        builder: ((context, state) {
+                          if (state is NewsLoading) {
+                            return Column(
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.only(
+                                      left: 15, right: 15, top: 10, bottom: 10),
+                                  height: 120,
+                                  width: double.maxFinite,
+                                  child: Row(
+                                    children: [
+                                      Loading(size: size),
+                                      SizedBox(
+                                        width: 10,
                                       ),
-                                    ),
-                                  );
-                                }),
-                          );
-                        }
-                        if (state is NewsError) {
-                          print(state.message);
-                          return Center(child: Text("Something went wrong"));
-                        }
-                        return Text("error");
-                      }),
-                      listener: (context, state) {}),
-                  SizedBox(
-                    height: 60,
-                  )
+                                      Loading(size: size)
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  margin: EdgeInsets.only(left: 15, right: 15),
+                                  height: 120,
+                                  width: double.maxFinite,
+                                  child: Row(
+                                    children: [
+                                      Loading(size: size),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Loading(size: size)
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            );
+                          }
+                          if (state is NewsGot) {
+                            return Container(
+                              child: GridView.builder(
+                                  padding: EdgeInsets.all(0),
+                                  shrinkWrap: true,
+                                  physics: NeverScrollableScrollPhysics(),
+                                  gridDelegate:
+                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2,
+                                    childAspectRatio:
+                                        size.width < 370 ? 4 / 3.7 : 4 / 3.5,
+                                  ),
+                                  itemCount: state.newsModel.length,
+                                  itemBuilder: (context, index) {
+                                    return GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(context,
+                                            MaterialPageRoute(builder: (context) {
+                                          return NewsDetails(
+                                            index: index,
+                                          );
+                                        }));
+                                      },
+                                      child: Container(
+                                        margin: EdgeInsets.all(10),
+                                        child: Column(
+                                          children: [
+                                            Container(
+                                              // margin: EdgeInsets.only(left: 5,right: 5),
+                                              height: 100,
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  image: DecorationImage(
+                                                    image: NetworkImage(
+                                                      "http://10.3.6.13:8000/uploads/images/news/${state
+                                                        .newsModel[index].image
+                                                        .toString()}"
+                                                    ),
+                                                    fit: BoxFit.cover,
+                                                  )),
+                                            ),
+                                            SizedBox(
+                                              height: 5,
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.all(5.0),
+                                              child: DText(
+                                                  lines: 2,
+                                                  color: ColorManager.textColorBlack,
+                                                  text: state.newsModel[index].title
+                                                      .toString(),
+                                                  weight: FontWeightManager.regular,
+                                                  family: FontConstants.fontNoto,
+                                                  size: FontSize.s11),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  }),
+                            );
+                          }
+                          if (state is NewsError) {
+                            print(state.message);
+                            return Center(child: Text("Something went wrong"));
+                          }
+                          return Text("error");
+                        }),
+                        listener: (context, state) {}),
+                    SizedBox(
+                      height: 60,
+                    )
+                  
                 
-              
-            ],
-          ),
-        
+              ],
+            ),
+          
+        ),
+      )
       ),
-    )
     );
   }
 }

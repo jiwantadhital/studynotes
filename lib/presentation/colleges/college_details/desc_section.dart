@@ -238,7 +238,7 @@ class _ReviewsState extends State<Reviews> {
                       return Container(
                         padding: EdgeInsets.all(5),
                         margin: EdgeInsets.all(3),
-                        height: 150,
+                        // height: 150,
                         child: Column(
                           children: [
                             Container(
@@ -326,8 +326,8 @@ class _ReviewsState extends State<Reviews> {
                               height: 5,
                             ),
                             Container(
-                              padding: EdgeInsets.only(left: 5, right: 5),
-                              height: 80,
+                              padding: EdgeInsets.only(left: 5, right: 5,top: 5,bottom: 5),
+                              // height: 80,
                               width: MediaQuery.of(context).size.width,
                               child: DText(
                                 text:

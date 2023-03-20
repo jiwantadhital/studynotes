@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:studynotes/logic/notices/bloc/notices_bloc.dart';
+import 'package:studynotes/models/institute_model.dart';
 import 'package:studynotes/presentation/home_pages/widgets/home_page_widgets.dart';
 import 'package:studynotes/resources/fonts.dart' as font;
 
@@ -18,6 +19,7 @@ class NoticeDetails extends StatefulWidget {
 }
 
 class _NoticeDetailsState extends State<NoticeDetails> {
+
   @override
   Widget build(BuildContext context) {
        final notice = context.read<NoticesBloc>().noticeController.noticeModel[widget.index];

@@ -8,15 +8,16 @@ import 'package:studynotes/resources/colors.dart';
 import 'package:studynotes/resources/constants.dart';
 
 class CollegeDetail extends StatefulWidget {
+  int id;
   int index;
-  CollegeDetail({super.key, required this.index});
+  CollegeDetail({super.key, required this.index, required this.id});
 
   @override
   State<CollegeDetail> createState() => _CollegeDetailState();
 }
 
 class _CollegeDetailState extends State<CollegeDetail> {
-  
+  bool loaded=false;
   TabController? _tabController;
   int theNumber = 1;
   String networkImage =
@@ -25,13 +26,23 @@ class _CollegeDetailState extends State<CollegeDetail> {
   int currentIndex = 0;
   double bottomHeight = 70;
 
+refresh(){
+  Future.delayed(Duration(milliseconds: 500),(){
+    setState(() {
+      
+    });
+  });
+}
+
   @override
   void initState() {
+    refresh();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    print("object");
     var institute = context
         .read<InstituteBloc>()
         .instituteController
@@ -70,18 +81,23 @@ class _CollegeDetailState extends State<CollegeDetail> {
                         background: Stack(
                       alignment: Alignment.center,
                       children: [
-                        Container(
+                      loaded==false?CircularProgressIndicator():  Container(
                           decoration: BoxDecoration(
                             color: Colors.blue,
                             image: DecorationImage(
-                                image: NetworkImage("http://10.3.6.13:8000/uploads/images/colleges/images/${context.read<ImageBloc>().instituteController.imageModel[currentIndex].image}"),
+                                image: NetworkImage("${ApiClass.local}uploads/images/colleges/images/${context.read<ImageBloc>().instituteController.imageModel[currentIndex].image}"),
                                 fit: BoxFit.cover),
                           ),
                         ),
                         Positioned(
                             top: 200,
                             child: Center(
-                              child: BlocBuilder<ImageBloc, ImageState>(
+                              child: BlocConsumer<ImageBloc, ImageState>(
+                                listener: (context,state){
+                                  if(state is ImageLoaded){
+                                    refresh();
+                                  }
+                                },
                                 builder: (context, state) {
                                   if(state is ImageLoading){
 
@@ -90,17 +106,18 @@ class _CollegeDetailState extends State<CollegeDetail> {
 
                                   }
                                   if(state is ImageLoaded){
-                                    return Container(
+                                    return SizedBox(
                                     height: 50,
                                     width: 180,
                                     child: ListView.builder(
                                       scrollDirection: Axis.horizontal,
                                       itemCount: state.imageModel.length,
                                       itemBuilder: (context, index) {
+                                        loaded = true;
                                         return GestureDetector(
                                           onTap: () {
                                             setState(() {
-                                              networkImage = "http://10.3.6.13:8000/uploads/images/colleges/images/${state.imageModel[index].image}";
+                                              networkImage = "${ApiClass.local}uploads/images/colleges/images/${state.imageModel[index].image}";
                                               currentIndex = index;
                                             });
                                           },
@@ -121,7 +138,7 @@ class _CollegeDetailState extends State<CollegeDetail> {
                                                         : Colors.white),
                                                 image: DecorationImage(
                                                     image: NetworkImage(
-                                                        "http://10.3.6.13:8000/uploads/images/colleges/images/${state.imageModel[index].image}"),
+                                                        "${ApiClass.local}uploads/images/colleges/images/${state.imageModel[index].image}"),
                                                     fit: BoxFit.cover)),
                                           ),
                                         );

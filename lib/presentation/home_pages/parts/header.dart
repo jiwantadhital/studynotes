@@ -194,7 +194,7 @@ import 'package:studynotes/resources/fonts.dart';
 
 import '../../../local_databases/sharedpreferences/shared_pref.dart';
 
-class Top extends StatelessWidget {
+class Top extends StatefulWidget {
   const Top({
     super.key,
     required this.size,
@@ -202,13 +202,23 @@ class Top extends StatelessWidget {
 
   final Size size;
 
-getProfile(BuildContext context){
-  Future.delayed(Duration(milliseconds: 200),(){
-    context.read<ProfileBloc>().add(GetProfileEvent());
-  });
+  @override
+  State<Top> createState() => _TopState();
 }
 
-
+class _TopState extends State<Top> {
+getProfile(){
+  Future.delayed(Duration(milliseconds: 200),(){
+    setState(() {
+      
+    });
+  });
+}
+@override
+  void initState() {
+    getProfile();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -245,7 +255,7 @@ getProfile(BuildContext context){
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
-                                  width: size.width * 0.5,
+                                  width: widget.size.width * 0.5,
                                   child: DText(
                                     lines: 1,
                                     family: FontConstants.fontPoppins,

@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get_utils/get_utils.dart';
 import 'package:intl/intl.dart';
 import 'package:studynotes/logic/notices/bloc/notices_bloc.dart';
+import 'package:studynotes/models/institute_model.dart';
+import 'package:studynotes/models/notice_model.dart';
 
 import 'package:studynotes/presentation/home_pages/widgets/home_page_widgets.dart';
 import 'package:studynotes/resources/colors.dart';
@@ -19,6 +21,8 @@ class Notifications extends StatefulWidget {
 }
 
 class _NotificationsState extends State<Notifications> {
+      TextEditingController _controller = TextEditingController();
+  List<NoticeModel> _searchList = [];
   bool thisDay = true;
   bool thisWeek = true;
   DateTime now = DateTime.now();
@@ -71,6 +75,8 @@ class _NotificationsState extends State<Notifications> {
         backgroundColor: ColorManager.primaryColor,
         title:search==false? DText(color: ColorManager.textColorWhite, text: "Notifications", weight: FontWeightManager.bold, family: FontConstants.fontNunito, size: FontSize.s16):
         TextField(
+          controller: _controller,
+          onChanged: _onSearchTextChanged,
           style: const TextStyle(
             color: Colors.white,
           ),
@@ -88,7 +94,7 @@ class _NotificationsState extends State<Notifications> {
             onTap: (){
               search = false;
                 setState(() {
-                  
+                  _searchList.clear();
                 });
             },
             child: const Padding(
@@ -111,7 +117,26 @@ class _NotificationsState extends State<Notifications> {
 
                 }
                 if(state is NoticesGot){
-                  return Column(
+                  return _searchList.isNotEmpty? Column(
+                    children: [
+                      Align(
+          alignment: Alignment.centerLeft,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 10,top: 10),
+            child: DText(color: ColorManager.textColorBlack, text: "All", weight: FontWeightManager.bold, family: FontConstants.fontPoppins, size: FontSize.s20),
+          )),
+        ListView.builder(
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: _searchList.length,
+          itemBuilder: (context,index){
+                       var tday = f2.format(DateTime.parse(_searchList[index].createdAt.toString()));
+              return NotificationsWidget(index: index,state: state,title: _searchList[index].title.toString(), time: tday);
+          })
+                    ],
+                  ):
+                  
+                  Column(
       children: [
        thisDay==false? Align(
           alignment: Alignment.centerLeft,
@@ -153,7 +178,7 @@ class _NotificationsState extends State<Notifications> {
 
                 }
                 if(state is NoticesGot){
-                  return Column(
+                  return _searchList.isNotEmpty?Container(): Column(
       children: [
        thisWeek==false? Align(
           alignment: Alignment.centerLeft,
@@ -193,7 +218,7 @@ class _NotificationsState extends State<Notifications> {
 
                 }
                 if(state is NoticesGot){
-                  return Column(
+                  return _searchList.isNotEmpty?Container(): Column(
       children: [
         Align(
           alignment: Alignment.centerLeft,
@@ -222,6 +247,26 @@ class _NotificationsState extends State<Notifications> {
       ),
     );
   }
+   _onSearchTextChanged(String text)async{
+        var all = context.read<NoticesBloc>().noticeController.noticeModel;
+      _searchList.clear();
+      if(text.isEmpty){
+        setState(() {
+        });
+        return;
+      }
+      all.forEach((searchDetails) {
+        if(searchDetails.title!.toLowerCase().contains(text.toLowerCase())){
+          _searchList.add(searchDetails);
+          _searchList.sort((a, b) {
+            return a.title.toString().compareTo(b.title.toString());
+          },);
+        }
+       });
+       setState(() {
+         
+       });
+    }
 }
 
 class NotificationsWidget extends StatelessWidget {
@@ -351,4 +396,5 @@ String time;
     );
      
   }
+  
 }

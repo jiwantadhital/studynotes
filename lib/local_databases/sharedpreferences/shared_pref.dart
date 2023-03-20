@@ -73,6 +73,7 @@ class UserSimplePreferences {
     await _preferences?.remove(_password);
   }
   static Future removeUserDetails()async{
+    await _preferences?.remove(_googlePhoto);
     await _preferences?.remove(_username);
     await _preferences?.remove(_googlePhoto);
   }

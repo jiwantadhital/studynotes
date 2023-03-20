@@ -109,9 +109,9 @@ class _ItemsState extends State<Items> {
                       glowColor: ColorManager.primaryColor,
                       itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
                       itemBuilder: (context, _) {
-                        return Icon(
+                        return  Icon(
                           Icons.star,
-                          color: Colors.amber,
+                          color: ColorManager.primaryColor,
                         );
                       },
                       onRatingUpdate: (rating) {
