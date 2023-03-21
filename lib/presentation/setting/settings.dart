@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:studynotes/local_databases/sharedpreferences/shared_pref.dart';
 import 'package:studynotes/logic/auth/getProfile/bloc/profile_bloc.dart';
 import 'package:studynotes/logic/database/chapters/bloc/chapters_bloc.dart';
+import 'package:studynotes/logic/notes/subjects/bloc/subjects_bloc.dart';
 import 'package:studynotes/presentation/auth_pages/google/google_sign.dart';
 import 'package:studynotes/presentation/auth_pages/social_login.dart';
 import 'package:studynotes/presentation/home_pages/widgets/home_page_widgets.dart';
@@ -31,7 +32,7 @@ class _SettingPageState extends State<SettingPage> {
   }
   @override
   Widget build(BuildContext context) {
-    print(UserSimplePreferences.getGooglePhoto());
+        context.read<SubjectsBloc>()..add(SubjectGettingEvent(id: 1));
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,

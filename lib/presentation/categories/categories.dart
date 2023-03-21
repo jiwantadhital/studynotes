@@ -31,7 +31,6 @@ class _CategoriesState extends State<Categories> {
   int selected = 0;
   @override
   void initState() {
-    context.read<SubjectsBloc>()..add(SubjectGettingEvent(id: 1));
     super.initState();
   }
   @override

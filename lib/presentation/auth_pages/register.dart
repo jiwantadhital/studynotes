@@ -111,7 +111,9 @@ class _RegisterState extends State<Register> {
                           }
                           if(state is RegisterError){
                             Navigator.pop(context);
-                            print(state.message);
+                           ScaffoldMessenger.of(context).showSnackBar(
+                                    ShowSnackBar().snack(
+                                        "Something went wrong", Colors.red));
                           }
                           if(state is RegisterOtp){
                             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){

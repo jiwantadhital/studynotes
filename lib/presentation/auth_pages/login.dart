@@ -114,7 +114,9 @@ class _LoginState extends State<Login> {
                         }
                         if(state is LoginError){
                           Navigator.pop(context);
-                          print(state.message);
+                         ScaffoldMessenger.of(context).showSnackBar(
+                                    ShowSnackBar().snack(
+                                        "Something went wrong", Colors.red));
                         }
                           if(state is LoginOtp){
                           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){

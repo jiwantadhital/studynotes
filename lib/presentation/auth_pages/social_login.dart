@@ -9,6 +9,7 @@ import 'package:studynotes/presentation/auth_pages/auth_widgets/auth_widgets.dar
 import 'package:studynotes/presentation/auth_pages/google/google_sign.dart';
 import 'package:studynotes/presentation/auth_pages/register.dart';
 import 'package:studynotes/presentation/bottom_navigation/bottom_navigation_bar.dart';
+import 'package:studynotes/presentation/extra_widgets/extra_widgets.dart';
 import 'package:studynotes/presentation/extra_widgets/loadings.dart';
 import 'package:studynotes/presentation/home_pages/widgets/home_page_widgets.dart';
 import 'package:studynotes/resources/colors.dart';
@@ -95,7 +96,10 @@ class _SocialLoginState extends State<SocialLogin> {
                          }));
                               }
                               if(state is GoogleError){
-                                print(state.message);
+                               Navigator.pop(context);
+                               ScaffoldMessenger.of(context).showSnackBar(
+                                    ShowSnackBar().snack(
+                                        "Something went wrong", Colors.red));
                               }
                             },
                             builder: (context, state) {

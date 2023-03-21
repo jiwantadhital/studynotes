@@ -11,6 +11,7 @@ import 'package:studynotes/local_databases/sharedpreferences/shared_pref.dart';
 import 'package:studynotes/logic/allsubjects/bloc/allsubject_bloc.dart';
 import 'package:studynotes/logic/news/bloc/news_bloc.dart';
 import 'package:studynotes/logic/notes/chapters/bloc/chapter_bloc.dart';
+import 'package:studynotes/logic/notes/subjects/bloc/subjects_bloc.dart';
 import 'package:studynotes/logic/notices/bloc/notices_bloc.dart';
 import 'package:studynotes/notification/local_notification.dart';
 import 'package:studynotes/presentation/home_pages/news_section/news_details.dart';
@@ -311,6 +312,8 @@ class _MainPageState extends State<MainPage> {
   FirebaseMessaging.instance.subscribeToTopic("all");
     FirebaseMessaging.instance.getInitialMessage().then(
       (message) {
+                localnotice.value = 0;
+
         print("FirebaseMessaging.instance.getInitialMessage");
 
         if (message != null) {
@@ -327,6 +330,8 @@ class _MainPageState extends State<MainPage> {
     );
     FirebaseMessaging.onMessage.listen(
       (message) {
+        UserSimplePreferences.setNotices(0);
+        localnotice.value = 0;
         print("FirebaseMessaging.onMessage.listen");
         if (message.notification != null) {
           print(message.notification!.title);
@@ -357,11 +362,25 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    print(token);
+        context.read<SubjectsBloc>()..add(SubjectGettingEvent(id: 1));
+    print("token is ${token}");
     var size = MediaQuery.of(context).size;
     print(size.width);
-    return RefreshIndicator(
-       displacement: 250,
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        elevation: 0,
+        toolbarHeight: 65,
+        title:  Top(size: size),
+      ),
+      body:
+      NotificationListener<OverscrollIndicatorNotification>(
+    onNotification: (OverscrollIndicatorNotification overscroll) {
+    overscroll.disallowIndicator();
+    return false;
+    },
+      child: RefreshIndicator(
+          displacement: 250,
   backgroundColor: Colors.white,
   color: ColorManager.primaryColor,
   strokeWidth: 3,
@@ -374,21 +393,8 @@ class _MainPageState extends State<MainPage> {
       context.read<NewsBloc>().add(NewsGetEvent());
     });
   },
-      child: Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          elevation: 0,
-          toolbarHeight: 65,
-          title:  Top(size: size),
-        ),
-        body:
-        NotificationListener<OverscrollIndicatorNotification>(
-      onNotification: (OverscrollIndicatorNotification overscroll) {
-      overscroll.disallowIndicator();
-      return false;
-      },
         child: SingleChildScrollView(   
-    
+          
           physics: ClampingScrollPhysics(),      
           child:  Column(
               children: [
@@ -586,8 +592,8 @@ class _MainPageState extends State<MainPage> {
             ),
           
         ),
-      )
       ),
+    )
     );
   }
 }

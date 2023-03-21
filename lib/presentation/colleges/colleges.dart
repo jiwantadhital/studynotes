@@ -6,11 +6,13 @@ import 'package:studynotes/controllers/institute_controller.dart';
 import 'package:studynotes/logic/institute/comments/bloc/comments_bloc.dart';
 import 'package:studynotes/logic/institute/images/bloc/image_bloc.dart';
 import 'package:studynotes/logic/institute/main/bloc/institute_bloc.dart';
+import 'package:studynotes/logic/notes/subjects/bloc/subjects_bloc.dart';
 import 'package:studynotes/models/institute_model.dart';
 import 'package:studynotes/presentation/bottom_navigation/bottom_navigation_bar.dart';
 import 'package:studynotes/presentation/colleges/college_details/college_details.dart';
 import 'package:studynotes/presentation/home_pages/widgets/home_page_widgets.dart';
 import 'package:studynotes/resources/colors.dart';
+import 'package:studynotes/resources/constants.dart';
 import 'package:studynotes/resources/fonts.dart';
 
 class Colleges extends StatefulWidget {
@@ -27,6 +29,8 @@ class _CollegesState extends State<Colleges> {
   bool search = false;
   @override
   Widget build(BuildContext context) {
+        context.read<SubjectsBloc>()..add(SubjectGettingEvent(id: 1));
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -136,7 +140,7 @@ setState(() {
                                           border: Border.all(width: 2,color: Colors.grey.withOpacity(0.5)),
        
                                           ),
-                                          child: Image.asset("assets/images/clz.png",fit: BoxFit.cover,),
+                                          child: Image.network("${ApiClass.local}uploads/images/colleges/${_searchList[index].logo}",fit: BoxFit.cover,),
                                         ),
                           ),
                       const SizedBox(height: 5,),
@@ -184,7 +188,7 @@ setState(() {
                                           border: Border.all(width: 2,color: Colors.grey.withOpacity(0.5)),
        
                                           ),
-                                          child: Image.asset("assets/images/clz.png",fit: BoxFit.cover,),
+                                          child: Image.network("${ApiClass.local}uploads/images/colleges/${state.instituteModel[index].logo}",fit: BoxFit.cover,),
                                         ),
                           ),
                       const SizedBox(height: 5,),

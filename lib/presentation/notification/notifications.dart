@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get_utils/get_utils.dart';
 import 'package:intl/intl.dart';
+import 'package:studynotes/local_databases/sharedpreferences/shared_pref.dart';
 import 'package:studynotes/logic/notices/bloc/notices_bloc.dart';
 import 'package:studynotes/models/institute_model.dart';
 import 'package:studynotes/models/notice_model.dart';
@@ -21,6 +22,7 @@ class Notifications extends StatefulWidget {
 }
 
 class _NotificationsState extends State<Notifications> {
+  
       TextEditingController _controller = TextEditingController();
   List<NoticeModel> _searchList = [];
   bool thisDay = true;
@@ -57,6 +59,8 @@ class _NotificationsState extends State<Notifications> {
   }
   @override
   Widget build(BuildContext context) {
+    UserSimplePreferences.setNotices(context.read<NoticesBloc>().noticeController.noticeModel.length);
+    print("Notices ${UserSimplePreferences.getNotices()}");
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -112,7 +116,13 @@ class _NotificationsState extends State<Notifications> {
           child: Column(
             children: [
               //today
-              BlocBuilder<NoticesBloc,NoticesState>(builder: (context,state){
+              BlocConsumer<NoticesBloc,NoticesState>(
+                listener:(context, state) {
+                  if(state is NoticesGot){
+                  }
+                },
+                builder: (context,state){
+                
                 if(state is NoticesLoading){
 
                 }

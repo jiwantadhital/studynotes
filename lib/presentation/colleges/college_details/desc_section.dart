@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:studynotes/logic/institute/comments/bloc/comments_bloc.dart';
 
 import 'package:studynotes/presentation/colleges/college_details/comment_sheet.dart';
@@ -178,6 +179,8 @@ class Reviews extends StatefulWidget {
 }
 
 class _ReviewsState extends State<Reviews> {
+      final f =  DateFormat('yyyy-M-d');
+
   @override
   void initState() {
     widget.show = true;
@@ -224,10 +227,40 @@ class _ReviewsState extends State<Reviews> {
               },
               builder: (context, state) {
                 if(state is CommentsLoading){
-
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    physics: ClampingScrollPhysics(),
+                    itemCount: 3,
+                    itemBuilder: (context,index){
+                      return Container(
+                        height: 160,
+                        child: Column(
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(left: 10,right: 10,top: 5,bottom: 5),
+                              height: 100,
+                              width: MediaQuery.of(context).size.width,
+                              decoration: BoxDecoration(
+                                color: Colors.grey[200],
+                                borderRadius: BorderRadius.circular(15)
+                              ),
+                            ),
+                               Container(
+                              margin: EdgeInsets.only(left: 10,right: 10,top: 5,bottom: 5),
+                              height: 30,
+                              width: MediaQuery.of(context).size.width,
+                              decoration: BoxDecoration(
+                                color: Colors.grey[200],
+                                borderRadius: BorderRadius.circular(5)
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                  });
                 }
                 if(state is CommentsError){
-
+                  return Center(child: Text("Something went wrong"),);
                 }
                 if(state is CommentsLoaded){
                   return ListView.builder(
@@ -235,6 +268,7 @@ class _ReviewsState extends State<Reviews> {
                     physics: ClampingScrollPhysics(),
                     itemCount: state.commentModel.length,
                     itemBuilder: ((context, index) {
+                     var tday = f.format(DateTime.parse(state.commentModel[index].createdAt.toString()));
                       return Container(
                         padding: EdgeInsets.all(5),
                         margin: EdgeInsets.all(3),
@@ -256,7 +290,7 @@ class _ReviewsState extends State<Reviews> {
                                                 Theme.of(context).primaryColor),
                                         image: DecorationImage(
                                             image: MemoryImage(
-                                                base64Decode(state.commentModel[index].student!.image??imageAll)))),
+                                                base64Decode(state.commentModel[index].student!.image??imageAll)),fit: BoxFit.cover)),
                                   ),
                                   SizedBox(
                                     width: 10,
@@ -307,7 +341,7 @@ class _ReviewsState extends State<Reviews> {
                                               ),
                                             ),
                                             DText(
-                                              text: "1 days ago",
+                                              text: tday.toString(),
                                               color:
                                                   Colors.black.withOpacity(0.7),
                                               size: 15,
@@ -344,8 +378,7 @@ class _ReviewsState extends State<Reviews> {
                       );
                     }));
                 }
-                return Container();
-              },
+                return Center(child: Text("Something went wrong"),);              },
             ),
           ],
         ),
