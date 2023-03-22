@@ -12,8 +12,10 @@ class CommentsInitial extends CommentsState {}
 class CommentsLoading extends CommentsState {}
 class CommentsLoaded extends CommentsState {
   List<CommentModel> commentModel;
+    double avg;
   CommentsLoaded({
     required this.commentModel,
+    required this.avg
   });
     @override
   List<Object> get props => [commentModel];

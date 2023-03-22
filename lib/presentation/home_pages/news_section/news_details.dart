@@ -112,7 +112,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                     body: Container(
                       padding: EdgeInsets.all(10),
                       decoration: BoxDecoration(
-                        color:dark==true? Colors.grey[600]:Colors.white,
+                        color:dark==true? Colors.black:Colors.white,
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(round),
                           topRight: Radius.circular(round)

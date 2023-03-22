@@ -179,6 +179,7 @@ class Reviews extends StatefulWidget {
 }
 
 class _ReviewsState extends State<Reviews> {
+    double average = 0;
       final f =  DateFormat('yyyy-M-d');
 
   @override
@@ -201,7 +202,7 @@ class _ReviewsState extends State<Reviews> {
             ),
             Center(
                 child: DText(
-              text: "4/5",
+              text: "${average.toStringAsPrecision(2)}/5",
               color: Colors.black,
               size: 20,
               weight: FontWeightManager.semibold,
@@ -213,17 +214,23 @@ class _ReviewsState extends State<Reviews> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                for (int i = 0; i < 5; i++)
+                for (int i = 0; i < average.toInt(); i++)
                   Icon(
                     Icons.star,
                     color: Theme.of(context).primaryColor,
+                  ),
+                  for (int i = 0; i < 5-average.toInt(); i++)
+                  Icon(
+                    Icons.star,
+                    color: Theme.of(context).disabledColor,
                   ),
               ],
             ),
             Divider(),
             BlocConsumer<CommentsBloc, CommentsState>(
               listener: (context, state) {
-                // TODO: implement listener
+               if(state is CommentsLoaded){
+               }
               },
               builder: (context, state) {
                 if(state is CommentsLoading){
@@ -269,6 +276,7 @@ class _ReviewsState extends State<Reviews> {
                     itemCount: state.commentModel.length,
                     itemBuilder: ((context, index) {
                      var tday = f.format(DateTime.parse(state.commentModel[index].createdAt.toString()));
+                      average = state.avg;
                       return Container(
                         padding: EdgeInsets.all(5),
                         margin: EdgeInsets.all(3),

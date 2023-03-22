@@ -13,7 +13,9 @@ class CommentsBloc extends Bloc<CommentsEvent, CommentsState> {
       emit(CommentsLoading());
       try{
         var data = await instituteController.getComment(event.id);
-        emit(CommentsLoaded(commentModel: data));
+        var rate = data.fold<int>(0, (sum, item) => sum + item.commentsRatting!.toInt());
+        var avg = rate/data.length;
+        emit(CommentsLoaded(commentModel: data,avg: avg));
       }
       catch(e){
         emit(CommentsError(error: "Something went wrong"));

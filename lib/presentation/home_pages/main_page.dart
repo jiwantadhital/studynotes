@@ -138,13 +138,16 @@ _notices(size) {
                           color: Theme.of(context).primaryColor,
                           borderRadius: BorderRadius.circular(5)),
                       child: Center(
-                        child: DText(
-                            lines: 1,
-                            color: ColorManager.textColorWhite,
-                            text: state.noticeModel[index].title??text,
-                            weight: FontWeightManager.light,
-                            family: FontConstants.fontNoto,
-                            size: FontSize.s12),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: DText(
+                              lines: 1,
+                              color: ColorManager.textColorWhite,
+                              text: state.noticeModel[index].title??text,
+                              weight: FontWeightManager.light,
+                              family: FontConstants.fontNoto,
+                              size: FontSize.s12),
+                        ),
                       ),
                     ),
                   );
@@ -232,10 +235,10 @@ _continueReading(size) {
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
-                  context.read<ChapterBloc>()..add(ChapterGettingEvent(id: data[index].id));
+                  context.read<ChapterBloc>()..add(ChapterGettingEvent(id: data.isNotEmpty? data[index].id:state.allSubjectModel[index].id));
                         Navigator.push(context,
                                  MaterialPageRoute(builder: (context){
-                               return Notes(id: data[index].id,);
+                               return Notes(id: data.isNotEmpty? data[index].id:state.allSubjectModel[index].id,);
                                  })
                   );
                 },
