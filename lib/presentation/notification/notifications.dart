@@ -5,8 +5,11 @@ import 'package:get/get_utils/get_utils.dart';
 import 'package:intl/intl.dart';
 import 'package:studynotes/local_databases/sharedpreferences/shared_pref.dart';
 import 'package:studynotes/logic/notices/bloc/notices_bloc.dart';
+import 'package:studynotes/logic/thisWeek/bloc/t_week_bloc.dart';
+import 'package:studynotes/logic/todayNotice/bloc/t_notice_bloc.dart';
 import 'package:studynotes/models/institute_model.dart';
 import 'package:studynotes/models/notice_model.dart';
+import 'package:studynotes/presentation/extra_widgets/extra_widgets.dart';
 
 import 'package:studynotes/presentation/home_pages/widgets/home_page_widgets.dart';
 import 'package:studynotes/resources/colors.dart';
@@ -25,36 +28,15 @@ class _NotificationsState extends State<Notifications> {
   
       TextEditingController _controller = TextEditingController();
   List<NoticeModel> _searchList = [];
-  bool thisDay = true;
-  bool thisWeek = true;
   DateTime now = DateTime.now();
   var fh =  DateFormat('H');
     final f =  DateFormat('yyyy-M-d');
     final f2 =  DateFormat('yyyy-MM-dd');
-    final fyear =  DateFormat('yyyy');
-    int getWeekNumber(DateTime date) {
-  int year = date.year;
-  int dayOfYear = date.difference(DateTime(year, 1, 1)).inDays + 1;
-  int weekNumber = ((dayOfYear - date.weekday + 10) / 7).floor();
-  if (weekNumber < 1) {
-    weekNumber = 1;
-  } else if (weekNumber > 52) {
-    weekNumber = 52;
-  }
-  return weekNumber;
-}
+
   bool search = false;
-  refresh(){
-    Future.delayed(Duration(milliseconds: 100),(){
- setState(() {
-      
-    });
-    });
-   
-  }
+  
   @override
   void initState() {
-    refresh();
     super.initState();
   }
   @override
@@ -113,21 +95,8 @@ class _NotificationsState extends State<Notifications> {
         color: Colors.grey[100],
         // margin: EdgeInsets.only(top: 10,bottom: 10),
         child: SingleChildScrollView(
-          child: Column(
-            children: [
-              //today
-              BlocConsumer<NoticesBloc,NoticesState>(
-                listener:(context, state) {
-                  if(state is NoticesGot){
-                  }
-                },
-                builder: (context,state){
-                
-                if(state is NoticesLoading){
-
-                }
-                if(state is NoticesGot){
-                  return _searchList.isNotEmpty? Column(
+          controller: context.read<NoticesBloc>().scrollController,
+          child:_searchList.isNotEmpty? Column(
                     children: [
                       Align(
           alignment: Alignment.centerLeft,
@@ -141,94 +110,90 @@ class _NotificationsState extends State<Notifications> {
           itemCount: _searchList.length,
           itemBuilder: (context,index){
                        var tday = f2.format(DateTime.parse(_searchList[index].createdAt.toString()));
-              return NotificationsWidget(index: index,state: state,title: _searchList[index].title.toString(), time: tday);
+              return NotificationsSearch(index: index,list: _searchList,title: _searchList[index].title.toString(), time: tday);
           })
                     ],
-                  ):
+                  ): Column(
+            children: [
+              //today
+              BlocBuilder<TNoticeBloc,TNoticeState>(
+                builder: (context,stat){
+                
+                if(stat is TNoticeLoading){
+
+                }
+                if(stat is TNoticeLoaded){
+                  return 
                   
                   Column(
       children: [
-       thisDay==false? Align(
+        Align(
           alignment: Alignment.centerLeft,
           child: Padding(
             padding: const EdgeInsets.only(left: 10,top: 10),
             child: DText(color: ColorManager.textColorBlack, text: "Today", weight: FontWeightManager.bold, family: FontConstants.fontPoppins, size: FontSize.s20),
-          )):Container(),
+          )),
         ListView.builder(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-          itemCount: state.noticeModel.length,
+          itemCount: stat.noticeModel.length,
           itemBuilder: (context,index){
-            var today = f.format(DateTime.parse(state.noticeModel[index].createdAt.toString())); 
-           var mobileToday = "${now.year}-${now.month}-${now.day}"; 
-           var hour =int.parse(fh.format(DateTime.parse(state.noticeModel[index].createdAt.toString())));
-           var ago = now.hour-hour;
-           if(today == mobileToday){
-            thisDay = false;
-           }
-           else{thisDay = true;}
-            return today==mobileToday?  NotificationsWidget(index: index,state: state,title: state.noticeModel[index].title??"", time: ago==0?"Just Now":"$ago h ago"):Container();
+         return NotificationsWidget(index: index,state: stat,title: stat.noticeModel[index].title??"", time: "Today");
           })
             ]);
                 }
-                if(state is NoticesError){
+                if(stat is TNoticeError){
 
                 }
-                return Text("");
+                return Text("No");
               }),
           SizedBox(height: 10,),
 
           //this week
-            BlocConsumer<NoticesBloc,NoticesState>(
-              listener: (context,state){
-                context.read<NoticesBloc>()..add(NoticeGetEvent());
-              },
-              builder: (context,state){
-                if(state is NoticesLoading){
+            BlocBuilder<TWeekBloc,TWeekState>(
+              builder: (context,sta){
+                if(sta is TWeekLoading){
 
                 }
-                if(state is NoticesGot){
-                  return _searchList.isNotEmpty?Container(): Column(
+                if(sta is TWeekLoaded){
+                  return Column(
       children: [
-       thisWeek==false? Align(
+       Align(
           alignment: Alignment.centerLeft,
           child: Padding(
             padding: const EdgeInsets.only(left: 10,top: 10),
             child: DText(color: ColorManager.textColorBlack, text: "This Week", weight: FontWeightManager.bold, family: FontConstants.fontPoppins, size: FontSize.s20),
-          )):Container(),
+          )),
         ListView.builder(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-          itemCount: state.noticeModel.length,
+          itemCount: sta.noticeModel.length,
           itemBuilder: (context,index){
-           var tday = f2.format(DateTime.parse(state.noticeModel[index].createdAt.toString()));
-           var thisyear = int.parse(fyear.format(DateTime.parse(state.noticeModel[index].createdAt.toString())));
-            var backweek = getWeekNumber(DateTime.parse(tday));
-            var frontWeek = getWeekNumber(DateTime.now());
-            if(thisyear==now.year){
-                if(backweek == frontWeek){
-            thisWeek = false;
-           }
-           else{thisWeek = true;}
-              return backweek==frontWeek? NotificationsWidget(index: index,state: state,title: state.noticeModel[index].title.toString(), time: tday):Container();
-            }
-            return Container();
+           var tday = f2.format(DateTime.parse(sta.noticeModel[index].createdAt.toString()));
+              return  NotificationsWidget(index: index,state: sta,title: sta.noticeModel[index].title.toString(), time: tday);
+    
           })
             ]);
                 }
-                if(state is NoticesError){
+                if(sta is TWeekError){
 
                 }
                 return Text("");
               }),
             SizedBox(height: 10,),
              //all
-              BlocBuilder<NoticesBloc,NoticesState>(builder: (context,state){
+              BlocConsumer<NoticesBloc,NoticesState>(
+                listener:(context, state) {
+                  if(state is NoticesLoading){
+                    // ScaffoldMessenger.of(context).showSnackBar(ShowSnackBar().snack("Loading..", ColorManager.primaryColor));
+                  }
+                },
+                builder: (context,state){
                 if(state is NoticesLoading){
-
+                  // return Center(child: CircularProgressIndicator());
                 }
                 if(state is NoticesGot){
-                  return _searchList.isNotEmpty?Container(): Column(
+                  return  Column(
       children: [
         Align(
           alignment: Alignment.centerLeft,
@@ -239,10 +204,16 @@ class _NotificationsState extends State<Notifications> {
         ListView.builder(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-          itemCount: state.noticeModel.length,
+          itemCount:context.read<NoticesBloc>().isLoadingMore? state.noticeModel.length+1:state.noticeModel.length,
           itemBuilder: (context,index){
-                       var tday = f2.format(DateTime.parse(state.noticeModel[index].createdAt.toString()));
+                   if(index >= state.noticeModel.length){
+                    print("index = $index length = ${state.noticeModel.length}");
+                    return Center(child: CircularProgressIndicator());
+                   }
+                   else{
+                     var tday = f2.format(DateTime.parse(state.noticeModel[index].createdAt.toString()));
               return NotificationsWidget(index: index,state: state,title: state.noticeModel[index].title.toString(), time:  tday);
+                   }
           })
             ]);
                 }
@@ -377,6 +348,140 @@ String time;
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           color:  state.noticeModel[index].description==null? Colors.red:Colors.green,
+                          border: Border.all(width: 2,color: Colors.white)
+                        ),
+                      )
+                      )
+                  ],
+                ),
+                const SizedBox(width: 10,),
+                Container(
+                  margin: const EdgeInsets.only(top: 10),
+                  width: MediaQuery.of(context).size.width*0.8,
+                  child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                DText(
+                  lines: 2,
+                  color: ColorManager.textColorBlack, text: title, weight: FontWeightManager.regular, family: FontConstants.fontNoto, size: FontSize.s14),
+                const SizedBox(height: 5,),
+                DText(
+                  lines: 1,
+                  color: ColorManager.primaryColor, text: time, weight: FontWeightManager.regular, family: FontConstants.fontNunito, size: FontSize.s12),                   
+              ],
+            ),
+                )
+              ],
+            )
+          ),
+    );
+     
+  }
+  
+}
+
+
+
+
+//search
+class NotificationsSearch extends StatelessWidget {
+  int index;
+  var list;
+String title;
+String time;
+   NotificationsSearch({
+    Key? key,
+    required this.index,
+    required this.list,
+    required this.title,
+    required this.time,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return  GestureDetector(
+      onTap: (){
+      
+                  list[index].description==null?  showDialog(
+                      barrierDismissible: false,
+                      context: context, builder: (context){
+                      return Center(
+                        child: Container(
+                          height: MediaQuery.of(context).size.height*0.5,
+                          width: MediaQuery.of(context).size.width*0.9,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10)
+                          ),
+                          child: Column(
+                            children: [
+                              Container(
+                                height: MediaQuery.of(context).size.height*0.1,
+                                width: MediaQuery.of(context).size.width*0.9,
+                                decoration: BoxDecoration(
+                                  color: ColorManager.primaryColor,
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(10),
+                                    topRight: Radius.circular(10)
+                                  )
+                                ),
+                             child: Center(child: DText(color: ColorManager.textColorWhite, text: "Notice", weight: FontWeightManager.bold, family: FontConstants.fontPoppins, size: FontSize.s16)),
+
+                              ),
+                              SizedBox(height: 10,),
+                                Container(
+                                  height: MediaQuery.of(context).size.height*0.28,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: DText(
+                                      lines: 9,
+                                      color: ColorManager.textColorBlack, text: list[index].shortDescription??"", weight: FontWeightManager.light, family: FontConstants.fontPoppins, size: FontSize.s14),
+                                  ),
+                                ),
+                                SizedBox(height: 10,),
+                                ElevatedButton(onPressed: (){
+                                  Navigator.pop(context);
+                                }, child: Text("Ok"))
+                            ],
+                          ),
+                        ),
+                      );
+                    }):Navigator.push(context, MaterialPageRoute(builder: (context){
+                      return NoticeDetails(index: index,);
+                    }));
+      },
+      child: Container(
+              margin: const EdgeInsets.only(top: 5, bottom: 5),
+              color: Colors.white,
+            height: 80,
+            width: double.maxFinite,
+            child: Row(
+              children: [
+                const SizedBox(width: 10,),
+                Stack(
+                  alignment: Alignment.topRight,
+                  children: [
+                    Container(
+                      height: 50,
+                      width: 50,
+                      decoration: BoxDecoration(
+                        color: Colors.blue,
+                        shape: BoxShape.circle,
+                        border: Border.all(width: 3,color: Colors.white)
+                      ),
+                      child: const Center(
+                        child: Icon(Icons.notifications,color: Colors.white,),
+                      ),
+                    ),
+                    Positioned(
+                      right: 3,
+                      top: 3,
+                      child: Container(
+                        height: 13,
+                        width: 13,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color:  list[index].description==null? Colors.red:Colors.green,
                           border: Border.all(width: 2,color: Colors.white)
                         ),
                       )

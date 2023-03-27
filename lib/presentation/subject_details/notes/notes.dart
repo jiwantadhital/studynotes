@@ -92,13 +92,22 @@ class _NotesState extends State<Notes> {
                           child: BlocConsumer<ChaptersBloc, ChaptersState>(
                             listener: (context, te) {
                               if(te is ChaptersLoading){
-                                  downloadStage=2;
+                                DialogBox().dialogbox(context);
+                                  // downloadStage=2;
                               }
                               if(te is ChaptersAdded){
-                                downloadStage=3;
+                                Navigator.pop(context);
+                                // downloadStage=3;
+                                  Future.delayed(Duration(milliseconds: 50),(){
+                                     context
+                                                                  .read<
+                                                                      LoadchapterBloc>()
+                                                                  .add(
+                                                                      LoadingAllChapterEvent());
+                                  });
                               }
                               if(te is ChaptersError){
-                                downloadStage=4;
+                                // downloadStage=4;
                               }
                             },
                             builder: (context, te) {
@@ -179,7 +188,7 @@ class _NotesState extends State<Notes> {
                                                 ),
                                               ],
                                             ),
-                                           sta.allData.contains(state
+                                         sta.allData.contains(state
                                                     .chapterModel[index].id)
                                                 ? Icon(
                                                     Icons.done,
@@ -187,68 +196,68 @@ class _NotesState extends State<Notes> {
                                                         .primaryColor,
                                                     size: 35,
                                                   )
-                                                : cIndex == index
-                                                    ? downloadStage == 1
-                                                        ? GestureDetector(
-                                                            onTap: () async {
-                                                              cIndex = index;
-                                                              print(state
-                                                                  .chapterModel[
-                                                                      index]
-                                                                  .id);
-                                                              try {
-                                                                notesFunction
-                                                                    .dataSave(
-                                                                  state
-                                                                      .chapterModel[
-                                                                          index]
-                                                                      .id,
-                                                                  context,
-                                                                );
-                                                                Future.delayed(
-                                                                    Duration(
-                                                                        milliseconds:
-                                                                            200),
-                                                                    () {
-                                                                  context
-                                                                      .read<
-                                                                          LoadchapterBloc>()
-                                                                      .add(
-                                                                          LoadingAllChapterEvent());
-                                                                });
-                                                              } catch (e) {
-                                                                ScaffoldMessenger.of(
-                                                                        context)
-                                                                    .showSnackBar(ShowSnackBar().snack(
-                                                                        "Something went wrong",
-                                                                        Colors
-                                                                            .red));
-                                                              }
-                                                            },
-                                                            child: Icon(
-                                                              Icons
-                                                                  .arrow_circle_down_outlined,
-                                                              color: ColorManager
-                                                                  .primaryColor,
-                                                              size: 35,
-                                                            ),
-                                                          )
-                                                        : downloadStage == 2
-                                                            ? Container(
-                                                                height: 15,
-                                                                width: 15,
-                                                                child:
-                                                                    CircularProgressIndicator(
-                                                                  color: ColorManager
-                                                                      .primaryColor,
-                                                                ),
-                                                              ):downloadStage==3?
-                                                             Icon(
-                                                                Icons.done,
-                                                                color: ColorManager
-                                                                    .primaryColor,
-                                                                size: 35,
-                                                              ): Icon(Icons.error,color: Colors.red,size: 35,)
+                                                // : cIndex == index
+                                                //     ? downloadStage == 1
+                                                //         ? GestureDetector(
+                                                //             onTap: () async {
+                                                //               cIndex = index;
+                                                //               print(state
+                                                //                   .chapterModel[
+                                                //                       index]
+                                                //                   .id);
+                                                //               try {
+                                                //                 notesFunction
+                                                //                     .dataSave(
+                                                //                   state
+                                                //                       .chapterModel[
+                                                //                           index]
+                                                //                       .id,
+                                                //                   context,
+                                                //                 );
+                                                //                 Future.delayed(
+                                                //                     Duration(
+                                                //                         milliseconds:
+                                                //                             200),
+                                                //                     () {
+                                                //                   context
+                                                //                       .read<
+                                                //                           LoadchapterBloc>()
+                                                //                       .add(
+                                                //                           LoadingAllChapterEvent());
+                                                //                 });
+                                                //               } catch (e) {
+                                                //                 ScaffoldMessenger.of(
+                                                //                         context)
+                                                //                     .showSnackBar(ShowSnackBar().snack(
+                                                //                         "Something went wrong",
+                                                //                         Colors
+                                                //                             .red));
+                                                //               }
+                                                //             },
+                                                //             child: Icon(
+                                                //               Icons
+                                                //                   .arrow_circle_down_outlined,
+                                                //               color: ColorManager
+                                                //                   .primaryColor,
+                                                //               size: 35,
+                                                //             ),
+                                                //           )
+                                                        // : downloadStage == 2
+                                                        //     ? Container(
+                                                        //         height: 15,
+                                                        //         width: 15,
+                                                        //         child:
+                                                        //             CircularProgressIndicator(
+                                                        //           color: ColorManager
+                                                        //               .primaryColor,
+                                                        //         ),
+                                                        //       ):downloadStage==3?
+                                                        //      Icon(
+                                                        //         Icons.done,
+                                                        //         color: ColorManager
+                                                        //             .primaryColor,
+                                                        //         size: 35,
+                                                        //       ): Icon(Icons.error,color: Colors.red,size: 35,):
                                                     : GestureDetector(
                                                         onTap: () async {
                                                           cIndex = index;
@@ -352,9 +361,15 @@ class _NotesState extends State<Notes> {
                                   for (int i = 0;
                                       i < state.chapterModel.length;
                                       i++) {
+                                        cIndex=i;
+                                   
                                     notesFunction.dataSave(
                                         state.chapterModel[i].id, context);
+                                     
                                   }
+                                  // Future.delayed(Duration(milliseconds: 300),(){
+                                        
+                                  // });
                                   setState(() {
                                     done = true;
                                   });

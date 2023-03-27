@@ -2,7 +2,10 @@
 part of 'notices_bloc.dart';
 
 abstract class NoticesState extends Equatable {
-  const NoticesState();
+final noticeModel;
+  NoticesState({
+     this.noticeModel,
+  });
   
   @override
   List<Object> get props => [];
@@ -10,6 +13,7 @@ abstract class NoticesState extends Equatable {
 
 class NoticesInitial extends NoticesState {}
 class NoticesLoading extends NoticesState {}
+class NoticesFetchLoading extends NoticesState {}
 class NoticesGot extends NoticesState {
   List<NoticeModel> noticeModel;
   NoticesGot({

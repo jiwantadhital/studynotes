@@ -83,7 +83,7 @@ class _NotesDetailsState extends State<NotesDetails> {
                     },
                     builder: (context,state){
                     if(state is AllnotesLoading){
-                      return Center(child: CircularProgressIndicator(),);
+                      return Center(child: Text("Loading...."),);
                     }
                     if(state is AllnotesGot){
                       return Container(
@@ -91,7 +91,7 @@ class _NotesDetailsState extends State<NotesDetails> {
                     margin: EdgeInsets.only(left: 10,right: 10),
                     child: DoubleTappableInteractiveViewer(
                         scaleDuration: const Duration(milliseconds: 600),
-                      child: Center(child: Html(data: state.allNotesModel.notes))),
+                      child: Center(child: Html(data: "${state.allNotesModel.notes}"))),
                   );
                     }
                     if(state is AllnotesError){

@@ -10,7 +10,7 @@ class NewsController{
 
   Future<List<NewsModel>> getnews() async{
     var response = await getRepo.getRepo("${ApiClass.newsApi}");
-    List data = jsonDecode(response.body);
+    List data = jsonDecode(response.body)['data'];
    newsModel = data.map((e) => NewsModel.fromJson(e)).toList();
     return data.map(((e)=> NewsModel.fromJson(e))).toList();  
   }

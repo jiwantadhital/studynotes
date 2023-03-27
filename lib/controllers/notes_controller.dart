@@ -1,5 +1,8 @@
 import 'dart:convert';
-
+import 'dart:io';
+import 'dart:isolate';
+import 'package:flutter/foundation.dart';
+import 'package:studynotes/local_databases/sharedpreferences/shared_pref.dart';
 import 'package:studynotes/models/all_notes_model.dart';
 import 'package:studynotes/models/all_subjects_model.dart';
 import 'package:studynotes/models/chapter_model.dart';
@@ -109,16 +112,26 @@ class NotesController{
     return data.map(((e)=> ChapterModel.fromJson(e))).toList();  
   }
 
-  //all notes
+
+//All Notes
+
+Future<AllNotesModel> fetchData(String datas ){
+  return compute(_getData,datas);
+}
+
+AllNotesModel _getData(String encodedJson){
+  return AllNotesModel.fromJson(jsonDecode(encodedJson));
+}
+
   AllNotesModel allNotesModel = AllNotesModel();
   List allnotes = [];
 
   Future<AllNotesModel> getNotes(id) async{
     var response = await getRepository.getRepository("${ApiClass.allNotesApi}/${id}");
-    var data = jsonDecode(response.body);
-   allNotesModel = AllNotesModel.fromJson(data);
+    var data = fetchData(response.body);
+   allNotesModel = AllNotesModel.fromJson(jsonDecode(response.body));
    allnotes =[];
    allnotes.add(allNotesModel);
-    return AllNotesModel.fromJson(data);  
+    return data;  
   }
 }

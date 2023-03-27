@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:studynotes/logic/database/chapters/bloc/chapters_bloc.dart';
+import 'package:studynotes/presentation/extra_widgets/extra_widgets.dart';
 import 'package:studynotes/presentation/home_pages/widgets/home_page_widgets.dart';
 import 'package:studynotes/presentation/setting/downloads/downloaded_details.dart';
 import 'package:studynotes/resources/colors.dart';
@@ -54,7 +55,7 @@ class _DownloadedChaptersState extends State<DownloadedChapters> {
       body: BlocBuilder<ChaptersBloc, ChaptersState>(builder: (context, state) {
         if (state is ChaptersLoading) {
           return Center(
-            child: CircularProgressIndicator(),
+            child: Text("Loading..."),
           );
         }
         if (state is ChaptersLoaded) {
@@ -63,12 +64,15 @@ class _DownloadedChaptersState extends State<DownloadedChapters> {
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
+                        context.read<ChaptersBloc>().add(ChaptersGettingEvent(id: widget.id));
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
                       return DownloadedDetails(
-                          data: state.chapterModelDatabase[index].c_desc,
+                        id:widget.id,
+                          state: index,
                           name: state.chapterModelDatabase[index].c_name);
-                    }));
+                    })).then((value) {
+                    });
                   },
                   child: Container(
                     padding: EdgeInsets.only(left: 10, right: 10),

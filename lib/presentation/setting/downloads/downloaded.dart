@@ -75,13 +75,13 @@ class _DownloadedState extends State<Downloaded> {
           child: Container(
           padding: EdgeInsets.only(left: 10,right: 10),
           margin: EdgeInsets.only(top: 10,bottom: 5),
-          height: 110,
+          height: 115,
           width: MediaQuery.of(context).size.width*0.4,
           color: Colors.white,
           child: Row(
             children: [
               Container(
-                height: 100,
+                height: 110,
                 width: MediaQuery.of(context).size.width*0.38,
                 // color: Colors.yellow,
                 padding: EdgeInsets.all(10),

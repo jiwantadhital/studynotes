@@ -32,6 +32,8 @@ import 'package:studynotes/logic/notes/syllabus/bloc/syllabus_bloc.dart';
 import 'package:studynotes/logic/notices/bloc/notices_bloc.dart';
 import 'package:studynotes/logic/questions/bloc/question_bloc.dart';
 import 'package:studynotes/logic/solution/bloc/solutions_bloc.dart';
+import 'package:studynotes/logic/thisWeek/bloc/t_week_bloc.dart';
+import 'package:studynotes/logic/todayNotice/bloc/t_notice_bloc.dart';
 import 'package:studynotes/presentation/splash/splash_screen.dart';
 import 'package:studynotes/resources/colors.dart';
 
@@ -86,6 +88,12 @@ class App extends StatelessWidget {
           ),
           BlocProvider<NoticesBloc>(
             create: (BuildContext context) => NoticesBloc(noticeController: NoticeController())..add(NoticeGetEvent())
+          ),
+          BlocProvider<TNoticeBloc>(
+            create: (BuildContext context) => TNoticeBloc(noticeController: NoticeController())..add(TNoticeGettingEvent())
+          ),
+          BlocProvider<TWeekBloc>(
+            create: (BuildContext context) => TWeekBloc(noticeController: NoticeController())..add(TweekGettingEvent())
           ),
            BlocProvider<ProfileBloc>(
             create: (BuildContext context) => ProfileBloc(authController: AuthController())..add(GetProfileEvent())

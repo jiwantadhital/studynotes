@@ -204,22 +204,6 @@ refresh(){
                     ]),
               )),
         ),
-        bottomNavigationBar: AnimatedContainer(
-            duration: Duration(milliseconds: 300),
-            padding: EdgeInsets.only(left: 10, right: 10),
-            width: double.maxFinite,
-            height: bottomHeight,
-            decoration: BoxDecoration(color: Colors.white),
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.35,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [],
-                    ),
-                  ),
-                ])));
+        );
   }
 }

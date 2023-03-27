@@ -366,7 +366,6 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
         context.read<SubjectsBloc>()..add(SubjectGettingEvent(id: 1));
-    print("token is ${token}");
     var size = MediaQuery.of(context).size;
     print(size.width);
     return Scaffold(
@@ -551,7 +550,7 @@ class _MainPageState extends State<MainPage> {
                                                       BorderRadius.circular(10),
                                                   image: DecorationImage(
                                                     image: NetworkImage(
-                                                      "http://10.3.6.13:8000/uploads/images/news/${state
+                                                      "${ApiClass.local}uploads/images/news/${state
                                                         .newsModel[index].image
                                                         .toString()}"
                                                     ),

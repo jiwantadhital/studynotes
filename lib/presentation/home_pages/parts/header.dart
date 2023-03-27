@@ -376,7 +376,7 @@ class HeadImage extends StatefulWidget {
 
 class _HeadImageState extends State<HeadImage> {
     getProfile() {
-    Future.delayed(Duration(milliseconds: 50), () {
+    Future.delayed(Duration(milliseconds: 200), () {
       setState(() {});
     });
   }

@@ -10,3 +10,6 @@ abstract class NoticesEvent extends Equatable {
 class NoticeGetEvent extends NoticesEvent{
   
 }
+class NoticeFetchingEvent extends NoticesEvent{
+  
+}
