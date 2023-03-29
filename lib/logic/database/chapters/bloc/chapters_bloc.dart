@@ -36,7 +36,7 @@ class ChaptersBloc extends Bloc<ChaptersEvent, ChaptersState> {
     on<ChaptersCreatingEvent>((event, emit) async{
       try{
         emit(ChaptersLoading());
-        await chapterDatabaseController.addChapterData(event.semester,event.subjectId,event.subject,event.chapterId,event.chapterName,event.chapterNumber,event.chapterDesc);
+        await chapterDatabaseController.addChapterData(event.semester,event.subjectId,event.subject,event.chapterId,event.chapterName,event.chapterNumber,event.chapterDesc,event.pdf);
         emit(ChaptersAdded());
       }
       catch(e){

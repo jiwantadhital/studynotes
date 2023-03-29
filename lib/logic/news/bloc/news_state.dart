@@ -1,7 +1,10 @@
 part of 'news_bloc.dart';
 
 abstract class NewsState extends Equatable {
-  const NewsState();
+  final newsModel;
+  const NewsState({
+    this.newsModel
+  });
   
   @override
   List<Object> get props => [];
@@ -16,7 +19,7 @@ class NewsGot extends NewsState {
     required this.newsModel,
   });
    @override
-  List<Object> get props => [NewsModel];
+  List<Object> get props => [newsModel];
 }
 
 class NewsError extends NewsState {

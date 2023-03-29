@@ -7,3 +7,8 @@ class NewsGetEvent extends NewsEvent{
   @override
   List<Object> get props => [];
 }
+class NewsFetchingEvent extends NewsEvent{
+
+  @override
+  List<Object> get props => [];
+}

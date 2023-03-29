@@ -8,8 +8,11 @@ import 'package:studynotes/resources/colors.dart';
 import 'package:studynotes/resources/fonts.dart';
 
 class NewsDetails extends StatefulWidget {
+  String image;
+  String data;
+  String title;
   int index;
-   NewsDetails({super.key, required this.index});
+   NewsDetails({super.key, required this.index,required this.image,required this.data,required this.title});
 
   @override
   State<NewsDetails> createState() => _NewsDetailsState();
@@ -40,7 +43,6 @@ class _NewsDetailsState extends State<NewsDetails> {
   }
   @override
   Widget build(BuildContext context) {
-   final news = context.read<NewsBloc>().newsController.newsModel[widget.index];
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Stack(
@@ -49,7 +51,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                     height: 260,
                     decoration: BoxDecoration(
                       color: ColorManager.primaryColor,
-                      image: DecorationImage(image: NetworkImage("http://10.3.6.13:8000/uploads/images/news/${news.image
+                      image: DecorationImage(image: NetworkImage("http://10.3.6.13:8000/uploads/images/news/${widget.image
                                                       .toString()}"),fit: BoxFit.cover)
                     ),
                   ),),
@@ -99,7 +101,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                   background: Container(
                     // height: 300,
                     decoration: BoxDecoration(
-                      image: DecorationImage(image: NetworkImage("http://10.3.6.13:8000/uploads/images/news/${news.image
+                      image: DecorationImage(image: NetworkImage("http://10.3.6.13:8000/uploads/images/news/${widget.image
                                                       .toString()}"),fit: BoxFit.cover)
                     ),
                   ),
@@ -123,11 +125,11 @@ class _NewsDetailsState extends State<NewsDetails> {
                         children: [
                           SizedBox(height: 10,),
                           DText(color:dark==true? ColorManager.textColorWhite:ColorManager.textColorBlack,
-                          text: news.title??"", weight: FontWeightManager.extrabold,
+                          text: widget.title, weight: FontWeightManager.extrabold,
                           family: FontConstants.fontPoppins, size: FontSize.s24),
                           SizedBox(height: 10,),
                           DText(color: dark==true? ColorManager.textColorWhite.withOpacity(0.4):ColorManager.textColorBlack.withOpacity(0.7),
-                          text: news.description??"", weight: FontWeightManager.regular,
+                          text: widget.data, weight: FontWeightManager.regular,
                           family: FontConstants.fontNoto, size: FontSize.s16),
                         ],
                       ),

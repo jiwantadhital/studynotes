@@ -92,22 +92,28 @@ class _NotesState extends State<Notes> {
                           child: BlocConsumer<ChaptersBloc, ChaptersState>(
                             listener: (context, te) {
                               if(te is ChaptersLoading){
-                                DialogBox().dialogbox(context);
+                              //  DialogBox().dialogbox(context);
                                   // downloadStage=2;
                               }
                               if(te is ChaptersAdded){
-                                Navigator.pop(context);
                                 // downloadStage=3;
-                                  Future.delayed(Duration(milliseconds: 50),(){
-                                     context
-                                                                  .read<
-                                                                      LoadchapterBloc>()
-                                                                  .add(
-                                                                      LoadingAllChapterEvent());
+                                  Navigator.pop(context);
+                                  // Future.delayed(Duration(milliseconds: 50),(){
+                                  //    context
+                                  //                                 .read<
+                                  //                                     LoadchapterBloc>()
+                                  //                                 .add(
+                                  //                                     LoadingAllChapterEvent());
+                                  // }).whenComplete(() {
+                                                                                                   
+
+                                  // });
+                                  setState(() {
+                                    
                                   });
                               }
-                              if(te is ChaptersError){
-                                // downloadStage=4;
+                              if(te is ChaptersError){Navigator.pop(context);
+                                // downloadStage=4;   
                               }
                             },
                             builder: (context, te) {
@@ -196,76 +202,14 @@ class _NotesState extends State<Notes> {
                                                         .primaryColor,
                                                     size: 35,
                                                   )
-                                                // : cIndex == index
-                                                //     ? downloadStage == 1
-                                                //         ? GestureDetector(
-                                                //             onTap: () async {
-                                                //               cIndex = index;
-                                                //               print(state
-                                                //                   .chapterModel[
-                                                //                       index]
-                                                //                   .id);
-                                                //               try {
-                                                //                 notesFunction
-                                                //                     .dataSave(
-                                                //                   state
-                                                //                       .chapterModel[
-                                                //                           index]
-                                                //                       .id,
-                                                //                   context,
-                                                //                 );
-                                                //                 Future.delayed(
-                                                //                     Duration(
-                                                //                         milliseconds:
-                                                //                             200),
-                                                //                     () {
-                                                //                   context
-                                                //                       .read<
-                                                //                           LoadchapterBloc>()
-                                                //                       .add(
-                                                //                           LoadingAllChapterEvent());
-                                                //                 });
-                                                //               } catch (e) {
-                                                //                 ScaffoldMessenger.of(
-                                                //                         context)
-                                                //                     .showSnackBar(ShowSnackBar().snack(
-                                                //                         "Something went wrong",
-                                                //                         Colors
-                                                //                             .red));
-                                                //               }
-                                                //             },
-                                                //             child: Icon(
-                                                //               Icons
-                                                //                   .arrow_circle_down_outlined,
-                                                //               color: ColorManager
-                                                //                   .primaryColor,
-                                                //               size: 35,
-                                                //             ),
-                                                //           )
-                                                        // : downloadStage == 2
-                                                        //     ? Container(
-                                                        //         height: 15,
-                                                        //         width: 15,
-                                                        //         child:
-                                                        //             CircularProgressIndicator(
-                                                        //           color: ColorManager
-                                                        //               .primaryColor,
-                                                        //         ),
-                                                        //       ):downloadStage==3?
-                                                        //      Icon(
-                                                        //         Icons.done,
-                                                        //         color: ColorManager
-                                                        //             .primaryColor,
-                                                        //         size: 35,
-                                                        //       ): Icon(Icons.error,color: Colors.red,size: 35,):
+                                           
                                                     : GestureDetector(
                                                         onTap: () async {
+                                                          DialogBox().dialogbox(context);
+                                                           DialogBox().dialogbox(context);
+                                                            DialogBox().dialogbox(context);
                                                           cIndex = index;
 
-                                                          print(state
-                                                              .chapterModel[
-                                                                  index]
-                                                              .id);
                                                           try {
                                                             notesFunction
                                                                 .dataSave(
@@ -275,29 +219,11 @@ class _NotesState extends State<Notes> {
                                                                   .id,
                                                               context,
                                                             );
-                                                            Future.delayed(
-                                                                Duration(
-                                                                    milliseconds:
-                                                                        200),
-                                                                () {
-                                                              context
-                                                                  .read<
-                                                                      LoadchapterBloc>()
-                                                                  .add(
-                                                                      LoadingAllChapterEvent());
-                                                                      setState(() {
-                                                                        
-                                                                      });
-                                                            });
+                                                          
                                                           } catch (e) {
-                                                            ScaffoldMessenger
-                                                                    .of(context)
-                                                                .showSnackBar(
-                                                                    ShowSnackBar().snack(
-                                                                        "Something went wrong",
-                                                                        Colors
-                                                                            .red));
+
                                                           }
+                                                       
                                                         },
                                                         child: Icon(
                                                           Icons
@@ -357,10 +283,14 @@ class _NotesState extends State<Notes> {
                       return done == false
                           ? GestureDetector(
                               onTap: () {
+                                  DialogBox().dialogbox(context);
+                                                           DialogBox().dialogbox(context);
+                                                            DialogBox().dialogbox(context);
                                 try {
                                   for (int i = 0;
                                       i < state.chapterModel.length;
                                       i++) {
+                                      
                                         cIndex=i;
                                    
                                     notesFunction.dataSave(

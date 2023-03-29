@@ -1,16 +1,20 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_html/flutter_html.dart' as htm;
 
 import 'package:studynotes/logic/notes/allNotes/bloc/allnotes_bloc.dart';
 import 'package:studynotes/presentation/extra_widgets/extra_widgets.dart';
+import 'package:studynotes/presentation/home_pages/widgets/home_page_widgets.dart';
 import 'package:studynotes/resources/colors.dart';
+import 'package:studynotes/resources/constants.dart';
+import 'package:studynotes/resources/fonts.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 class NotesDetails extends StatefulWidget {
   String chaptername;
   int number;
-   NotesDetails({
+  NotesDetails({
     Key? key,
     required this.chaptername,
     required this.number,
@@ -28,21 +32,45 @@ class _NotesDetailsState extends State<NotesDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        physics: ClampingScrollPhysics(),
-        slivers: [
-          SliverAppBar(
+      body: BlocConsumer<AllnotesBloc, AllnotesState>(
+        listener: (context, state) {
+          // TODO: implement listener
+        },
+        builder: (context, state) {
+          if(state is AllnotesLoading){
+            return CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              backgroundColor: ColorManager.primaryColor,
+          centerTitle: true,
+          title: DText(
+            text: "Chapter Name",
+            color: ColorManager.textColorWhite,
+            weight: FontWeightManager.semibold,
+            size: FontSize.s20,
+            family: FontConstants.fontNunito,
+          )
+            ),
+            SliverToBoxAdapter(
+              child: Center(child: CircularProgressIndicator(),),
+            )
+          ]
+            );
+          }
+         if(state is AllnotesGot){
+           return CustomScrollView(
+            physics: ClampingScrollPhysics(),
+            slivers: [
+              SliverAppBar(
                 actions: [
                   IconButton(
-                  onPressed: () {
-                      show == false?  show=true:show=false;
-                    setState(() {
-                     
-                    });
-                  },
-                  icon: const Icon(Icons.settings)),
+                      onPressed: () {
+                        show == false ? show = true : show = false;
+                        setState(() {});
+                      },
+                      icon: const Icon(Icons.settings)),
                   const SizedBox(
-                width: 12,
+                    width: 12,
                   ),
                 ],
                 floating: true,
@@ -52,66 +80,69 @@ class _NotesDetailsState extends State<NotesDetails> {
                 title: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                Center(
-                  child: Text(
-                    "Chapter ${widget.number} - ${widget.chaptername}",
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+                    Center(
+                      child: Text(
+                        "Chapter ${widget.number} - ${widget.chaptername}",
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
-                  ),
-                ),
                   ],
                 ),
               ),
-              SliverToBoxAdapter(
+              
+            state.allNotesModel.notes!=null?  SliverToBoxAdapter(
                 child: GestureDetector(
-                  onTap: (){
-                    show=false;
-                    setState(() {
-                      
-                    });
+                  onTap: () {
+                    show = false;
+                    setState(() {});
                   },
-                  onDoubleTap: (){
-
-                  },
-                  child: BlocConsumer<AllnotesBloc,AllnotesState>(
-                    listener: (context,state){
-                      if(state is AllnotesGot){
-                       print("object");
-                      }
-                    },
-                    builder: (context,state){
-                    if(state is AllnotesLoading){
-                      return Center(child: Text("Loading...."),);
+                  child: BlocConsumer<AllnotesBloc, AllnotesState>(
+                      listener: (context, stat) {
+                    if (stat is AllnotesGot) {
+                      print("object");
                     }
-                    if(state is AllnotesGot){
+                  }, builder: (context, stat) {
+                    if (stat is AllnotesLoading) {
+                      return Center(
+                        child: Text("Loading...."),
+                      );
+                    }
+                    if (stat is AllnotesGot) {
                       return Container(
-                    width: double.infinity,
-                    margin: EdgeInsets.only(left: 10,right: 10),
-                    child: DoubleTappableInteractiveViewer(
-                        scaleDuration: const Duration(milliseconds: 600),
-                      child: Center(child: Html(data: "${state.allNotesModel.notes}"))),
-                  );
+                        width: double.infinity,
+                        margin: EdgeInsets.only(left: 10, right: 10),
+                        child: DoubleTappableInteractiveViewer(
+                            scaleDuration: const Duration(milliseconds: 600),
+                            child: Center(
+                                child: htm.Html(
+                                    data: "${state.allNotesModel.notes}"))),
+                      );
                     }
-                    if(state is AllnotesError){
+                    if (stat is AllnotesError) {
                       return Text("");
                     }
                     return Text("Something went wrong");
-                  })
+                  }),
                 ),
-              ),
-        ],
-      ),
-      bottomSheet:show==true? Container(
-        height: 100,
-        width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
-          color: ColorManager.primaryColor
+              ):    SliverFillRemaining(
+        hasScrollBody: false,
+        child: Container(
+          child: SfPdfViewer.network(
+            "${ApiClass.local}uploads/images/lab/pdf/${state.allNotesModel.image}",
+            pageSpacing: 0.0,
+          ),
         ),
-      ):Container(
-        height: 5,
       ),
+            ],
+          );
+         }
+         return Container();
+        },
+      ),
+    
     );
   }
 }

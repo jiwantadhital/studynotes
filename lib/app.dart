@@ -17,6 +17,7 @@ import 'package:studynotes/logic/auth/otp/bloc/otp_bloc.dart';
 import 'package:studynotes/logic/auth/register/bloc/register_bloc.dart';
 import 'package:studynotes/logic/database/chapter_load/bloc/loadchapter_bloc.dart';
 import 'package:studynotes/logic/database/chapters/bloc/chapters_bloc.dart';
+import 'package:studynotes/logic/database/desc/bloc/desc_bloc.dart';
 import 'package:studynotes/logic/institute/comments/bloc/comments_bloc.dart';
 import 'package:studynotes/logic/institute/images/bloc/image_bloc.dart';
 import 'package:studynotes/logic/institute/main/bloc/institute_bloc.dart';
@@ -70,6 +71,9 @@ class App extends StatelessWidget {
           ),
           BlocProvider<ChaptersBloc>(
             create: (BuildContext context) => ChaptersBloc(chapterDatabaseController: ChapterDatabaseController())
+          ),
+          BlocProvider<DescBloc>(
+            create: (BuildContext context) => DescBloc(chapterDatabaseController: ChapterDatabaseController())
           ),
           BlocProvider<LoadchapterBloc>(
             create: (BuildContext context) => LoadchapterBloc(chapterDatabaseController: ChapterDatabaseController())..add(LoadingAllChapterEvent())

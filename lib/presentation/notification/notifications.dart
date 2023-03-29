@@ -41,22 +41,22 @@ class _NotificationsState extends State<Notifications> {
   }
   @override
   Widget build(BuildContext context) {
-    UserSimplePreferences.setNotices(context.read<NoticesBloc>().noticeController.noticeModel.length);
+    UserSimplePreferences.setNotices(context.read<NoticesBloc>().noticeController.total);
     print("Notices ${UserSimplePreferences.getNotices()}");
     return Scaffold(
       appBar: AppBar(
-        actions: [
-         search==true?Container(): Padding(padding: const EdgeInsets.only(right: 20),
-          child: GestureDetector(
-            onTap: (){
-              search = true;
-              setState(() {
+        // actions: [
+        //  search==true?Container(): Padding(padding: const EdgeInsets.only(right: 20),
+        //   child: GestureDetector(
+        //     onTap: (){
+        //       search = true;
+        //       setState(() {
                 
-              });
-            },
-            child: const Icon(Icons.search)),
-          )
-        ],
+        //       });
+        //     },
+        //     child: const Icon(Icons.search)),
+        //   )
+        // ],
         centerTitle: true,
         backgroundColor: ColorManager.primaryColor,
         title:search==false? DText(color: ColorManager.textColorWhite, text: "Notifications", weight: FontWeightManager.bold, family: FontConstants.fontNunito, size: FontSize.s16):
@@ -127,7 +127,7 @@ class _NotificationsState extends State<Notifications> {
                   
                   Column(
       children: [
-        Align(
+     stat.noticeModel.isEmpty?Container():    Align(
           alignment: Alignment.centerLeft,
           child: Padding(
             padding: const EdgeInsets.only(left: 10,top: 10),
@@ -158,7 +158,7 @@ class _NotificationsState extends State<Notifications> {
                 if(sta is TWeekLoaded){
                   return Column(
       children: [
-       Align(
+      sta.noticeModel.isEmpty?Container():  Align(
           alignment: Alignment.centerLeft,
           child: Padding(
             padding: const EdgeInsets.only(left: 10,top: 10),
@@ -195,7 +195,7 @@ class _NotificationsState extends State<Notifications> {
                 if(state is NoticesGot){
                   return  Column(
       children: [
-        Align(
+       Align(
           alignment: Alignment.centerLeft,
           child: Padding(
             padding: const EdgeInsets.only(left: 10,top: 10),
@@ -212,7 +212,8 @@ class _NotificationsState extends State<Notifications> {
                    }
                    else{
                      var tday = f2.format(DateTime.parse(state.noticeModel[index].createdAt.toString()));
-              return NotificationsWidget(index: index,state: state,title: state.noticeModel[index].title.toString(), time:  tday);
+              return NotificationsWidget(index: index
+              ,state: state,title: state.noticeModel[index].title.toString(), time:  tday);
                    }
           })
             ]);
@@ -313,7 +314,7 @@ String time;
                         ),
                       );
                     }):Navigator.push(context, MaterialPageRoute(builder: (context){
-                      return NoticeDetails(index: index,);
+                      return NoticeDetails(datas: state.noticeModel[index].description,);
                     }));
       },
       child: Container(
@@ -447,7 +448,7 @@ String time;
                         ),
                       );
                     }):Navigator.push(context, MaterialPageRoute(builder: (context){
-                      return NoticeDetails(index: index,);
+                      return NoticeDetails(datas:list[index].description);
                     }));
       },
       child: Container(

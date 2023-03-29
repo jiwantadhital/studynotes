@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:isolate';
@@ -114,7 +115,28 @@ class NotesController{
 
 
 //All Notes
+// Future<AllNotesModel> fetchData(String datas, Function(AllNotesModel) callback) {
+//   return compute(_getData, {'datas': datas, 'callback': callback});
+// }
 
+// AllNotesModel _getData(Map<String, dynamic> data) {
+//   final datas = data['datas'];
+//   final callback = data['callback'];
+//   final allNotesModel = AllNotesModel.fromJson(jsonDecode(datas));
+//   callback(allNotesModel); // Execute callback on the main isolate
+//   return allNotesModel;
+// }
+//   AllNotesModel allNotesModel = AllNotesModel();
+//   List allnotes = [];
+// Future<AllNotesModel> getNotes(id) async {
+//   final response = await getRepository.getRepository("${ApiClass.allNotesApi}/${id}");
+//   final allNotesModelCompleter = Completer<AllNotesModel>();
+//   final allNotesModel = AllNotesModel.fromJson(jsonDecode(response.body));
+//      allnotes =[];
+//    allnotes.add(allNotesModel);
+//   allNotesModelCompleter.complete(allNotesModel);
+//   return allNotesModelCompleter.future;
+// }
 Future<AllNotesModel> fetchData(String datas ){
   return compute(_getData,datas);
 }
@@ -134,4 +156,7 @@ AllNotesModel _getData(String encodedJson){
    allnotes.add(allNotesModel);
     return data;  
   }
+
+
+
 }

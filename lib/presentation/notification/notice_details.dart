@@ -11,8 +11,8 @@ import 'package:studynotes/resources/fonts.dart' as font;
 import '../../resources/colors.dart';
 
 class NoticeDetails extends StatefulWidget {
-  int index;
-   NoticeDetails({super.key,required this.index});
+  String datas;
+   NoticeDetails({super.key,required this.datas});
 
   @override
   State<NoticeDetails> createState() => _NoticeDetailsState();
@@ -22,7 +22,6 @@ class _NoticeDetailsState extends State<NoticeDetails> {
 
   @override
   Widget build(BuildContext context) {
-       final notice = context.read<NoticesBloc>().noticeController.noticeModel[widget.index];
 
     return  Scaffold(
       appBar: AppBar(
@@ -32,7 +31,7 @@ class _NoticeDetailsState extends State<NoticeDetails> {
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.all(10),
-          child: Html(data: notice.description),
+          child: Html(data: widget.datas),
         ),
       ),
     );

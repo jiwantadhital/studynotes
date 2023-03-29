@@ -1,6 +1,7 @@
 class AllNotesModel {
   int? id;
   String? notes;
+  String? image;
   int? semId;
   int? subId;
   int? chapterId;
@@ -13,6 +14,7 @@ class AllNotesModel {
   AllNotesModel(
       {this.id,
       this.notes,
+      this.image,
       this.semId,
       this.subId,
       this.chapterId,
@@ -25,6 +27,7 @@ class AllNotesModel {
   AllNotesModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     notes = json['notes'];
+    image = json['image'];
     semId = json['sem_id'];
     subId = json['sub_id'];
     chapterId = json['chapter_id'];
@@ -43,6 +46,7 @@ class AllNotesModel {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['notes'] = this.notes;
+    data['image'] = this.image;
     data['sem_id'] = this.semId;
     data['sub_id'] = this.subId;
     data['chapter_id'] = this.chapterId;

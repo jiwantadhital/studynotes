@@ -11,7 +11,7 @@ class ChaptersInitial extends ChaptersState {}
 
 class ChaptersLoading extends ChaptersState{}
 class ChaptersLoaded extends ChaptersState {
-  final List<ChapterModelDatabase> chapterModelDatabase;
+  final List<ChapterDModel> chapterModelDatabase;
   ChaptersLoaded({
     required this.chapterModelDatabase,
   });

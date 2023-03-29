@@ -1,12 +1,16 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:studynotes/logic/database/chapters/bloc/chapters_bloc.dart';
+import 'package:studynotes/logic/database/desc/bloc/desc_bloc.dart';
 import 'package:studynotes/presentation/extra_widgets/extra_widgets.dart';
 import 'package:studynotes/presentation/home_pages/widgets/home_page_widgets.dart';
 import 'package:studynotes/presentation/setting/downloads/downloaded_details.dart';
+import 'package:studynotes/presentation/subject_details/notes/functions/notes_function.dart';
 import 'package:studynotes/resources/colors.dart';
 import 'package:studynotes/resources/fonts.dart';
 
@@ -22,6 +26,7 @@ class DownloadedChapters extends StatefulWidget {
 }
 
 class _DownloadedChaptersState extends State<DownloadedChapters> {
+ 
   @override
   void initState() {
     context.read<ChaptersBloc>().add(ChaptersGettingEvent(id: widget.id));
@@ -63,14 +68,15 @@ class _DownloadedChaptersState extends State<DownloadedChapters> {
               itemCount: state.chapterModelDatabase.length,
               itemBuilder: (context, index) {
                 return GestureDetector(
-                  onTap: () {
-                        context.read<ChaptersBloc>().add(ChaptersGettingEvent(id: widget.id));
+                  onTap: () async{
+                  var path= await SavePdf().seePdf(state.chapterModelDatabase[index].pdf);
+                        context.read<DescBloc>().add(DescGettingEvent(id: state.chapterModelDatabase[index].c_id));
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
                       return DownloadedDetails(
-                        id:widget.id,
-                          state: index,
-                          name: state.chapterModelDatabase[index].c_name);
+                          name: state.chapterModelDatabase[index].c_name,
+                          path: path,
+                          );
                     })).then((value) {
                     });
                   },

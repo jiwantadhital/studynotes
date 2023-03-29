@@ -25,6 +25,7 @@ Future<Database> _initDB(String filePath) async{
 Future _createDB(Database db, int version) async{
   final idType = "INTEGER PRIMARY KEY AUTOINCREMENT";
   final textType = "TEXT NOT NULL";
+  final textNullType = "TEXT NULL";
   final boolType = "BOOLEAN NOT NULL";
   final integerType = "INTEGER NOT NULL";
   final doubleType = "DOUBLE NOT NULL";
@@ -39,7 +40,8 @@ Future _createDB(Database db, int version) async{
       ${ChapterFields.c_id} $integerType,
       ${ChapterFields.c_name} $textType,
       ${ChapterFields.c_number} $textType,
-      ${ChapterFields.c_desc} $textType
+      ${ChapterFields.c_desc} $textNullType,
+      ${ChapterFields.pdf} $textNullType
     )
     '''
   );
@@ -82,15 +84,29 @@ return result.map((json) => SubjectDatabaseModel.fromJson(json)).toList();
 }
 
 //readChapters
-Future<List<ChapterModelDatabase>> readAll(cid)async{
+Future<List<ChapterDModel>> readAll(cid)async{
 final db = await  instance.database;
 final orderBy = '${ChapterFields.c_id} ASC';
 
 final result = await db.query(tableChapter,orderBy: orderBy,
+columns: [ChapterFields.s_id, ChapterFields.subject,ChapterFields.semester,ChapterFields.c_name,ChapterFields.c_number,ChapterFields.c_id,ChapterFields.id,ChapterFields.pdf],
 where: "${ChapterFields.s_id} = ? ",
 whereArgs: [cid],
 );
-return result.map((json) => ChapterModelDatabase.fromJson(json)).toList();
+return result.map((json) => ChapterDModel.fromJson(json)).toList();
+}
+//readDesc
+Future<List<DescDatabaseModel>> readDesc(cid)async{
+final db = await  instance.database;
+final orderBy = '${ChapterFields.c_id} ASC';
+
+final result = await db.query(tableChapter,orderBy: orderBy,
+distinct: true,
+columns: [ChapterFields.c_id, ChapterFields.c_desc,ChapterFields.pdf],
+where: "${ChapterFields.c_id} = ? ",
+whereArgs: [cid],
+);
+return result.map((json) => DescDatabaseModel.fromJson(json)).toList();
 }
 //update
 Future<int> update(ChapterModelDatabase chapterModelDatabase)async{

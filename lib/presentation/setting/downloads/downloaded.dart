@@ -94,7 +94,7 @@ class _DownloadedState extends State<Downloaded> {
                       child: DText(lines: 2,text: state.subjectModelDatabase[index].subject,color: ColorManager.textColorBlack,weight: FontWeightManager.semibold,size: FontSize.s13, family: FontConstants.fontPoppins,),
                     ),
                     Container(
-                      padding: EdgeInsets.only(top: 10,left: 5),
+                      padding: EdgeInsets.only(top: 5,left: 5),
                       child: DText(lines: 1,text: state.subjectModelDatabase[index].semester.toString(),color: ColorManager.textColorBlack,weight: FontWeightManager.regular,size: FontSize.s11, family: FontConstants.fontPoppins,),
                     )
                   ],

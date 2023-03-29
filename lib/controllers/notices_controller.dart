@@ -7,12 +7,14 @@ import 'package:studynotes/resources/constants.dart';
 class NoticeController{
   List<NoticeModel>  noticeModel = [];
   int pageNo = 0;
+  int total = 0;
   GetRepo getRepo = GetRepo();
 
   Future<List<NoticeModel>> getNotice(page) async{
     var response = await getRepo.getRepository("${ApiClass.noticeApi}?page=$page");
     List data = jsonDecode(response.body)['data'];
     pageNo = jsonDecode(response.body)['total']-jsonDecode(response.body)['per_page'];
+    total = jsonDecode(response.body)["total"];
    noticeModel = data.map((e) => NoticeModel.fromJson(e)).toList();
     return data.map(((e)=> NoticeModel.fromJson(e))).toList();  
   }

@@ -15,6 +15,7 @@ class ChaptersCreatingEvent extends ChaptersEvent {
   String chapterName;
   String chapterNumber;
   String chapterDesc;
+  String pdf;
   ChaptersCreatingEvent({
     required this.semester,
     required this.subjectId,
@@ -23,9 +24,10 @@ class ChaptersCreatingEvent extends ChaptersEvent {
     required this.chapterName,
     required this.chapterNumber,
     required this.chapterDesc,
+    required this.pdf,
   });
   @override
-  List<Object> get props => [semester,subjectId,subject,chapterId,chapterName,chapterNumber,chapterDesc];
+  List<Object> get props => [semester,subjectId,subject,chapterId,chapterName,chapterNumber,chapterDesc,pdf];
 }
 
 class ChaptersGettingEvent extends ChaptersEvent {
@@ -34,6 +36,7 @@ class ChaptersGettingEvent extends ChaptersEvent {
     required this.id,
   });
 }
+
 class ChaptersSubjectEvent extends ChaptersEvent{}
 
 class AllChaptersEvent extends ChaptersEvent{}

@@ -15,6 +15,7 @@ import 'package:studynotes/logic/notes/subjects/bloc/subjects_bloc.dart';
 import 'package:studynotes/logic/notices/bloc/notices_bloc.dart';
 import 'package:studynotes/notification/local_notification.dart';
 import 'package:studynotes/presentation/home_pages/news_section/news_details.dart';
+import 'package:studynotes/presentation/home_pages/news_section/page/news_page.dart';
 import 'package:studynotes/presentation/home_pages/parts/header.dart';
 import 'package:studynotes/presentation/home_pages/parts/open_search_page.dart';
 import 'package:studynotes/presentation/home_pages/widgets/home_page_widgets.dart';
@@ -125,7 +126,7 @@ _notices(size) {
                           : Navigator.push(context,
                               MaterialPageRoute(builder: (context) {
                               return NoticeDetails(
-                                index: index,
+                              datas:  state.noticeModel[index].description!,
                               );
                             }));
                     },
@@ -219,10 +220,10 @@ _continueReading(size) {
   return BlocBuilder<AllsubjectBloc, AllsubjectState>(
     builder: (context, state) {
       if(state is AllsubjectLoading){
-
+       return ContinueLoadErrr(size: size,);
       }
       if(state is AllsubjectError){
-
+         return ContinueLoadErrr(size: size,);
       }
       if(state is AllsubjectGot){
         List data = state.allSubjectModel.where((element) => continueRead.contains(element.id.toString())).toList();
@@ -285,6 +286,38 @@ _continueReading(size) {
       return Container();
     },
   );
+}
+
+class ContinueLoadErrr extends StatelessWidget {
+  var size;
+   ContinueLoadErrr({
+    super.key,
+    required this.size
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 110,
+      child: ListView.builder(
+           shrinkWrap: true,
+           scrollDirection: Axis.horizontal,
+           itemCount: 4,
+           itemBuilder: (context, index) {
+             return Container(
+               padding: EdgeInsets.all(10),
+               margin: EdgeInsets.only(right: 10, left: 10),
+               width: size.width * 0.65,
+               height: 100,
+               decoration: BoxDecoration(
+                 color: Colors.grey[200],
+                 borderRadius: BorderRadius.circular(10),
+               ),
+           
+             );
+           }),
+    );
+  }
 }
 
 class MainPage extends StatefulWidget {
@@ -474,7 +507,13 @@ class _MainPageState extends State<MainPage> {
                     SizedBox(
                       height: 10,
                     ),
-                    Topics(text: "Latest News"),
+                    Topics(text: "Latest News",
+                     onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) {
+                          return NewsPage();
+                        }));
+                      },
+                    ),               
                     SizedBox(
                       height: 5,
                     ),
@@ -527,13 +566,16 @@ class _MainPageState extends State<MainPage> {
                                     childAspectRatio:
                                         size.width < 370 ? 4 / 3.7 : 4 / 3.5,
                                   ),
-                                  itemCount: state.newsModel.length,
+                                  itemCount: 4,
                                   itemBuilder: (context, index) {
                                     return GestureDetector(
                                       onTap: () {
                                         Navigator.push(context,
                                             MaterialPageRoute(builder: (context) {
                                           return NewsDetails(
+                                            data: state.newsModel[index].description.toString(),
+                                            image: state.newsModel[index].image.toString(),
+                                            title: state.newsModel[index].title.toString(),
                                             index: index,
                                           );
                                         }));

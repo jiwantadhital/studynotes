@@ -50,7 +50,8 @@ class NoticesBloc extends HydratedBloc<NoticesEvent, NoticesState> {
         }
         emit(NoticesGot(noticeModel: [...state.noticeModel, ...data]));
       }
-    },);
+    },
+    );
   }
   
   @override

@@ -10,8 +10,8 @@ class LoadchapterBloc extends Bloc<LoadchapterEvent, LoadchapterState> {
   ChapterDatabaseController chapterDatabaseController;
   LoadchapterBloc({required this.chapterDatabaseController}) : super(LoadchapterInitial()) {
     on<LoadingAllChapterEvent>((event, emit) async{
+              emit(LoadChapterLoading());
          try{
-        emit(LoadChapterLoading());
        var data= await chapterDatabaseController.getAllChapters();
         var allData = data.map((e) => e.c_id).toList();
         print(allData);
