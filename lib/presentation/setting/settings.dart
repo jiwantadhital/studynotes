@@ -11,6 +11,7 @@ import 'package:studynotes/presentation/auth_pages/social_login.dart';
 import 'package:studynotes/presentation/home_pages/widgets/home_page_widgets.dart';
 import 'package:studynotes/presentation/setting/downloads/downloaded.dart';
 import 'package:studynotes/presentation/setting/edit_profile/edit_profile.dart';
+import 'package:studynotes/presentation/setting/invite/invite.dart';
 import 'package:studynotes/presentation/setting/report/report.dart';
 import 'package:studynotes/resources/colors.dart';
 import 'package:studynotes/resources/constants.dart';
@@ -24,6 +25,7 @@ class SettingPage extends StatefulWidget {
 }
 
 class _SettingPageState extends State<SettingPage> {
+  bool dark = UserSimplePreferences.getDark()??false;
   String image = UserSimplePreferences.getGooglePhoto() ?? "";
   @override
   void initState() {
@@ -34,6 +36,7 @@ class _SettingPageState extends State<SettingPage> {
   Widget build(BuildContext context) {
         context.read<SubjectsBloc>()..add(SubjectGettingEvent(id: 1));
     return Scaffold(
+      backgroundColor:dark==true?Colors.black: Colors.white,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Center(
@@ -78,7 +81,7 @@ class _SettingPageState extends State<SettingPage> {
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(100),
                                   border:
-                                      Border.all(width: 7, color: Colors.white),
+                                      Border.all(width: 7, color: dark==true?Colors.grey:Colors.white,),
                                   image: DecorationImage(
                                       image: MemoryImage(base64Decode(state.profileModel.image??UserSimplePreferences.getGooglePhoto() ?? imageAll)),
                                       fit: BoxFit.cover)),
@@ -126,7 +129,7 @@ class _SettingPageState extends State<SettingPage> {
                                       text:
                                           UserSimplePreferences.getUsername() ??
                                               state.profileModel.name??"",
-                                      color: ColorManager.textColorBlack,
+                                      color: dark==true?Colors.white:Colors.black,
                                       weight: FontWeightManager.bold,
                                       family: FontConstants.fontNunito,
                                       size: FontSize.s15,
@@ -134,7 +137,7 @@ class _SettingPageState extends State<SettingPage> {
                                     DText(
                                       text: UserSimplePreferences.getEmail() ??
                                           state.profileModel.user!.email??"",
-                                      color: ColorManager.textColorBlack,
+                                     color: dark==true?Colors.white:Colors.black,
                                       weight: FontWeightManager.regular,
                                       family: FontConstants.fontNunito,
                                       size: FontSize.s13,
@@ -168,6 +171,7 @@ class _SettingPageState extends State<SettingPage> {
                                   });
                                 },
                                 child: ProfileBoxes(
+                                  color: dark==true?Colors.white:Colors.black,
                                   fIcon: Icons.person,
                                   sIcon: Icons.arrow_forward_ios,
                                   boxText: "Edit Profile",
@@ -176,6 +180,7 @@ class _SettingPageState extends State<SettingPage> {
                               height: 10,
                             ),
                             ProfileBoxes(
+                              color: dark==true?Colors.white:Colors.black,
                               fIcon: Icons.download_done,
                               sIcon: Icons.arrow_forward_ios,
                               boxText: "Downloads",
@@ -192,6 +197,7 @@ class _SettingPageState extends State<SettingPage> {
                               height: 10,
                             ),
                             ProfileBoxes(
+                              color: dark==true?Colors.white:Colors.black,
                               fIcon: Icons.error,
                               sIcon: Icons.arrow_forward_ios,
                               boxText: "Report a problem",
@@ -206,17 +212,32 @@ class _SettingPageState extends State<SettingPage> {
                               height: 10,
                             ),
                             ProfileToggle(
+                              color: dark==true?Colors.white:Colors.black,
                               fIcon: Icons.remove_red_eye,
                               button: Switch(
                                   activeColor: Theme.of(context).primaryColor,
-                                  value: true,
-                                  onChanged: (val) {}),
+                                  value: dark,
+                                  onChanged: (val) {
+                                    dark = val;
+                                    setState(() {
+                                      UserSimplePreferences.setDark(val);
+                                      print(val);
+                                    });
+                                  }),
                               boxText: "Dark Mode",
                             ),
                             SizedBox(
                               height: 10,
                             ),
                             ProfileBoxes(
+                              tap: (){
+                                showModalBottomSheet(
+                                  isScrollControlled: true,
+                                  context: context, builder: (context){
+                                  return InvitePage();
+                                });
+                              },
+                              color: dark==true?Colors.white:Colors.black,
                               fIcon: Icons.share,
                               sIcon: Icons.arrow_forward_ios,
                               boxText: "Invite",
@@ -313,12 +334,12 @@ class _SettingPageState extends State<SettingPage> {
                                                   UserSimplePreferences
                                                       .setVerified(false);
                                                   GoogleSignInApi.logout();
-                                                  Navigator.pushReplacement(
+                                                  Navigator.pushAndRemoveUntil(
                                                       context,
                                                       MaterialPageRoute(
                                                           builder: (context) {
                                                     return SocialLogin();
-                                                  }));
+                                                  }), (Route<dynamic> route) => false);
                                                 },
                                                 child: Container(
                                                   height: 40,

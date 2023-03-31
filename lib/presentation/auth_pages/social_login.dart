@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:studynotes/local_databases/sharedpreferences/shared_pref.dart';
+import 'package:studynotes/logic/auth/getProfile/bloc/profile_bloc.dart';
 import 'package:studynotes/logic/auth/google/bloc/google_bloc.dart';
 import 'package:studynotes/presentation/auth_pages/auth_page.dart';
 import 'package:studynotes/presentation/auth_pages/auth_widgets/auth_widgets.dart';
@@ -91,9 +92,9 @@ class _SocialLoginState extends State<SocialLogin> {
                                       );
                               }
                               if(state is GoogleLoggedIn){
-                               Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
+                               Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context){
                            return BottomBarPage();
-                         }));
+                         }), (Route<dynamic> route) => false);
                               }
                               if(state is GoogleError){
                                Navigator.pop(context);

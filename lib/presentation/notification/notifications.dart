@@ -45,18 +45,7 @@ class _NotificationsState extends State<Notifications> {
     print("Notices ${UserSimplePreferences.getNotices()}");
     return Scaffold(
       appBar: AppBar(
-        // actions: [
-        //  search==true?Container(): Padding(padding: const EdgeInsets.only(right: 20),
-        //   child: GestureDetector(
-        //     onTap: (){
-        //       search = true;
-        //       setState(() {
-                
-        //       });
-        //     },
-        //     child: const Icon(Icons.search)),
-        //   )
-        // ],
+ 
         centerTitle: true,
         backgroundColor: ColorManager.primaryColor,
         title:search==false? DText(color: ColorManager.textColorWhite, text: "Notifications", weight: FontWeightManager.bold, family: FontConstants.fontNunito, size: FontSize.s16):
@@ -92,7 +81,7 @@ class _NotificationsState extends State<Notifications> {
         ,
       ),
       body: Container(
-        color: Colors.grey[100],
+        color: UserSimplePreferences.getDark()==true?Colors.black87:Colors.grey[100],
         // margin: EdgeInsets.only(top: 10,bottom: 10),
         child: SingleChildScrollView(
           controller: context.read<NoticesBloc>().scrollController,
@@ -102,7 +91,7 @@ class _NotificationsState extends State<Notifications> {
           alignment: Alignment.centerLeft,
           child: Padding(
             padding: const EdgeInsets.only(left: 10,top: 10),
-            child: DText(color: ColorManager.textColorBlack, text: "All", weight: FontWeightManager.bold, family: FontConstants.fontPoppins, size: FontSize.s20),
+            child: DText(color: UserSimplePreferences.getDark()==true?ColorManager.textColorWhite:ColorManager.textColorBlack, text: "All", weight: FontWeightManager.bold, family: FontConstants.fontPoppins, size: FontSize.s20),
           )),
         ListView.builder(
           physics: const NeverScrollableScrollPhysics(),
@@ -131,7 +120,7 @@ class _NotificationsState extends State<Notifications> {
           alignment: Alignment.centerLeft,
           child: Padding(
             padding: const EdgeInsets.only(left: 10,top: 10),
-            child: DText(color: ColorManager.textColorBlack, text: "Today", weight: FontWeightManager.bold, family: FontConstants.fontPoppins, size: FontSize.s20),
+            child: DText(color: UserSimplePreferences.getDark()==true?ColorManager.textColorWhite:ColorManager.textColorBlack, text: "Today", weight: FontWeightManager.bold, family: FontConstants.fontPoppins, size: FontSize.s20),
           )),
         ListView.builder(
           physics: const NeverScrollableScrollPhysics(),
@@ -162,7 +151,7 @@ class _NotificationsState extends State<Notifications> {
           alignment: Alignment.centerLeft,
           child: Padding(
             padding: const EdgeInsets.only(left: 10,top: 10),
-            child: DText(color: ColorManager.textColorBlack, text: "This Week", weight: FontWeightManager.bold, family: FontConstants.fontPoppins, size: FontSize.s20),
+            child: DText(color:UserSimplePreferences.getDark()==true?ColorManager.textColorWhite:ColorManager.textColorBlack, text: "This Week", weight: FontWeightManager.bold, family: FontConstants.fontPoppins, size: FontSize.s20),
           )),
         ListView.builder(
           physics: const NeverScrollableScrollPhysics(),
@@ -199,7 +188,7 @@ class _NotificationsState extends State<Notifications> {
           alignment: Alignment.centerLeft,
           child: Padding(
             padding: const EdgeInsets.only(left: 10,top: 10),
-            child: DText(color: ColorManager.textColorBlack, text: "All", weight: FontWeightManager.bold, family: FontConstants.fontPoppins, size: FontSize.s20),
+            child: DText(color: UserSimplePreferences.getDark()==true?ColorManager.textColorWhite:ColorManager.textColorBlack, text: "All", weight: FontWeightManager.bold, family: FontConstants.fontPoppins, size: FontSize.s20),
           )),
         ListView.builder(
           physics: const NeverScrollableScrollPhysics(),
@@ -319,7 +308,7 @@ String time;
       },
       child: Container(
               margin: const EdgeInsets.only(top: 5, bottom: 5),
-              color: Colors.white,
+              color: UserSimplePreferences.getDark()==true?Colors.black:Colors.white,
             height: 80,
             width: double.maxFinite,
             child: Row(
@@ -364,7 +353,7 @@ String time;
               children: [
                 DText(
                   lines: 2,
-                  color: ColorManager.textColorBlack, text: title, weight: FontWeightManager.regular, family: FontConstants.fontNoto, size: FontSize.s14),
+                  color: UserSimplePreferences.getDark()==true?ColorManager.textColorWhite:ColorManager.textColorBlack, text: title, weight: FontWeightManager.regular, family: FontConstants.fontNoto, size: FontSize.s14),
                 const SizedBox(height: 5,),
                 DText(
                   lines: 1,

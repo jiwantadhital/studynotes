@@ -40,10 +40,14 @@ Color color;
 
 //topics
 class Topics extends StatelessWidget {
+  String text2;
+  Color color;
 String text;
 var onTap;
    Topics({
     Key? key,
+    this.text2 = "View all",
+   required this.color,
     required this.text,
      this.onTap,
   }) : super(key: key);
@@ -56,7 +60,7 @@ var onTap;
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          DText(color: ColorManager.textColorBlack,
+          DText(color: color,
           text: text,
           weight: FontWeightManager.regular,
           family: FontConstants.fontNoto,
@@ -64,7 +68,7 @@ var onTap;
            GestureDetector(
             onTap: onTap,
              child: DText(color: Colors.blue,
-                     text: "View all",
+                     text: text2,
                      weight: FontWeightManager.regular,
                      family: FontConstants.fontNoto,
                      size: FontSize.s11),

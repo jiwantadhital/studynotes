@@ -344,14 +344,7 @@ refresh(){
                                   color: Colors.red,
                                   borderRadius:
                                       BorderRadius.circular(10)),
-                              // child: Center(
-                              //     child: DText(
-                              //   text: "+",
-                              //   color: Colors.white,
-                              //   size: 8,
-                              //   weight: FontWeight.w800,
-                              //   family: FontConstants.fontPoppins,
-                              // )),
+                            
                             ),
                           ),
                   ],
@@ -375,9 +368,12 @@ class HeadImage extends StatefulWidget {
 }
 
 class _HeadImageState extends State<HeadImage> {
+  
     getProfile() {
-    Future.delayed(Duration(milliseconds: 200), () {
-      setState(() {});
+    Future.delayed(Duration(milliseconds: 500), () {
+       setState(() {
+         
+       });
     });
   }
   @override
@@ -388,6 +384,7 @@ class _HeadImageState extends State<HeadImage> {
   }
   @override
   Widget build(BuildContext context) {
+    context.read<ProfileBloc>()..add(GetProfileEvent());
     return Container(
       height: 50,
       width: 50,

@@ -48,6 +48,7 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin{
   }
   _goNext(){
     print(UserSimplePreferences.userLoggedIn());
+     print(UserSimplePreferences.getVerified());
   if(UserSimplePreferences.getVerified()==false){
      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
     return SocialLogin();

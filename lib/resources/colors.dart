@@ -9,6 +9,7 @@ class ColorManager{
   static Color boxBlue = HexColor.fromHex("#1E7CD2"); 
   static Color boxDarkGreen = HexColor.fromHex("#236A21"); 
   static Color splashPage = HexColor.fromHex("#50EDFE"); 
+  static Color backgroundColor = HexColor.fromHex("#000000");
 
   
 }

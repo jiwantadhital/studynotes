@@ -116,14 +116,14 @@ class _RegisterState extends State<Register> {
                                         "Something went wrong", Colors.red));
                           }
                           if(state is RegisterOtp){
-                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
+                            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context){
                              return OTPPage();
-                           }));
+                           }), (Route<dynamic> route) => false);
                           }
                           if(state is RegisterDone){
-                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
+                            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context){
                              return BottomBarPage();
-                           }));
+                           }), (Route<dynamic> route) => false);
                           }
                            })
                    

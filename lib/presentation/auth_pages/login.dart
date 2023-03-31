@@ -119,14 +119,14 @@ class _LoginState extends State<Login> {
                                         "Something went wrong", Colors.red));
                         }
                           if(state is LoginOtp){
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
+                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context){
                            return OTPPage();
-                         }));
+                         }), (Route<dynamic> route) => false);
                         }
                         if(state is LoginDone){
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
+                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context){
                            return BottomBarPage();
-                         }));
+                         }), (Route<dynamic> route) => false);
                         }
                         
                       }),
@@ -164,9 +164,9 @@ class _LoginState extends State<Login> {
                                   DText(color: ColorManager.textColorBlack, text: "Continue with ", weight: FontWeightManager.bold, family: FontConstants.fontNunito, size: FontSize.s14),
                                   GestureDetector(
                                     onTap: (){
-                                         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
+                                         Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context){
                                             return SocialLogin();
-                                             }));
+                                             }), (Route<dynamic> route) => false);
                                     },
                                     child: DText(color: ColorManager.boxBlue, text: "social login", weight: FontWeightManager.bold, family: FontConstants.fontNunito, size: FontSize.s14)),
                                 ],

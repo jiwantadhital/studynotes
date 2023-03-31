@@ -15,6 +15,7 @@ class UserSimplePreferences {
   static const _verfified = 'Verified';
   static const _continueReading = 'Continue';
    static const _notices = 'Notices';
+    static const _dark = 'Dark';
 
   static Future init() async =>
       _preferences = await SharedPreferences.getInstance();
@@ -50,6 +51,9 @@ class UserSimplePreferences {
   static Future setBiometrics(bool biometricsEnabled) async {
     await _preferences?.setBool(_biometrics, biometricsEnabled);
   }
+  static Future setDark(bool darkEnabled) async {
+    await _preferences?.setBool(_dark, darkEnabled);
+  }
    static Future setVerified(bool verified) async {
     await _preferences?.setBool(_verfified, verified);
   }
@@ -70,6 +74,7 @@ class UserSimplePreferences {
   static bool? getBiometric() => _preferences?.getBool(_biometrics);
   static bool? getVerified() => _preferences?.getBool(_verfified);
   static bool? getRemember() => _preferences?.getBool(_remember);
+  static bool? getDark() => _preferences?.getBool(_dark);
    static List<String>? getContinue() => _preferences?.getStringList(_continueReading);
 
   //remove

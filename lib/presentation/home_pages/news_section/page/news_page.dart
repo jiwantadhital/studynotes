@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:studynotes/local_databases/sharedpreferences/shared_pref.dart';
 import 'package:studynotes/logic/news/bloc/news_bloc.dart';
 import 'package:studynotes/presentation/home_pages/main_page.dart';
 import 'package:studynotes/presentation/home_pages/news_section/news_details.dart';
@@ -22,6 +23,7 @@ class _NewsPageState extends State<NewsPage> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: UserSimplePreferences.getDark()==true?Colors.black:Colors.white,
         appBar: AppBar(
           centerTitle: true,
         title: DText(
@@ -128,7 +130,7 @@ class _NewsPageState extends State<NewsPage> {
                                                 padding: const EdgeInsets.all(5.0),
                                                 child: DText(
                                                     lines: 2,
-                                                    color: ColorManager.textColorBlack,
+                                                   color: UserSimplePreferences.getDark()==true?Colors.white:Colors.black,
                                                     text: state.newsModel[index].title
                                                         .toString(),
                                                     weight: FontWeightManager.regular,

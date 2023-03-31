@@ -92,7 +92,7 @@ class _CategoriesState extends State<Categories> {
                   height: MediaQuery.of(context).size.height,
                   width: double.maxFinite,
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                  color: UserSimplePreferences.getDark()==true?Colors.black:Colors.white,
                      borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(20),
                           topRight: Radius.circular(20)

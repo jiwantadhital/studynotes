@@ -88,9 +88,9 @@ decrease(){
                         return DialogBox().dialogbox(context);
                       }
                       if(state is OtpDone){
-                         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
+                         Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context){
                              return BottomBarPage();
-                           }));
+                           }), (Route<dynamic> route) => false);
                       }
                       if(state is OtpError){
                         Navigator.pop(context);

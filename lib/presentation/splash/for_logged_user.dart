@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:studynotes/local_databases/sharedpreferences/shared_pref.dart';
+import 'package:studynotes/logic/auth/getProfile/bloc/profile_bloc.dart';
 import 'package:studynotes/presentation/bottom_navigation/bottom_navigation_bar.dart';
 import 'package:studynotes/presentation/home_pages/widgets/home_page_widgets.dart';
 import 'package:studynotes/resources/colors.dart';
@@ -42,6 +44,7 @@ class _ForLoggedState extends State<ForLogged> {
   }
   @override
   Widget build(BuildContext context) {
+     context.read<ProfileBloc>()..add(GetProfileEvent());
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(

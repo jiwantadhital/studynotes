@@ -9,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:studynotes/controllers/news_controller.dart';
 import 'package:studynotes/local_databases/sharedpreferences/shared_pref.dart';
 import 'package:studynotes/logic/allsubjects/bloc/allsubject_bloc.dart';
+import 'package:studynotes/logic/auth/getProfile/bloc/profile_bloc.dart';
 import 'package:studynotes/logic/news/bloc/news_bloc.dart';
 import 'package:studynotes/logic/notes/chapters/bloc/chapter_bloc.dart';
 import 'package:studynotes/logic/notes/subjects/bloc/subjects_bloc.dart';
@@ -391,17 +392,16 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-  bool get _appBarCollapsed {
-    return scrollController.hasClients &&
-        scrollController.offset > (140 - kToolbarHeight);
-  }
+ 
 
   @override
   Widget build(BuildContext context) {
         context.read<SubjectsBloc>()..add(SubjectGettingEvent(id: 1));
+        context.read<ProfileBloc>()..add(GetProfileEvent());
     var size = MediaQuery.of(context).size;
     print(size.width);
     return Scaffold(
+      backgroundColor: UserSimplePreferences.getDark()==true?Colors.black:Colors.white,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         elevation: 0,
@@ -485,6 +485,7 @@ class _MainPageState extends State<MainPage> {
                       height: 5,
                     ),
                     Topics(
+                      color: UserSimplePreferences.getDark()==true?Colors.white:Colors.black,
                       text: "Continue reading",
                     ),
                     SizedBox(
@@ -495,6 +496,7 @@ class _MainPageState extends State<MainPage> {
                       height: 10,
                     ),
                     Topics(
+                       color: UserSimplePreferences.getDark()==true?Colors.white:Colors.black,
                       text: "Recent Notices",
                       onTap: () {
                         Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -507,7 +509,9 @@ class _MainPageState extends State<MainPage> {
                     SizedBox(
                       height: 10,
                     ),
-                    Topics(text: "Latest News",
+                    Topics(
+                      color: UserSimplePreferences.getDark()==true?Colors.white:Colors.black,
+                      text: "Latest News",
                      onTap: () {
                         Navigator.push(context, MaterialPageRoute(builder: (context) {
                           return NewsPage();
@@ -606,7 +610,7 @@ class _MainPageState extends State<MainPage> {
                                               padding: const EdgeInsets.all(5.0),
                                               child: DText(
                                                   lines: 2,
-                                                  color: ColorManager.textColorBlack,
+                                                  color: UserSimplePreferences.getDark()==true?Colors.white:Colors.black,
                                                   text: state.newsModel[index].title
                                                       .toString(),
                                                   weight: FontWeightManager.regular,
