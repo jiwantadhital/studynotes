@@ -29,15 +29,15 @@ Timer? timer;
 
  deactive(){
   active = false;
-  Timer _timer =  Timer(const Duration(seconds: 39), () {
-    timer!.cancel();
+   timer =  Timer(const Duration(seconds: 39), () {
+    timer?.cancel();
       setState(() {
         active = true;
       });
     });
 }
 decrease(){
- timer= Timer.periodic(Duration(seconds: 1), (timer) {
+ timer= Timer.periodic(const Duration(seconds: 1), (timer) {
         _counterNotifier.value--;
      });
 }
@@ -56,7 +56,7 @@ print("now");
         title: Center(child: DText(text: "Verify Phone Number",color: ColorManager.textColorWhite,weight: FontWeightManager.semibold,size: FontSize.s20, family: FontConstants.fontNunito,),),
       ),
       body: Container(
-        margin: EdgeInsets.all(10),
+        margin: const EdgeInsets.all(10),
         child: Form(
             autovalidateMode: AutovalidateMode.onUserInteraction,
           key: _formKey2,
@@ -72,12 +72,12 @@ print("now");
                       }
                     },
                     labelText: "OTP",type: TextInputType.number,maxlength: 4,),
-                  SizedBox(height: 40,),
+                  const SizedBox(height: 40,),
                     BlocConsumer<OtpBloc,OtpState>(builder: (context,state){
                       return AuthButton(text: "Verify",
                     tap: (){
                       if(_formKey2.currentState!.validate()){
-                        context.read<OtpBloc>()..add(OTPprocessEvent(
+                        context.read<OtpBloc>().add(OTPprocessEvent(
                                num: 1.toString(),
                                 ));
                       }
@@ -89,18 +89,18 @@ print("now");
                       }
                       if(state is OtpDone){
                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context){
-                             return BottomBarPage();
+                             return const BottomBarPage();
                            }), (Route<dynamic> route) => false);
                       }
                       if(state is OtpError){
                         Navigator.pop(context);
                       }
                     }),
-                    SizedBox(height: 20,),
+                    const SizedBox(height: 20,),
                    active == true? Align(
                       alignment: Alignment.centerRight,
                       child: Container(
-                        margin: EdgeInsets.only(right: 10),
+                        margin: const EdgeInsets.only(right: 10),
                         child: GestureDetector(
                           onTap: (){
                             setState(() {
@@ -113,7 +113,7 @@ print("now");
                           Align(
                       alignment: Alignment.centerRight,
                       child: Container(
-                        margin: EdgeInsets.only(right: 10),
+                        margin: const EdgeInsets.only(right: 10),
                       child:  ValueListenableBuilder(
                             valueListenable: _counterNotifier,
                          builder: (context, value, _) {

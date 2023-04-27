@@ -21,7 +21,7 @@ class DescPart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -32,10 +32,10 @@ class DescPart extends StatelessWidget {
             family: FontConstants.fontNunito,
             size: 12,
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
-          Container(
+          SizedBox(
             height: 20,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -43,7 +43,7 @@ class DescPart extends StatelessWidget {
                 RichText(
                   text: TextSpan(
                     children: [
-                      TextSpan(
+                      const TextSpan(
                         text: "4/5",
                         style: TextStyle(
                           color: Colors.black,
@@ -66,8 +66,8 @@ class DescPart extends StatelessWidget {
               ],
             ),
           ),
-          Divider(),
-          SizedBox(
+          const Divider(),
+          const SizedBox(
             height: 10,
           ),
           Expanded(
@@ -93,11 +93,11 @@ class Specifications extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Expanded(
@@ -135,14 +135,14 @@ class Specifications extends StatelessWidget {
 class SpecificationName extends StatelessWidget {
   String specification;
   String detail;
-  SpecificationName({required this.specification, required this.detail});
+  SpecificationName({super.key, required this.specification, required this.detail});
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Container(
+        SizedBox(
             width: MediaQuery.of(context).size.width * 0.3,
             child: DText(
               text: specification,
@@ -151,10 +151,10 @@ class SpecificationName extends StatelessWidget {
               size: FontSize.s13,
               family: FontConstants.fontNunito,
             )),
-        SizedBox(
+        const SizedBox(
           width: 5,
         ),
-        Container(
+        SizedBox(
             width: MediaQuery.of(context).size.width * 0.6,
             child: DText(
               text: detail,
@@ -197,7 +197,7 @@ class _ReviewsState extends State<Reviews> {
         removeTop: true,
         child: ListView(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Center(
@@ -208,7 +208,7 @@ class _ReviewsState extends State<Reviews> {
               weight: FontWeightManager.semibold,
               family: FontConstants.fontNunito,
             )),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             Row(
@@ -226,7 +226,7 @@ class _ReviewsState extends State<Reviews> {
                   ),
               ],
             ),
-            Divider(),
+            const Divider(),
             BlocConsumer<CommentsBloc, CommentsState>(
               listener: (context, state) {
                if(state is CommentsLoaded){
@@ -236,15 +236,15 @@ class _ReviewsState extends State<Reviews> {
                 if(state is CommentsLoading){
                   return ListView.builder(
                     shrinkWrap: true,
-                    physics: ClampingScrollPhysics(),
+                    physics: const ClampingScrollPhysics(),
                     itemCount: 3,
                     itemBuilder: (context,index){
-                      return Container(
+                      return SizedBox(
                         height: 160,
                         child: Column(
                           children: [
                             Container(
-                              margin: EdgeInsets.only(left: 10,right: 10,top: 5,bottom: 5),
+                              margin: const EdgeInsets.only(left: 10,right: 10,top: 5,bottom: 5),
                               height: 100,
                               width: MediaQuery.of(context).size.width,
                               decoration: BoxDecoration(
@@ -253,7 +253,7 @@ class _ReviewsState extends State<Reviews> {
                               ),
                             ),
                                Container(
-                              margin: EdgeInsets.only(left: 10,right: 10,top: 5,bottom: 5),
+                              margin: const EdgeInsets.only(left: 10,right: 10,top: 5,bottom: 5),
                               height: 30,
                               width: MediaQuery.of(context).size.width,
                               decoration: BoxDecoration(
@@ -267,23 +267,23 @@ class _ReviewsState extends State<Reviews> {
                   });
                 }
                 if(state is CommentsError){
-                  return Center(child: Text("Something went wrong"),);
+                  return const Center(child: Text("Something went wrong"),);
                 }
                 if(state is CommentsLoaded){
                   return ListView.builder(
                     shrinkWrap: true,
-                    physics: ClampingScrollPhysics(),
+                    physics: const ClampingScrollPhysics(),
                     itemCount: state.commentModel.length,
                     itemBuilder: ((context, index) {
                      var tday = f.format(DateTime.parse(state.commentModel[index].createdAt.toString()));
                       average = state.avg;
                       return Container(
-                        padding: EdgeInsets.all(5),
-                        margin: EdgeInsets.all(3),
+                        padding: const EdgeInsets.all(5),
+                        margin: const EdgeInsets.all(3),
                         // height: 150,
                         child: Column(
                           children: [
-                            Container(
+                            SizedBox(
                               height: 50,
                               child: Row(
                                 children: [
@@ -300,10 +300,10 @@ class _ReviewsState extends State<Reviews> {
                                             image: MemoryImage(
                                                 base64Decode(state.commentModel[index].student!.image??imageAll)),fit: BoxFit.cover)),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 10,
                                   ),
-                                  Container(
+                                  SizedBox(
                                     width:
                                         MediaQuery.of(context).size.width * 0.7,
                                     child: Column(
@@ -317,7 +317,7 @@ class _ReviewsState extends State<Reviews> {
                                           weight: FontWeightManager.semibold,
                                           family: FontConstants.fontPoppins,
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 5,
                                         ),
                                         Row(
@@ -364,11 +364,11 @@ class _ReviewsState extends State<Reviews> {
                                 ],
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
                             Container(
-                              padding: EdgeInsets.only(left: 5, right: 5,top: 5,bottom: 5),
+                              padding: const EdgeInsets.only(left: 5, right: 5,top: 5,bottom: 5),
                               // height: 80,
                               width: MediaQuery.of(context).size.width,
                               child: DText(
@@ -386,18 +386,18 @@ class _ReviewsState extends State<Reviews> {
                       );
                     }));
                 }
-                return Center(child: Text("Something went wrong"),);              },
+                return const Center(child: Text("Something went wrong"),);              },
             ),
           ],
         ),
       )),
       floatingActionButton: AnimatedOpacity(
         opacity: widget.show == false ? 1 : 0,
-        duration: Duration(seconds: 2),
+        duration: const Duration(seconds: 2),
         child: FloatingActionButton.extended(
             splashColor: Colors.black,
             backgroundColor: Theme.of(context).primaryColor,
-            label: Text("Write a review"),
+            label: const Text("Write a review"),
             onPressed: () {
               showModalBottomSheet(
                   isScrollControlled: true,

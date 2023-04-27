@@ -27,14 +27,14 @@ class LoginModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['otp'] = this.otp;
-    data['token'] = this.token;
-    data['message'] = this.message;
-    data['user_id'] = this.userId;
-    data['user_name'] = this.userName;
-    data['phone_verified'] = this.phoneVerified;
-    data['user_email'] = this.userEmail;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['otp'] = otp;
+    data['token'] = token;
+    data['message'] = message;
+    data['user_id'] = userId;
+    data['user_name'] = userName;
+    data['phone_verified'] = phoneVerified;
+    data['user_email'] = userEmail;
     return data;
   }
 }
@@ -73,14 +73,14 @@ class RegisterModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['token'] = this.token;
-    data['otp'] = this.otp;
-    data['student'] = this.student;
-    data['message'] = this.message;
-    data['user_id'] = this.userId;
-    data['phone_verified'] = this.phoneVerified;
-    data['user_email'] = this.userEmail;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['token'] = token;
+    data['otp'] = otp;
+    data['student'] = student;
+    data['message'] = message;
+    data['user_id'] = userId;
+    data['phone_verified'] = phoneVerified;
+    data['user_email'] = userEmail;
     return data;
   }
 }
@@ -97,8 +97,8 @@ class OtpModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['message'] = this.message;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['message'] = message;
     return data;
   }
 }
@@ -117,8 +117,8 @@ class EditProfileModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['success'] = this.success;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['success'] = success;
     return data;
   }
 }
@@ -131,7 +131,7 @@ class ProfileModel {
   int? otp;
   int? userId;
   int? phone;
-  Null? collegeId;
+  int? collegeId;
   int? semId;
   String? image;
   String? createdAt;
@@ -164,29 +164,29 @@ class ProfileModel {
     image = json['image'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
-    user = json['user'] != null ? new User.fromJson(json['user']) : null;
+    user = json['user'] != null ? User.fromJson(json['user']) : null;
     semester = json['semester'] != null
-        ? new Semester.fromJson(json['semester'])
+        ? Semester.fromJson(json['semester'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['otp'] = this.otp;
-    data['user_id'] = this.userId;
-    data['phone'] = this.phone;
-    data['college_id'] = this.collegeId;
-    data['sem_id'] = this.semId;
-    data['image'] = this.image;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    if (this.user != null) {
-      data['user'] = this.user!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['otp'] = otp;
+    data['user_id'] = userId;
+    data['phone'] = phone;
+    data['college_id'] = collegeId;
+    data['sem_id'] = semId;
+    data['image'] = image;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    if (user != null) {
+      data['user'] = user!.toJson();
     }
-    if (this.semester != null) {
-      data['semester'] = this.semester!.toJson();
+    if (semester != null) {
+      data['semester'] = semester!.toJson();
     }
     return data;
   }
@@ -197,7 +197,7 @@ class User {
   String? name;
   String? email;
   int? phoneVerified;
-  Null? emailVerifiedAt;
+  int? emailVerifiedAt;
   String? createdAt;
   String? updatedAt;
 
@@ -221,14 +221,14 @@ class User {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['email'] = this.email;
-    data['phone_verified'] = this.phoneVerified;
-    data['email_verified_at'] = this.emailVerifiedAt;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['email'] = email;
+    data['phone_verified'] = phoneVerified;
+    data['email_verified_at'] = emailVerifiedAt;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
     return data;
   }
 }
@@ -249,11 +249,11 @@ class Semester {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
     return data;
   }
 }

@@ -11,7 +11,7 @@ class InstituteController{
   AuthRepo authRepo = AuthRepo();
 
   Future<List<InstituteModel>> getInstitute() async{
-    var response = await getRepo.getRepo("${ApiClass.instituteApi}");
+    var response = await getRepo.getRepo(ApiClass.instituteApi);
     List data = jsonDecode(response.body);
    instituteModel = data.map((e) => InstituteModel.fromJson(e)).toList();
     return data.map(((e)=> InstituteModel.fromJson(e))).toList();  
@@ -42,7 +42,7 @@ var postModel;
 
   Future<PostModel> postComment(rate,desc,id,studentId,collegeId)async{
 
-var response = await authRepo.postRepo("${ApiClass.postApi}", rate,desc,id,studentId,collegeId);
+var response = await authRepo.postRepo(ApiClass.postApi, rate,desc,id,studentId,collegeId);
 
     var data = jsonDecode(response.body);
     postModel = PostModel.fromJson(data);

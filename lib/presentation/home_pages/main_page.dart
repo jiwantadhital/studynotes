@@ -1,12 +1,9 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:animations/animations.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:studynotes/controllers/news_controller.dart';
 import 'package:studynotes/local_databases/sharedpreferences/shared_pref.dart';
 import 'package:studynotes/logic/allsubjects/bloc/allsubject_bloc.dart';
 import 'package:studynotes/logic/auth/getProfile/bloc/profile_bloc.dart';
@@ -32,15 +29,15 @@ _notices(size) {
   return BlocConsumer<NoticesBloc, NoticesState>(
       builder: (context, state) {
         if (state is NoticesLoading) {
-          return NoticeLoadError();
+          return const NoticeLoadError();
         }
         if (state is NoticesGot) {
-          return Container(
+          return SizedBox(
             height: 140,
             child: ListView.builder(
-                padding: EdgeInsets.only(top: 5),
+                padding: const EdgeInsets.only(top: 5),
                 shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 itemCount: state.noticeModel.isEmpty?0: 3,
                 itemBuilder: (context, index) {
                   return GestureDetector(
@@ -73,7 +70,7 @@ _notices(size) {
                                               0.9,
                                           decoration: BoxDecoration(
                                               color: ColorManager.primaryColor,
-                                              borderRadius: BorderRadius.only(
+                                              borderRadius: const BorderRadius.only(
                                                   topLeft: Radius.circular(10),
                                                   topRight:
                                                       Radius.circular(10))),
@@ -88,10 +85,10 @@ _notices(size) {
                                                       FontConstants.fontPoppins,
                                                   size: FontSize.s16)),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 10,
                                         ),
-                                        Container(
+                                        SizedBox(
                                           height: MediaQuery.of(context)
                                                   .size
                                                   .height *
@@ -111,14 +108,14 @@ _notices(size) {
                                                 size: FontSize.s14),
                                           ),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 10,
                                         ),
                                         ElevatedButton(
                                             onPressed: () {
                                               Navigator.pop(context);
                                             },
-                                            child: Text("Ok"))
+                                            child: const Text("Ok"))
                                       ],
                                     ),
                                   ),
@@ -132,8 +129,8 @@ _notices(size) {
                             }));
                     },
                     child: Container(
-                      padding: EdgeInsets.only(left: 10, right: 10),
-                      margin: EdgeInsets.only(left: 15, right: 15, bottom: 5),
+                      padding: const EdgeInsets.only(left: 10, right: 10),
+                      margin: const EdgeInsets.only(left: 15, right: 15, bottom: 5),
                       height: 40,
                       width: double.maxFinite,
                       decoration: BoxDecoration(
@@ -157,9 +154,9 @@ _notices(size) {
           );
         }
         if (state is NoticesError) {
-        return NoticeLoadError();
+        return const NoticeLoadError();
         }
-        return NoticeLoadError();
+        return const NoticeLoadError();
       },
       listener: (context, state) {});
 }
@@ -171,14 +168,14 @@ class NoticeLoadError extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 140,
       width: double.maxFinite,
       child: Column(
         children: [
           Container(
-            padding: EdgeInsets.only(left: 10, right: 10),
-            margin: EdgeInsets.only(
+            padding: const EdgeInsets.only(left: 10, right: 10),
+            margin: const EdgeInsets.only(
               left: 15,
               right: 15,
               bottom: 5,
@@ -188,8 +185,8 @@ class NoticeLoadError extends StatelessWidget {
             decoration: BoxDecoration(color: Colors.grey[200]),
           ),
           Container(
-            padding: EdgeInsets.only(left: 10, right: 10),
-            margin: EdgeInsets.only(
+            padding: const EdgeInsets.only(left: 10, right: 10),
+            margin: const EdgeInsets.only(
               left: 15,
               right: 15,
               bottom: 5,
@@ -199,8 +196,8 @@ class NoticeLoadError extends StatelessWidget {
             decoration: BoxDecoration(color: Colors.grey[200]),
           ),
           Container(
-            padding: EdgeInsets.only(left: 10, right: 10),
-            margin: EdgeInsets.only(
+            padding: const EdgeInsets.only(left: 10, right: 10),
+            margin: const EdgeInsets.only(
               left: 15,
               right: 15,
               bottom: 5,
@@ -228,7 +225,7 @@ _continueReading(size) {
       }
       if(state is AllsubjectGot){
         List data = state.allSubjectModel.where((element) => continueRead.contains(element.id.toString())).toList();
-        return Container(
+        return SizedBox(
         height: 110,
         child: ListView.builder(
             shrinkWrap: true,
@@ -237,7 +234,7 @@ _continueReading(size) {
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
-                  context.read<ChapterBloc>()..add(ChapterGettingEvent(id: data.isNotEmpty? data[index].id:state.allSubjectModel[index].id));
+                  context.read<ChapterBloc>().add(ChapterGettingEvent(id: data.isNotEmpty? data[index].id:state.allSubjectModel[index].id));
                         Navigator.push(context,
                                  MaterialPageRoute(builder: (context){
                                return Notes(id: data.isNotEmpty? data[index].id:state.allSubjectModel[index].id,);
@@ -245,8 +242,8 @@ _continueReading(size) {
                   );
                 },
                 child: Container(
-                  padding: EdgeInsets.all(10),
-                  margin: EdgeInsets.only(right: 10, left: 10),
+                  padding: const EdgeInsets.all(10),
+                  margin: const EdgeInsets.only(right: 10, left: 10),
                   width: size.width * 0.65,
                   height: 100,
                   decoration: BoxDecoration(
@@ -258,7 +255,7 @@ _continueReading(size) {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
+                      SizedBox(
                         height: 50,
                         child: DText(
                           color: ColorManager.textColorWhite,
@@ -268,7 +265,7 @@ _continueReading(size) {
                           size: FontSize.s18,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       DText(
@@ -298,7 +295,7 @@ class ContinueLoadErrr extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 110,
       child: ListView.builder(
            shrinkWrap: true,
@@ -306,8 +303,8 @@ class ContinueLoadErrr extends StatelessWidget {
            itemCount: 4,
            itemBuilder: (context, index) {
              return Container(
-               padding: EdgeInsets.all(10),
-               margin: EdgeInsets.only(right: 10, left: 10),
+               padding: const EdgeInsets.all(10),
+               margin: const EdgeInsets.only(right: 10, left: 10),
                width: size.width * 0.65,
                height: 100,
                decoration: BoxDecoration(
@@ -329,8 +326,8 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-   bool _slowAnimations = false;
-    ContainerTransitionType _transitionType = ContainerTransitionType.fade;
+   final bool _slowAnimations = false;
+    final ContainerTransitionType _transitionType = ContainerTransitionType.fade;
   String token = "";
   ScrollController scrollController = ScrollController();
   double round = 20;
@@ -396,8 +393,8 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-        context.read<SubjectsBloc>()..add(SubjectGettingEvent(id: 1));
-        context.read<ProfileBloc>()..add(GetProfileEvent());
+        context.read<SubjectsBloc>().add(SubjectGettingEvent(id: 1));
+        context.read<ProfileBloc>().add(GetProfileEvent());
     var size = MediaQuery.of(context).size;
     print(size.width);
     return Scaffold(
@@ -421,7 +418,7 @@ class _MainPageState extends State<MainPage> {
   strokeWidth: 3,
   triggerMode: RefreshIndicatorTriggerMode.onEdge,
   onRefresh: () async {
-    await Future.delayed(Duration(milliseconds: 1000));
+    await Future.delayed(const Duration(milliseconds: 1000));
     setState(() {
       context.read<AllsubjectBloc>().add(AllSubjectGettingEvent());
       context.read<NoticesBloc>().add(NoticeGetEvent());
@@ -430,16 +427,16 @@ class _MainPageState extends State<MainPage> {
   },
         child: SingleChildScrollView(   
           
-          physics: ClampingScrollPhysics(),      
+          physics: const ClampingScrollPhysics(),      
           child:  Column(
               children: [
                     Container(
-                      padding: EdgeInsets.all(12),
+                      padding: const EdgeInsets.all(12),
                       height: 70,
                       width: size.width,
                       color: ColorManager.primaryColor,
                       child:  OpenContainer(
-                transitionDuration: Duration(milliseconds: 500),
+                transitionDuration: const Duration(milliseconds: 500),
                 transitionType: _transitionType,
                 closedBuilder: (BuildContext _, VoidCallback openContainer){
                   return  Stack(
@@ -454,9 +451,9 @@ class _MainPageState extends State<MainPage> {
                     ),
                       child: Row(
                         children: [
-                          SizedBox(width: 10,),
-                          Icon(Icons.search,color: Colors.grey,),
-                          SizedBox(width: 10,),
+                          const SizedBox(width: 10,),
+                          const Icon(Icons.search,color: Colors.grey,),
+                          const SizedBox(width: 10,),
                           DText(color: Colors.grey, text: "Search all subjects", weight: FontWeightManager.medium, family: FontConstants.fontNunito, size: FontSize.s12)
                         ],
                       ),
@@ -477,22 +474,22 @@ class _MainPageState extends State<MainPage> {
               );
                 },
                  openBuilder: (BuildContext _, VoidCallback __){
-                      return OpenSearchPage();
+                      return const OpenSearchPage();
                      }
                 ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     Topics(
                       color: UserSimplePreferences.getDark()==true?Colors.white:Colors.black,
                       text: "Continue reading",
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     _continueReading(size),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Topics(
@@ -500,13 +497,13 @@ class _MainPageState extends State<MainPage> {
                       text: "Recent Notices",
                       onTap: () {
                         Navigator.push(context, MaterialPageRoute(builder: (context) {
-                          return Notifications();
+                          return const Notifications();
                         }));
                       },
                     ),
                     // SizedBox(height: 5,),
                     _notices(size),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Topics(
@@ -514,11 +511,11 @@ class _MainPageState extends State<MainPage> {
                       text: "Latest News",
                      onTap: () {
                         Navigator.push(context, MaterialPageRoute(builder: (context) {
-                          return NewsPage();
+                          return const NewsPage();
                         }));
                       },
                     ),               
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     BlocConsumer<NewsBloc, NewsState>(
@@ -527,14 +524,14 @@ class _MainPageState extends State<MainPage> {
                             return Column(
                               children: [
                                 Container(
-                                  margin: EdgeInsets.only(
+                                  margin: const EdgeInsets.only(
                                       left: 15, right: 15, top: 10, bottom: 10),
                                   height: 120,
                                   width: double.maxFinite,
                                   child: Row(
                                     children: [
                                       Loading(size: size),
-                                      SizedBox(
+                                      const SizedBox(
                                         width: 10,
                                       ),
                                       Loading(size: size)
@@ -542,13 +539,13 @@ class _MainPageState extends State<MainPage> {
                                   ),
                                 ),
                                 Container(
-                                  margin: EdgeInsets.only(left: 15, right: 15),
+                                  margin: const EdgeInsets.only(left: 15, right: 15),
                                   height: 120,
                                   width: double.maxFinite,
                                   child: Row(
                                     children: [
                                       Loading(size: size),
-                                      SizedBox(
+                                      const SizedBox(
                                         width: 10,
                                       ),
                                       Loading(size: size)
@@ -561,9 +558,9 @@ class _MainPageState extends State<MainPage> {
                           if (state is NewsGot) {
                             return Container(
                               child: GridView.builder(
-                                  padding: EdgeInsets.all(0),
+                                  padding: const EdgeInsets.all(0),
                                   shrinkWrap: true,
-                                  physics: NeverScrollableScrollPhysics(),
+                                  physics: const NeverScrollableScrollPhysics(),
                                   gridDelegate:
                                       SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 2,
@@ -585,7 +582,7 @@ class _MainPageState extends State<MainPage> {
                                         }));
                                       },
                                       child: Container(
-                                        margin: EdgeInsets.all(10),
+                                        margin: const EdgeInsets.all(10),
                                         child: Column(
                                           children: [
                                             Container(
@@ -603,7 +600,7 @@ class _MainPageState extends State<MainPage> {
                                                     fit: BoxFit.cover,
                                                   )),
                                             ),
-                                            SizedBox(
+                                            const SizedBox(
                                               height: 5,
                                             ),
                                             Padding(
@@ -626,12 +623,12 @@ class _MainPageState extends State<MainPage> {
                           }
                           if (state is NewsError) {
                             print(state.message);
-                            return Center(child: Text("Something went wrong"));
+                            return const Center(child: Text("Something went wrong"));
                           }
-                          return Text("error");
+                          return const Text("error");
                         }),
                         listener: (context, state) {}),
-                    SizedBox(
+                    const SizedBox(
                       height: 60,
                     )
                   
@@ -657,7 +654,7 @@ class Loading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 120,
       width: size.width * 0.44,
       child: Column(
@@ -669,7 +666,7 @@ class Loading extends StatelessWidget {
                 color: Colors.grey[200],
                 borderRadius: BorderRadius.circular(10)),
           ),
-          SizedBox(
+          const SizedBox(
             height: 5,
           ),
           Container(

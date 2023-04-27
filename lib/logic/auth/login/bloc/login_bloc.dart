@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:studynotes/controllers/auth_controller.dart';
 import 'package:studynotes/local_databases/sharedpreferences/shared_pref.dart';
-import 'package:studynotes/models/auth_model.dart';
 
 part 'login_event.dart';
 part 'login_state.dart';

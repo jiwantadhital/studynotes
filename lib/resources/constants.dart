@@ -5,10 +5,10 @@ class ApiClass{
   //localhost
     // static const mainApi = "http://10.0.2.2:8000/";
     // static const local = "http://10.0.2.2:8000/" ;
-    static const mainApi = "http://192.168.18.203:8000/";
-    static const local = "http://192.168.18.203:8000/" ;
-    // static const mainApi = "http://10.3.6.13:8000/";
-    // static const local = "http://10.3.6.13:8000/" ;
+    // static const mainApi = "http://192.168.18.203:8000/";
+    // static const local = "http://192.168.18.203:8000/" ;
+    static const mainApi = "http://10.3.6.13:8000/";
+    static const local = "http://10.3.6.13:8000/" ;
 
   //mock
   static const apiStart = "https://mocki.io/v1/";

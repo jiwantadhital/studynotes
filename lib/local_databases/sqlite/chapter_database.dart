@@ -1,4 +1,3 @@
-import 'package:sqflite/sqlite_api.dart';
 
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
@@ -23,12 +22,12 @@ Future<Database> _initDB(String filePath) async{
 }
 
 Future _createDB(Database db, int version) async{
-  final idType = "INTEGER PRIMARY KEY AUTOINCREMENT";
-  final textType = "TEXT NOT NULL";
-  final textNullType = "TEXT NULL";
-  final boolType = "BOOLEAN NOT NULL";
-  final integerType = "INTEGER NOT NULL";
-  final doubleType = "DOUBLE NOT NULL";
+  const idType = "INTEGER PRIMARY KEY AUTOINCREMENT";
+  const textType = "TEXT NOT NULL";
+  const textNullType = "TEXT NULL";
+  const boolType = "BOOLEAN NOT NULL";
+  const integerType = "INTEGER NOT NULL";
+  const doubleType = "DOUBLE NOT NULL";
 
   await db.execute(
     '''
@@ -65,7 +64,7 @@ Future create(ChapterModelDatabase chapterModelDatabase,aid)async{
 //read all
 Future<List<ChapterModelDatabase>> readChapters()async{
 final db = await  instance.database;
-final orderBy = '${ChapterFields.id} ASC';
+const orderBy = '${ChapterFields.id} ASC';
 
 final result = await db.query(tableChapter,orderBy: orderBy);
 return result.map((json) => ChapterModelDatabase.fromJson(json)).toList();
@@ -73,7 +72,7 @@ return result.map((json) => ChapterModelDatabase.fromJson(json)).toList();
 //read subjects
 Future<List<SubjectDatabaseModel>> readSubject()async{
 final db = await  instance.database;
-final orderBy = '${ChapterFields.subject} ASC';
+const orderBy = '${ChapterFields.subject} ASC';
 
 final result = await db.query(tableChapter,orderBy: orderBy,
 distinct: true,
@@ -86,7 +85,7 @@ return result.map((json) => SubjectDatabaseModel.fromJson(json)).toList();
 //readChapters
 Future<List<ChapterDModel>> readAll(cid)async{
 final db = await  instance.database;
-final orderBy = '${ChapterFields.c_id} ASC';
+const orderBy = '${ChapterFields.c_id} ASC';
 
 final result = await db.query(tableChapter,orderBy: orderBy,
 columns: [ChapterFields.s_id, ChapterFields.subject,ChapterFields.semester,ChapterFields.c_name,ChapterFields.c_number,ChapterFields.c_id,ChapterFields.id,ChapterFields.pdf],
@@ -98,7 +97,7 @@ return result.map((json) => ChapterDModel.fromJson(json)).toList();
 //readDesc
 Future<List<DescDatabaseModel>> readDesc(cid)async{
 final db = await  instance.database;
-final orderBy = '${ChapterFields.c_id} ASC';
+const orderBy = '${ChapterFields.c_id} ASC';
 
 final result = await db.query(tableChapter,orderBy: orderBy,
 distinct: true,

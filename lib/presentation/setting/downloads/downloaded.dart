@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:studynotes/logic/database/chapters/bloc/chapters_bloc.dart';
 import 'package:studynotes/presentation/setting/downloads/downloaded_subjects.dart';
@@ -20,12 +18,12 @@ class Downloaded extends StatefulWidget {
 class _DownloadedState extends State<Downloaded> {
   @override
   void initState() {
-     context.read<ChaptersBloc>()..add(ChaptersSubjectEvent());
+     context.read<ChaptersBloc>().add(ChaptersSubjectEvent());
     super.initState();
   }
   @override
   Widget build(BuildContext context) {
-     context.read<ChaptersBloc>()..add(ChaptersSubjectEvent());
+     context.read<ChaptersBloc>().add(ChaptersSubjectEvent());
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
@@ -42,18 +40,18 @@ class _DownloadedState extends State<Downloaded> {
       ),
       body: BlocBuilder<ChaptersBloc,ChaptersState>(builder: (context,state){
         if(state is ChaptersLoading){
-          return Center(child: CircularProgressIndicator(),);
+          return const Center(child: CircularProgressIndicator(),);
         }
         if(state is SubjectChapterLoaded){
           return state.subjectModelDatabase.isEmpty?Center(child: Column(
             children: [
               Image.asset("assets/images/not.png"),
-              SizedBox(height: 10,),
+              const SizedBox(height: 10,),
               DText(color: ColorManager.textColorBlack, text: "You've downloaded nothing",
                                weight: FontWeightManager.regular, family: FontConstants.fontPoppins, size: FontSize.s14)
             ],
           )): GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           childAspectRatio: 2/1,
           crossAxisSpacing: 10
@@ -73,8 +71,8 @@ class _DownloadedState extends State<Downloaded> {
                                 });
           },
           child: Container(
-          padding: EdgeInsets.only(left: 10,right: 10),
-          margin: EdgeInsets.only(top: 10,bottom: 5),
+          padding: const EdgeInsets.only(left: 10,right: 10),
+          margin: const EdgeInsets.only(top: 10,bottom: 5),
           height: 115,
           width: MediaQuery.of(context).size.width*0.4,
           color: Colors.white,
@@ -84,17 +82,17 @@ class _DownloadedState extends State<Downloaded> {
                 height: 110,
                 width: MediaQuery.of(context).size.width*0.38,
                 // color: Colors.yellow,
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      padding: EdgeInsets.only(left: 5),
+                      padding: const EdgeInsets.only(left: 5),
                       child: DText(lines: 2,text: state.subjectModelDatabase[index].subject,color: ColorManager.textColorBlack,weight: FontWeightManager.semibold,size: FontSize.s13, family: FontConstants.fontPoppins,),
                     ),
                     Container(
-                      padding: EdgeInsets.only(top: 5,left: 5),
+                      padding: const EdgeInsets.only(top: 5,left: 5),
                       child: DText(lines: 1,text: state.subjectModelDatabase[index].semester.toString(),color: ColorManager.textColorBlack,weight: FontWeightManager.regular,size: FontSize.s11, family: FontConstants.fontPoppins,),
                     )
                   ],
@@ -108,9 +106,9 @@ class _DownloadedState extends State<Downloaded> {
       });
         }
         if(state is ChaptersError){
-          return Center(child: Text("Something went wrong"));
+          return const Center(child: Text("Something went wrong"));
         }
-        return Center(child: Text("Empty"));
+        return const Center(child: Text("Empty"));
       }),
     );
   }

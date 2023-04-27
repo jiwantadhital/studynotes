@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:studynotes/controllers/institute_controller.dart';
 import 'package:studynotes/logic/institute/comments/bloc/comments_bloc.dart';
 import 'package:studynotes/logic/institute/images/bloc/image_bloc.dart';
 import 'package:studynotes/logic/institute/main/bloc/institute_bloc.dart';
@@ -23,13 +20,13 @@ class Colleges extends StatefulWidget {
 }
 
 class _CollegesState extends State<Colleges> {
-    TextEditingController _controller = TextEditingController();
-  List<InstituteModel> _searchList = [];
+    final TextEditingController _controller = TextEditingController();
+  final List<InstituteModel> _searchList = [];
 
   bool search = false;
   @override
   Widget build(BuildContext context) {
-        context.read<SubjectsBloc>()..add(SubjectGettingEvent(id: 1));
+        context.read<SubjectsBloc>().add(SubjectGettingEvent(id: 1));
 
     return Scaffold(
       appBar: AppBar(
@@ -46,7 +43,7 @@ class _CollegesState extends State<Colleges> {
                 BottomBarPage.setLocale(context,true);
               
               },
-              child: Icon(Icons.search)):Container(),
+              child: const Icon(Icons.search)):Container(),
           )
         ],
         centerTitle: true,
@@ -63,22 +60,22 @@ setState(() {
           },
           onEditingComplete: (){
             BottomBarPage.setLocale(context,false);
-            FocusScope.of(context).requestFocus(new FocusNode());
+            FocusScope.of(context).requestFocus(FocusNode());
             setState(() {
               
             });
           },
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white,
           ),
           autofocus: true,
         decoration: InputDecoration(
           border: InputBorder.none,
           hintText: "Search for institutes",
-          labelStyle: TextStyle(
+          labelStyle: const TextStyle(
             color: Colors.white
           ),
-          hintStyle: TextStyle(
+          hintStyle: const TextStyle(
             color: Colors.white
           ),
           prefixIcon: GestureDetector(
@@ -89,8 +86,8 @@ setState(() {
                   _searchList.clear();
                 });
             },
-            child: Padding(
-              padding: const EdgeInsets.only(right: 30),
+            child: const Padding(
+              padding: EdgeInsets.only(right: 30),
               child: Icon(Icons.close,color: Colors.white,),
             ))
         ),
@@ -99,18 +96,18 @@ setState(() {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(height: 10,),
+            const SizedBox(height: 10,),
             BlocBuilder<InstituteBloc,InstituteState>(builder: (context,state){
               if(state is InstituteLoading){
-                return Center(child: CircularProgressIndicator(),);
+                return const Center(child: CircularProgressIndicator(),);
               }
               if(state is InstituteError){
-                return Center(child: Text("Error"),);
+                return const Center(child: Text("Error"),);
               }
               if(state is InstituteLoaded){
                 return _searchList.isNotEmpty? GridView.builder(
               shrinkWrap: true,
-                        physics: BouncingScrollPhysics(),
+                        physics: const BouncingScrollPhysics(),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
                   childAspectRatio: 0.66,
@@ -125,14 +122,14 @@ setState(() {
                         children: [
                           GestureDetector(
                             onTap: ()async{
-                              context.read<ImageBloc>()..add(ImageGettingEvent(id: _searchList[index].id!.toInt()));
-                              context.read<CommentsBloc>()..add(CommentsGettingEvent(id: _searchList[index].id!.toInt()));
+                              context.read<ImageBloc>().add(ImageGettingEvent(id: _searchList[index].id!.toInt()));
+                              context.read<CommentsBloc>().add(CommentsGettingEvent(id: _searchList[index].id!.toInt()));
                          Navigator.push(context, MaterialPageRoute(builder: (context){
                         return CollegeDetail(index: index,id:_searchList[index].id!.toInt());
                       }));
                             },
                             child: Container(
-                              padding: EdgeInsets.all(10),
+                              padding: const EdgeInsets.all(10),
                                           height: 100,
                                           width: 120,
                                           decoration: BoxDecoration(
@@ -158,7 +155,7 @@ setState(() {
                 }
                       ):GridView.builder(
               shrinkWrap: true,
-                        physics: BouncingScrollPhysics(),
+                        physics: const BouncingScrollPhysics(),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
                   childAspectRatio: 0.66,
@@ -173,14 +170,14 @@ setState(() {
                         children: [
                           GestureDetector(
                             onTap: ()async{
-                              context.read<ImageBloc>()..add(ImageGettingEvent(id: state.instituteModel[index].id!.toInt()));
-                              context.read<CommentsBloc>()..add(CommentsGettingEvent(id: state.instituteModel[index].id!.toInt()));
+                              context.read<ImageBloc>().add(ImageGettingEvent(id: state.instituteModel[index].id!.toInt()));
+                              context.read<CommentsBloc>().add(CommentsGettingEvent(id: state.instituteModel[index].id!.toInt()));
                          Navigator.push(context, MaterialPageRoute(builder: (context){
                         return CollegeDetail(index: index,id:state.instituteModel[index].id!.toInt());
                       }));
                             },
                             child: Container(
-                              padding: EdgeInsets.all(10),
+                              padding: const EdgeInsets.all(10),
                                           height: 100,
                                           width: 120,
                                           decoration: BoxDecoration(
@@ -206,9 +203,9 @@ setState(() {
                 }
                       );
               }
-              return Center(child: Text("Something went wrong"),);
+              return const Center(child: Text("Something went wrong"),);
             }),
-                      SizedBox(height: 35,)
+                      const SizedBox(height: 35,)
           ],
         ),
       ),
@@ -223,14 +220,14 @@ setState(() {
         });
         return;
       }
-      all.forEach((searchDetails) {
+      for (var searchDetails in all) {
         if(searchDetails.name!.toLowerCase().contains(text.toLowerCase())){
           _searchList.add(searchDetails);
           _searchList.sort((a, b) {
             return a.name.toString().compareTo(b.name.toString());
           },);
         }
-       });
+       }
        setState(() {
          
        });

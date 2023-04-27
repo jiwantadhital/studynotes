@@ -12,7 +12,7 @@ class ChaptersInitial extends ChaptersState {}
 class ChaptersLoading extends ChaptersState{}
 class ChaptersLoaded extends ChaptersState {
   final List<ChapterDModel> chapterModelDatabase;
-  ChaptersLoaded({
+  const ChaptersLoaded({
     required this.chapterModelDatabase,
   });
 }
@@ -20,19 +20,19 @@ class ChaptersLoaded extends ChaptersState {
 class AllChaptersLoading extends ChaptersState{}
 class AllChaptersLoaded extends ChaptersState {
   final List<ChapterModelDatabase> chapterModelDatabase;
-  AllChaptersLoaded({
+  const AllChaptersLoaded({
     required this.chapterModelDatabase,
   });
 }
 class SubjectChapterLoaded extends ChaptersState {
   final List<SubjectDatabaseModel> subjectModelDatabase;
-  SubjectChapterLoaded({
+  const SubjectChapterLoaded({
     required this.subjectModelDatabase,
   });
 }
 class ChaptersLoadedClass extends ChaptersState {
   final List<ChapterModelDatabase> chapterModelDatabase;
-  ChaptersLoadedClass({
+  const ChaptersLoadedClass({
     required this.chapterModelDatabase,
   });
 }

@@ -2,13 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:studynotes/local_databases/sharedpreferences/shared_pref.dart';
-import 'package:studynotes/logic/auth/getProfile/bloc/profile_bloc.dart';
 import 'package:studynotes/logic/auth/google/bloc/google_bloc.dart';
 import 'package:studynotes/presentation/auth_pages/auth_page.dart';
 import 'package:studynotes/presentation/auth_pages/auth_widgets/auth_widgets.dart';
 import 'package:studynotes/presentation/auth_pages/google/google_sign.dart';
-import 'package:studynotes/presentation/auth_pages/register.dart';
 import 'package:studynotes/presentation/bottom_navigation/bottom_navigation_bar.dart';
 import 'package:studynotes/presentation/extra_widgets/extra_widgets.dart';
 import 'package:studynotes/presentation/extra_widgets/loadings.dart';
@@ -32,7 +29,7 @@ class _SocialLoginState extends State<SocialLogin> {
 
   @override
   void initState() {
-    Timer(Duration(milliseconds: 100), opac);
+    Timer(const Duration(milliseconds: 100), opac);
     super.initState();
   }
 
@@ -42,23 +39,23 @@ class _SocialLoginState extends State<SocialLogin> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Container(
-          margin: EdgeInsets.all(10),
+          margin: const EdgeInsets.all(10),
           child: SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             child: Column(
               children: [
                 Container(
                   height: MediaQuery.of(context).size.height * 0.25,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       image: DecorationImage(
                           image: AssetImage("assets/images/splashi.png"))),
                 ),
                 AnimatedOpacity(
                   opacity: op == false ? 0 : 1,
-                  duration: Duration(seconds: 2),
+                  duration: const Duration(seconds: 2),
                   child: Column(
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       DText(
@@ -68,14 +65,14 @@ class _SocialLoginState extends State<SocialLogin> {
                         family: FontConstants.fontNoto,
                         size: FontSize.s26,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       SocialBox(
                         icon: "assets/images/face.png",
                         text: "Continue with Facebook",
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       GestureDetector(
@@ -93,7 +90,7 @@ class _SocialLoginState extends State<SocialLogin> {
                               }
                               if(state is GoogleLoggedIn){
                                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context){
-                           return BottomBarPage();
+                           return const BottomBarPage();
                          }), (Route<dynamic> route) => false);
                               }
                               if(state is GoogleError){
@@ -110,14 +107,14 @@ class _SocialLoginState extends State<SocialLogin> {
                               );
                             },
                           )),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       SocialBox(
                         icon: "assets/images/appl.png",
                         text: "Continue with Apple",
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Row(
@@ -145,7 +142,7 @@ class _SocialLoginState extends State<SocialLogin> {
                               )),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       GestureDetector(
@@ -155,11 +152,11 @@ class _SocialLoginState extends State<SocialLogin> {
                             tap: () {
                               Navigator.push(context,
                                   MaterialPageRoute(builder: (context) {
-                                return AuthPage();
+                                return const AuthPage();
                               }));
                             },
                           )),
-                      SizedBox(
+                      const SizedBox(
                         height: 30,
                       ),
                       Row(
@@ -171,14 +168,14 @@ class _SocialLoginState extends State<SocialLogin> {
                               weight: FontWeightManager.regular,
                               family: FontConstants.fontNunito,
                               size: FontSize.s14),
-                          SizedBox(
+                          const SizedBox(
                             width: 10,
                           ),
                           GestureDetector(
                             onTap: () {
                               Navigator.push(context,
                                   MaterialPageRoute(builder: (context) {
-                                return AuthPage();
+                                return const AuthPage();
                               }));
                             },
                             child: DText(
@@ -220,7 +217,7 @@ Future signIn(context) async {
 class SocialBox extends StatelessWidget {
   String text;
   String icon;
-  SocialBox({required this.icon, required this.text});
+  SocialBox({super.key, required this.icon, required this.text});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -244,7 +241,7 @@ class SocialBox extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 20,
           ),
           Text(

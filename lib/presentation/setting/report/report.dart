@@ -1,8 +1,5 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:studynotes/resources/colors.dart';
 import 'package:studynotes/resources/fonts.dart';
 
@@ -26,10 +23,10 @@ class _ReportState extends State<Report> {
         title: DText(color: ColorManager.textColorWhite, text: "Report", weight: FontWeightManager.bold, family: FontConstants.fontNunito, size: FontSize.s16),
       ),
       body: Container(
-        margin: EdgeInsets.all(10),
+        margin: const EdgeInsets.all(10),
         child: Column(
           children: [
-            SizedBox(height: 10,),
+            const SizedBox(height: 10,),
             TextField(
               cursorColor: ColorManager.primaryColor,
               decoration: InputDecoration(
@@ -49,7 +46,7 @@ class _ReportState extends State<Report> {
                 )
               ),
             ),
-            SizedBox(height: 10,),
+            const SizedBox(height: 10,),
             TextField(
               keyboardType: TextInputType.text,
               maxLines: 5,
@@ -71,10 +68,10 @@ class _ReportState extends State<Report> {
                 )
               ),
             ),
-            SizedBox(height: 20,),
+            const SizedBox(height: 20,),
             ElevatedButton(onPressed: (){
               
-            }, child: Text("Submit"))
+            }, child: const Text("Submit"))
           ],
         ),
       ),

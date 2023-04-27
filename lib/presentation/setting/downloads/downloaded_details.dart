@@ -1,12 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_html/flutter_html.dart' as html;
-import 'package:studynotes/logic/database/chapter_load/bloc/loadchapter_bloc.dart';
-import 'package:studynotes/logic/database/chapters/bloc/chapters_bloc.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+// import 'package:flutter_html/flutter_html.dart' as html;
 import 'package:studynotes/logic/database/desc/bloc/desc_bloc.dart';
 
 import 'package:studynotes/presentation/home_pages/widgets/home_page_widgets.dart';
@@ -67,7 +65,7 @@ print("Hello");
             family: FontConstants.fontNunito,
           )
             ),
-            SliverToBoxAdapter(
+            const SliverToBoxAdapter(
               child: Center(child: CircularProgressIndicator(),),
             )
           ]
@@ -75,7 +73,7 @@ print("Hello");
           }
         if(state is DescGot){
           return   CustomScrollView(
-              physics: ClampingScrollPhysics(),
+              physics: const ClampingScrollPhysics(),
               slivers: [
                 SliverAppBar(
                   elevation: 2,
@@ -101,30 +99,33 @@ print("Hello");
                   child: BlocBuilder<DescBloc, DescState>(
                     builder: (context, state) {
                       if(state is DescLoading){
-                        return Center(child: Text("Loading...."),);
+                        return const Center(child: Text("Loading...."),);
                       }
                       if(state is DescGot){
                         return Container(
                         child: SingleChildScrollView(
-                            child: Column(
-                              children: [
-                                html.Html(data:  "${state.desc[0].c_desc}"),
-      
-                              ],
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                children: [
+                                  HtmlWidget(state.desc[0].c_desc),
+                                  
+                                ],
+                              ),
                             )),
                       );
                       }
                       if(state is DescError){
                         return Center(child: Text(state.message));
                       }
-                      return Center(child: Text("Something went wrong"));
+                      return const Center(child: Text("Something went wrong"));
                     },
                   ),
                 ):
                  SliverFillRemaining(
               hasScrollBody: false,
               child: Container(
-                child: loading==true?CircularProgressIndicator(): SfPdfViewer.memory(
+                child: loading==true?const CircularProgressIndicator(): SfPdfViewer.memory(
                   localpath!,
                   pageSpacing: 0.0,
                 ),

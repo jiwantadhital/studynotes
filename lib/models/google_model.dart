@@ -27,14 +27,14 @@ class GoogleModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['token'] = this.token;
-    data['message'] = this.message;
-    data['time'] = this.time;
-    data['user_id'] = this.userId;
-    data['user_name'] = this.userName;
-    data['phone_verified'] = this.phoneVerified;
-    data['user_email'] = this.userEmail;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['token'] = token;
+    data['message'] = message;
+    data['time'] = time;
+    data['user_id'] = userId;
+    data['user_name'] = userName;
+    data['phone_verified'] = phoneVerified;
+    data['user_email'] = userEmail;
     return data;
   }
 }

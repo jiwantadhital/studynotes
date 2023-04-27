@@ -1,11 +1,9 @@
-import 'dart:convert';
 
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:studynotes/local_databases/sharedpreferences/shared_pref.dart';
 import 'package:studynotes/logic/auth/google/bloc/google_bloc.dart';
 import 'package:studynotes/presentation/extra_widgets/extra_widgets.dart';
-import 'package:studynotes/resources/constants.dart';
 
 class GoogleSignInApi{
   static final _googleSignIn = GoogleSignIn();
@@ -16,6 +14,7 @@ class GoogleSignInApi{
       await networkImageToBase64(userData.photoUrl.toString());
     UserSimplePreferences.setGooglePhoto(bytes);
     });
+    return null;
   }
    );
   static Future<GoogleSignInAccount?> logout() => _googleSignIn.signOut();

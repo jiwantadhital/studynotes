@@ -5,10 +5,7 @@ import 'package:studynotes/presentation/auth_pages/auth_widgets/auth_widgets.dar
 import 'package:studynotes/presentation/auth_pages/otp_page.dart';
 import 'package:studynotes/presentation/bottom_navigation/bottom_navigation_bar.dart';
 import 'package:studynotes/presentation/extra_widgets/extra_widgets.dart';
-import 'package:studynotes/resources/colors.dart';
-import 'package:studynotes/resources/fonts.dart';
 
-import '../home_pages/widgets/home_page_widgets.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -33,7 +30,7 @@ class _RegisterState extends State<Register> {
          autovalidateMode: AutovalidateMode.onUserInteraction,
       key: _formKey1,
       child: SingleChildScrollView(
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         child: Column(
                           children: [
                             AuthTextBox(
@@ -46,7 +43,7 @@ class _RegisterState extends State<Register> {
                               labelText: "User Name",
                               hide: false,
                             ),
-                               SizedBox(height: 20,),
+                               const SizedBox(height: 20,),
                             AuthTextBox(
                               validation: (val){
                                 if(val == null || val.isEmpty){
@@ -56,7 +53,7 @@ class _RegisterState extends State<Register> {
                               controller: emailController,
                               labelText: "Email",
                             ),
-                            SizedBox(height: 20,),
+                            const SizedBox(height: 20,),
                              AuthTextBox(
                               validation: (val){
                                 if(val == null || val.isEmpty){
@@ -70,7 +67,7 @@ class _RegisterState extends State<Register> {
                               controller: phoneController,
                               labelText: "Phone Number",
                             ),
-                            SizedBox(height: 20,),
+                            const SizedBox(height: 20,),
                             AuthTextBox(
                               validation: (val){
                                  if(val.length != 6 && val.length < 6 ){
@@ -91,12 +88,12 @@ class _RegisterState extends State<Register> {
              
                            
              
-                            SizedBox(height: 20,),
+                            const SizedBox(height: 20,),
                            BlocConsumer<RegisterBloc,RegisterState>(builder: (context,state){
                             return AuthButton(text: "Register",
                             tap: (){
                               if(_formKey1.currentState!.validate()){
-                              context.read<RegisterBloc>()..add(RegisteringEvent(
+                              context.read<RegisterBloc>().add(RegisteringEvent(
                                 email: emailController.text,
                                 name: nameController.text,
                                 phone: phoneController.text,
@@ -117,12 +114,12 @@ class _RegisterState extends State<Register> {
                           }
                           if(state is RegisterOtp){
                             Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context){
-                             return OTPPage();
+                             return const OTPPage();
                            }), (Route<dynamic> route) => false);
                           }
                           if(state is RegisterDone){
                             Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context){
-                             return BottomBarPage();
+                             return const BottomBarPage();
                            }), (Route<dynamic> route) => false);
                           }
                            })

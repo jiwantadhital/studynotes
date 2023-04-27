@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:studynotes/local_databases/sqlite/chapter_database_controller.dart';
 import 'package:studynotes/local_databases/sqlite/chapter_database_model.dart';
-import 'package:studynotes/logic/notes/chapters/bloc/chapter_bloc.dart';
 
 part 'chapters_event.dart';
 part 'chapters_state.dart';

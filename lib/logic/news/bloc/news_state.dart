@@ -14,6 +14,7 @@ class NewsInitial extends NewsState {}
 class NewsLoading extends NewsState{}
 
 class NewsGot extends NewsState {
+  @override
   List<NewsModel> newsModel;
   NewsGot({
     required this.newsModel,

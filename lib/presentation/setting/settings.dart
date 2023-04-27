@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:studynotes/local_databases/sharedpreferences/shared_pref.dart';
@@ -34,7 +33,7 @@ class _SettingPageState extends State<SettingPage> {
   }
   @override
   Widget build(BuildContext context) {
-        context.read<SubjectsBloc>()..add(SubjectGettingEvent(id: 1));
+        context.read<SubjectsBloc>().add(SubjectGettingEvent(id: 1));
     return Scaffold(
       backgroundColor:dark==true?Colors.black: Colors.white,
       appBar: AppBar(
@@ -57,19 +56,19 @@ class _SettingPageState extends State<SettingPage> {
             },
             builder: (context, state) {
              if(state is ProfileLoading){
-              return Center(child: CircularProgressIndicator(),);
+              return const Center(child: CircularProgressIndicator(),);
              }
              if(state is ProfileError){
 
              }
              if(state is ProfileGot){
               return Container(
-                margin: EdgeInsets.all(10),
+                margin: const EdgeInsets.all(10),
                 child: SingleChildScrollView(
-                  physics: BouncingScrollPhysics(),
+                  physics: const BouncingScrollPhysics(),
                   child: Column(
                     children: [
-                      Container(
+                      SizedBox(
                         height: MediaQuery.of(context).size.width * 0.35,
                         width: double.maxFinite,
                         child: Stack(
@@ -112,7 +111,7 @@ class _SettingPageState extends State<SettingPage> {
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
                                       color: ColorManager.primaryColor),
-                                  child: Icon(
+                                  child: const Icon(
                                     Icons.edit,
                                     color: Colors.white,
                                     size: 15,
@@ -147,7 +146,7 @@ class _SettingPageState extends State<SettingPage> {
                           ],
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       SingleChildScrollView(
@@ -176,7 +175,7 @@ class _SettingPageState extends State<SettingPage> {
                                   sIcon: Icons.arrow_forward_ios,
                                   boxText: "Edit Profile",
                                 )),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             ProfileBoxes(
@@ -186,14 +185,14 @@ class _SettingPageState extends State<SettingPage> {
                               boxText: "Downloads",
                               tap: () {
                                 context.read<ChaptersBloc>()
-                                  ..add(ChaptersSubjectEvent());
+                                  .add(ChaptersSubjectEvent());
                                 Navigator.push(context,
                                     MaterialPageRoute(builder: (context) {
-                                  return Downloaded();
+                                  return const Downloaded();
                                 }));
                               },
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             ProfileBoxes(
@@ -204,11 +203,11 @@ class _SettingPageState extends State<SettingPage> {
                               tap: () {
                                 Navigator.push(context,
                                     MaterialPageRoute(builder: (context) {
-                                  return Report();
+                                  return const Report();
                                 }));
                               },
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             ProfileToggle(
@@ -226,7 +225,7 @@ class _SettingPageState extends State<SettingPage> {
                                   }),
                               boxText: "Dark Mode",
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             ProfileBoxes(
@@ -234,7 +233,7 @@ class _SettingPageState extends State<SettingPage> {
                                 showModalBottomSheet(
                                   isScrollControlled: true,
                                   context: context, builder: (context){
-                                  return InvitePage();
+                                  return const InvitePage();
                                 });
                               },
                               color: dark==true?Colors.white:Colors.black,
@@ -242,7 +241,7 @@ class _SettingPageState extends State<SettingPage> {
                               sIcon: Icons.arrow_forward_ios,
                               boxText: "Invite",
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             ProfileBoxes(
@@ -258,14 +257,14 @@ class _SettingPageState extends State<SettingPage> {
                                     return Container(
                                       height: 150,
                                       width: double.maxFinite,
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                           borderRadius: BorderRadius.only(
                                               topLeft: Radius.circular(30),
                                               topRight: Radius.circular(30)),
                                           color: Colors.white),
                                       child: Column(
                                         children: [
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 10,
                                           ),
                                           DText(
@@ -275,7 +274,7 @@ class _SettingPageState extends State<SettingPage> {
                                             weight: FontWeightManager.semibold,
                                             family: FontConstants.fontNunito,
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 10,
                                           ),
                                           DText(
@@ -286,7 +285,7 @@ class _SettingPageState extends State<SettingPage> {
                                             weight: FontWeightManager.semibold,
                                             family: FontConstants.fontNunito,
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 20,
                                           ),
                                           Row(
@@ -338,7 +337,7 @@ class _SettingPageState extends State<SettingPage> {
                                                       context,
                                                       MaterialPageRoute(
                                                           builder: (context) {
-                                                    return SocialLogin();
+                                                    return const SocialLogin();
                                                   }), (Route<dynamic> route) => false);
                                                 },
                                                 child: Container(
@@ -376,13 +375,13 @@ class _SettingPageState extends State<SettingPage> {
                                 );
                               },
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                           ],
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 30,
                       )
                     ],
@@ -390,7 +389,7 @@ class _SettingPageState extends State<SettingPage> {
                 ),
               );
              }
-             return Center(child: Text("Err"),);
+             return const Center(child: Text("Err"),);
             },
           ),
         ],
@@ -408,7 +407,7 @@ class ProfileBoxes extends StatelessWidget {
   Color color;
   void Function()? tap;
   ProfileBoxes(
-      {required this.boxText,
+      {super.key, required this.boxText,
       required this.fIcon,
       this.sIcon,
       this.color = Colors.black,
@@ -430,7 +429,7 @@ class ProfileBoxes extends StatelessWidget {
                   fIcon,
                   color: Theme.of(context).primaryColor,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 20,
                 ),
                 DText(
@@ -460,14 +459,14 @@ class ProfileToggle extends StatelessWidget {
   Color color;
   Widget button;
   ProfileToggle(
-      {required this.boxText,
+      {super.key, required this.boxText,
       required this.fIcon,
       required this.button,
       this.color = Colors.black});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 40,
       width: double.maxFinite,
       child: Row(
@@ -479,7 +478,7 @@ class ProfileToggle extends StatelessWidget {
                 fIcon,
                 color: Theme.of(context).primaryColor,
               ),
-              SizedBox(
+              const SizedBox(
                 width: 20,
               ),
               DText(

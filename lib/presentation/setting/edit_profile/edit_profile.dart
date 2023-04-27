@@ -50,7 +50,7 @@ class _EditProfileState extends State<EditProfile> {
       String base64Image =  base64Encode(imageData);
       setState((){
         this.image = imageTemp;
-        this.img = base64Image; 
+        img = base64Image; 
       });
     } on PlatformException catch (e) {
       print('Failed to pick image: $e');
@@ -99,13 +99,13 @@ getAllData(){
       ),
       body: SingleChildScrollView(
         child: Container(
-          margin: EdgeInsets.only(left: 10, right: 10),
+          margin: const EdgeInsets.only(left: 10, right: 10),
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
-              Container(
+              SizedBox(
                 height: MediaQuery.of(context).size.width * 0.35,
                 width: double.maxFinite,
                 child: Stack(
@@ -146,7 +146,7 @@ getAllData(){
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               color: ColorManager.primaryColor),
-                          child: Icon(
+                          child: const Icon(
                             Icons.edit,
                             color: Colors.white,
                             size: 15,
@@ -157,21 +157,21 @@ getAllData(){
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               AuthTextBox(
                 labelText: "UserName",
                 controller: nameController,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               AuthTextBox(
                 labelText: "Phone Number",
                 controller: phoneController,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               DropField(
@@ -188,7 +188,7 @@ getAllData(){
                   DropDownValueModel(name: "Sankhar Dev", value: 5),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               DropField(
@@ -206,7 +206,7 @@ getAllData(){
                   DropDownValueModel(name: "Sem 8", value: 8),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 25,
               ),
               BlocConsumer<EditprofileBloc, EditprofileState>(

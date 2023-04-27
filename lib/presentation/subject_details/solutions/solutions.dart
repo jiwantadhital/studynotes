@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:studynotes/logic/notes/subjects/bloc/subjects_bloc.dart';
 import 'package:studynotes/logic/solution/bloc/solutions_bloc.dart';
-import 'package:studynotes/models/syllabus_model.dart';
 import 'package:studynotes/presentation/extra_widgets/extra_widgets.dart';
 import 'package:studynotes/presentation/subject_details/solutions/drawer/solution_drawers.dart';
 import 'package:studynotes/resources/colors.dart';
@@ -44,10 +40,10 @@ String _selectedValue = '2017';
             onTap: () {
               Navigator.pop(context);
             },
-            child: Icon(Icons.arrow_back)),
+            child: const Icon(Icons.arrow_back)),
         actions: [
           Padding(
-            padding: EdgeInsets.only(right: 20),
+            padding: const EdgeInsets.only(right: 20),
             child: GestureDetector(
                 onTap: () {
                   if (scaffoldKey1.currentState!.isDrawerOpen) {
@@ -57,7 +53,7 @@ String _selectedValue = '2017';
                   }
                   setState(() {});
                 },
-                child: Icon(
+                child: const Icon(
                   Icons.menu,
                 )),
           )
@@ -66,7 +62,7 @@ String _selectedValue = '2017';
         backgroundColor: ColorManager.primaryColor,
         title: DText(
             color: ColorManager.textColorWhite,
-            text: "Solution - ${_selectedValue}",
+            text: "Solution - $_selectedValue",
             weight: FontWeightManager.bold,
             family: FontConstants.fontNunito,
             size: FontSize.s15),
@@ -76,7 +72,7 @@ String _selectedValue = '2017';
         child: BlocBuilder<SolutionsBloc, SolutionsState>(
           builder: (context, state) {
            if(state is SolutionsLoading){
-            return Center(child: CircularProgressIndicator(),);
+            return const Center(child: CircularProgressIndicator(),);
            }
            if(state is SolutionsError){
             return Center(child: Text(state.message),);
@@ -87,7 +83,7 @@ String _selectedValue = '2017';
                 itemBuilder: (context, index) {
                   return Container(
                     margin:
-                        EdgeInsets.only(left: 5, right: 5, top: 5, bottom: 10),
+                        const EdgeInsets.only(left: 5, right: 5, top: 5, bottom: 10),
                     height: MediaQuery.of(context).size.height * 0.9,
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(

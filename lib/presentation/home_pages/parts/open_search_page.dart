@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:studynotes/logic/allsubjects/bloc/allsubject_bloc.dart';
 import 'package:studynotes/logic/notes/chapters/bloc/chapter_bloc.dart';
 import 'package:studynotes/models/all_subjects_model.dart';
 import 'package:studynotes/presentation/home_pages/widgets/home_page_widgets.dart';
-import 'package:studynotes/presentation/setting/downloads/downloaded_details.dart';
 import 'package:studynotes/presentation/subject_details/notes/notes.dart';
 import 'package:studynotes/resources/colors.dart';
 import 'package:studynotes/resources/fonts.dart';
@@ -20,8 +17,8 @@ class OpenSearchPage extends StatefulWidget {
 }
 
 class _OpenSearchPageState extends State<OpenSearchPage> {
-  TextEditingController _controller = TextEditingController();
-  List<AllSubjectModel> _searchList = [];
+  final TextEditingController _controller = TextEditingController();
+  final List<AllSubjectModel> _searchList = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +28,7 @@ class _OpenSearchPageState extends State<OpenSearchPage> {
     statusBarIconBrightness: Brightness.light, 
     statusBarBrightness: Brightness.light, 
   ),
-        actions: [
+        actions: const [
           Padding(padding: EdgeInsets.only(top: 15,bottom: 15,right: 20),
           child: Icon(Icons.menu)
           )
@@ -44,7 +41,7 @@ class _OpenSearchPageState extends State<OpenSearchPage> {
           onChanged: _onSearchTextChanged,
           controller: _controller,
           autofocus: true,
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             border: InputBorder.none,
             hintText: "Search all subjects"
           ),
@@ -56,7 +53,7 @@ class _OpenSearchPageState extends State<OpenSearchPage> {
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
-                     context.read<ChapterBloc>()..add(ChapterGettingEvent(id: _searchList[index].id!.toInt()));
+                     context.read<ChapterBloc>().add(ChapterGettingEvent(id: _searchList[index].id!.toInt()));
                         Navigator.push(context,
                                  MaterialPageRoute(builder: (context){
                                return Notes(id: _searchList[index].id!.toInt(),);
@@ -64,11 +61,11 @@ class _OpenSearchPageState extends State<OpenSearchPage> {
                   );
                   },
                   child: Container(
-                    padding: EdgeInsets.only(left: 10, right: 10),
-                    margin: EdgeInsets.only(top: 5, bottom: 5),
+                    padding: const EdgeInsets.only(left: 10, right: 10),
+                    margin: const EdgeInsets.only(top: 5, bottom: 5),
                     height: 80,
                     width: double.maxFinite,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Colors.white,
                       
                     ),
@@ -82,7 +79,7 @@ class _OpenSearchPageState extends State<OpenSearchPage> {
                               color: ColorManager.primaryColor,
                               border: Border.all(
                                   width: 3,
-                                  color: Color.fromARGB(255, 219, 218, 218))),
+                                  color: const Color.fromARGB(255, 219, 218, 218))),
                           child: Center(
                             child: DText(
                               text: _searchList[index].id.toString(),
@@ -97,13 +94,13 @@ class _OpenSearchPageState extends State<OpenSearchPage> {
                           height: 100,
                           width: MediaQuery.of(context).size.width * 0.7,
                           // color: Colors.yellow,
-                          padding: EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(10),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Container(
-                                padding: EdgeInsets.only(left: 5),
+                                padding: const EdgeInsets.only(left: 5),
                                 child: DText(
                                   lines: 2,
                                   text:
@@ -115,7 +112,7 @@ class _OpenSearchPageState extends State<OpenSearchPage> {
                                 ),
                               ),
                               Container(
-                                padding: EdgeInsets.only(top: 10, left: 5),
+                                padding: const EdgeInsets.only(top: 10, left: 5),
                                 child: DText(
                                   lines: 1,
                                   text: _searchList[index].semester!.name.toString(),
@@ -145,14 +142,14 @@ class _OpenSearchPageState extends State<OpenSearchPage> {
         });
         return;
       }
-      all.forEach((searchDetails) {
+      for (var searchDetails in all) {
         if(searchDetails.title!.toLowerCase().contains(text.toLowerCase())){
           _searchList.add(searchDetails);
           _searchList.sort((a, b) {
             return a.title.toString().compareTo(b.title.toString());
           },);
         }
-       });
+       }
        setState(() {
          
        });

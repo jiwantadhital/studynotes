@@ -133,7 +133,7 @@ class App extends StatelessWidget {
       title: "Study Notes",
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        bottomSheetTheme: BottomSheetThemeData(
+        bottomSheetTheme: const BottomSheetThemeData(
           backgroundColor: Colors.transparent,
         ),
         appBarTheme: AppBarTheme(
@@ -144,12 +144,11 @@ class App extends StatelessWidget {
       ),
       backgroundColor: ColorManager.primaryColor
         ),
-        buttonColor: ColorManager.boxBlue,
         hoverColor: ColorManager.boxGreen,
         // canvasColor: Colors.white,
         primaryColor: ColorManager.primaryColor,
       ),
-      home: SplashView()
+      home: const SplashView()
     ));
   }
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:studynotes/resources/colors.dart';
 import 'package:studynotes/resources/fonts.dart';
 
 class DText extends StatelessWidget {
@@ -54,7 +53,7 @@ var onTap;
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(left: 20,right: 20),
+      padding: const EdgeInsets.only(left: 20,right: 20),
       height: 23,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

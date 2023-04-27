@@ -1,7 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_html/flutter_html.dart' as htm;
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+// import 'package:flutter_html/flutter_html.dart' as htm;
 
 import 'package:studynotes/logic/notes/allNotes/bloc/allnotes_bloc.dart';
 import 'package:studynotes/presentation/extra_widgets/extra_widgets.dart';
@@ -51,7 +52,7 @@ class _NotesDetailsState extends State<NotesDetails> {
             family: FontConstants.fontNunito,
           )
             ),
-            SliverToBoxAdapter(
+            const SliverToBoxAdapter(
               child: Center(child: CircularProgressIndicator(),),
             )
           ]
@@ -59,7 +60,7 @@ class _NotesDetailsState extends State<NotesDetails> {
           }
          if(state is AllnotesGot){
            return CustomScrollView(
-            physics: ClampingScrollPhysics(),
+            physics: const ClampingScrollPhysics(),
             slivers: [
               SliverAppBar(
                 actions: [
@@ -106,25 +107,26 @@ class _NotesDetailsState extends State<NotesDetails> {
                     }
                   }, builder: (context, stat) {
                     if (stat is AllnotesLoading) {
-                      return Center(
+                      return const Center(
                         child: Text("Loading...."),
                       );
                     }
                     if (stat is AllnotesGot) {
                       return Container(
                         width: double.infinity,
-                        margin: EdgeInsets.only(left: 10, right: 10),
+                        margin: const EdgeInsets.only(left: 10, right: 10),
                         child: DoubleTappableInteractiveViewer(
                             scaleDuration: const Duration(milliseconds: 600),
                             child: Center(
-                                child: htm.Html(
-                                    data: "${state.allNotesModel.notes}"))),
+                                child: HtmlWidget(
+                                     "${state.allNotesModel.notes}"))
+                                    ),
                       );
                     }
                     if (stat is AllnotesError) {
-                      return Text("");
+                      return const Text("");
                     }
-                    return Text("Something went wrong");
+                    return const Text("Something went wrong");
                   }),
                 ),
               ):    SliverFillRemaining(

@@ -30,14 +30,14 @@ class _SyllabusState extends State<Syllabus> {
 
         child: BlocBuilder<SyllabusBloc,SyllabusState>(builder: (context,state){
           if(state is SyllabusLoading){
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
           if(state is SyllabusGot){
             return ListView.builder(
           itemCount: state.syllabusModel.length,
           itemBuilder: (context,index){
             return Container(
-              margin: EdgeInsets.only(left: 5,right: 5,top: 5,bottom: 10),
+              margin: const EdgeInsets.only(left: 5,right: 5,top: 5,bottom: 10),
               height: MediaQuery.of(context).size.height*0.85,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
@@ -51,9 +51,9 @@ class _SyllabusState extends State<Syllabus> {
         });
           }
           if(state is SyllabusError){
-            return Center(child: Text("Error"));
+            return const Center(child: Text("Error"));
           }
-          return Text("something went wrong");
+          return const Text("something went wrong");
         })
       ),
     );

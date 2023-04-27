@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:studynotes/logic/questions/bloc/question_bloc.dart';
 import 'package:studynotes/presentation/extra_widgets/extra_widgets.dart';
@@ -43,10 +41,10 @@ class _QuestionsState extends State<Questions> {
           onTap: (){
             Navigator.pop(context);
           },
-          child: Icon(Icons.arrow_back)),
+          child: const Icon(Icons.arrow_back)),
         actions: [
           Padding(padding: 
-          EdgeInsets.only(right: 20),
+          const EdgeInsets.only(right: 20),
           child: GestureDetector(
             onTap: (){
             if(scaffoldKey.currentState!.isDrawerOpen){
@@ -59,7 +57,7 @@ class _QuestionsState extends State<Questions> {
         
       });
             },
-            child: Icon(Icons.menu,)),
+            child: const Icon(Icons.menu,)),
           )
         ],
         centerTitle: true,
@@ -70,14 +68,14 @@ class _QuestionsState extends State<Questions> {
           scaleDuration: const Duration(milliseconds: 600),
         child: BlocBuilder<QuestionBloc,QuestionState>(builder: (context,state){
           if(state is QuestionLoading){
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
           if(state is QuestionGot){
             return ListView.builder(
           itemCount: state.questionModel.length,
           itemBuilder: (context,index){
             return Container(
-              margin: EdgeInsets.only(left: 5,right: 5,top: 5,bottom: 10),
+              margin: const EdgeInsets.only(left: 5,right: 5,top: 5,bottom: 10),
               height: MediaQuery.of(context).size.height*0.9,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
@@ -91,9 +89,9 @@ class _QuestionsState extends State<Questions> {
         });
           }
           if(state is QuestionError){
-            return Center(child: Text("error"));
+            return const Center(child: Text("error"));
           }
-          return Text("Something went wrong");
+          return const Text("Something went wrong");
         })
       ),
     );

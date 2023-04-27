@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:studynotes/logic/news/bloc/news_bloc.dart';
 import 'package:studynotes/presentation/home_pages/widgets/home_page_widgets.dart';
 import 'package:studynotes/resources/colors.dart';
 import 'package:studynotes/resources/constants.dart';
@@ -26,7 +24,7 @@ class _NewsDetailsState extends State<NewsDetails> {
    double round = 20;
   @override
   void initState() {
-    scrollController..addListener(() { 
+    scrollController.addListener(() { 
       _appBarCollapsed ? round =0:round=20;
       _darkCollapsed ? collapsed=false:collapsed=true;
       setState(() {
@@ -63,7 +61,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                   return <Widget>[
               SliverAppBar(
                 actions: [
-                  Padding(padding: EdgeInsets.only(right: 20),
+                  Padding(padding: const EdgeInsets.only(right: 20),
                   child: collapsed==false? CupertinoSwitch(value: dark, onChanged: (val){
                     dark= val;
                     setState(() {
@@ -74,7 +72,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                   ):Container(),
                   )
                 ],
-                systemOverlayStyle: SystemUiOverlayStyle(
+                systemOverlayStyle: const SystemUiOverlayStyle(
               statusBarColor: Colors.transparent, 
          statusBarIconBrightness: Brightness.light, 
           statusBarBrightness: Brightness.light,   ),
@@ -87,14 +85,14 @@ class _NewsDetailsState extends State<NewsDetails> {
                     Navigator.pop(context);
                   },
                   child: Container(
-                  margin: EdgeInsets.only(left: 10, right: 10, top: 10),
+                  margin: const EdgeInsets.only(left: 10, right: 10, top: 10),
                             height: 40,
                             width: 40,
                             decoration: BoxDecoration(
                             color: ColorManager.primaryColor.withOpacity(0.6),
                             shape: BoxShape.circle
                       ),
-                      child: Icon(Icons.arrow_back,color: Colors.white,size: 20,),
+                      child: const Icon(Icons.arrow_back,color: Colors.white,size: 20,),
                     ),
                 ),
                 expandedHeight: 200,
@@ -113,7 +111,7 @@ class _NewsDetailsState extends State<NewsDetails> {
             ];
                     },
                     body: Container(
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
                         color:dark==true? Colors.black:Colors.white,
                         borderRadius: BorderRadius.only(
@@ -124,11 +122,11 @@ class _NewsDetailsState extends State<NewsDetails> {
                     child: SingleChildScrollView(
                       child: Column(
                         children: [
-                          SizedBox(height: 10,),
+                          const SizedBox(height: 10,),
                           DText(color:dark==true? ColorManager.textColorWhite:ColorManager.textColorBlack,
                           text: widget.title, weight: FontWeightManager.extrabold,
                           family: FontConstants.fontPoppins, size: FontSize.s24),
-                          SizedBox(height: 10,),
+                          const SizedBox(height: 10,),
                           DText(color: dark==true? ColorManager.textColorWhite.withOpacity(0.4):ColorManager.textColorBlack.withOpacity(0.7),
                           text: widget.data, weight: FontWeightManager.regular,
                           family: FontConstants.fontNoto, size: FontSize.s16),

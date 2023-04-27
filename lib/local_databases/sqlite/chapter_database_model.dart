@@ -1,20 +1,19 @@
-import 'dart:convert';
 
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-final String tableChapter = "tchaptes";
+const String tableChapter = "tchaptes";
 
 class ChapterFields{
 static final List<String> values = [id,semester,s_id,subject,c_id,c_name,c_number,c_desc,pdf];
 
-static final String id = "_id";
-static final String semester = "_semester";
-static final String s_id = "_s_id";
-static final String subject = "_subject";
-static final String c_id = "_c_id";
-static final String c_name = "_c_name";
-static final String c_number = "_c_number";
-static final String c_desc = "_c_desc";
-static final String pdf = "_pdf";
+static const String id = "_id";
+static const String semester = "_semester";
+static const String s_id = "_s_id";
+static const String subject = "_subject";
+static const String c_id = "_c_id";
+static const String c_name = "_c_name";
+static const String c_number = "_c_number";
+static const String c_desc = "_c_desc";
+static const String pdf = "_pdf";
 }
 
 class ChapterModelDatabase {

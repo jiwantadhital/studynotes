@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+// import 'package:flutter_html/flutter_html.dart';
 import 'package:studynotes/local_databases/sharedpreferences/shared_pref.dart';
-import 'package:studynotes/logic/notices/bloc/notices_bloc.dart';
-import 'package:studynotes/models/institute_model.dart';
 import 'package:studynotes/presentation/home_pages/widgets/home_page_widgets.dart';
 import 'package:studynotes/resources/fonts.dart' as font;
 
@@ -32,13 +28,9 @@ class _NoticeDetailsState extends State<NoticeDetails> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.all(10),
-          child: Html(data: widget.datas,
-     style: {
-    "body": Style(
-   color: UserSimplePreferences.getDark()==true?Colors.white:Colors.black
-    ),
-    },
+          padding: const EdgeInsets.all(10),
+          child: HtmlWidget(widget.datas,
+    
           ),
         ),
       ),

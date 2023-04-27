@@ -1,5 +1,4 @@
 
-import 'dart:async';
 
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
@@ -32,10 +31,10 @@ setLocale(bool open){
 
   int _selectedIndex = 0;
   List pages = [
-    MainPage(),
-    Categories(),
-    Colleges(),
-    SettingPage(),
+    const MainPage(),
+    const Categories(),
+    const Colleges(),
+    const SettingPage(),
   ];
   void onTapNav(int index){
     setState(() {
@@ -57,7 +56,7 @@ setLocale(bool open){
           backgroundColor: Colors.transparent,
           color: Theme.of(context).primaryColor,
           onTap: onTapNav,
-          items: <Widget>[
+          items: const <Widget>[
             Icon(Icons.home,color: Colors.white,),
             Icon(Icons.category,color: Colors.white),
             Icon(Icons.school,color: Colors.white),
@@ -75,7 +74,7 @@ setLocale(bool open){
           backgroundColor: Colors.white,
           color: ColorManager.primaryColor,
           onTap: onTapNav,
-          items: <Widget>[
+          items: const <Widget>[
             Icon(Icons.home,color: Colors.white,),
             Icon(Icons.category,color: Colors.white),
             Icon(Icons.school,color: Colors.white),

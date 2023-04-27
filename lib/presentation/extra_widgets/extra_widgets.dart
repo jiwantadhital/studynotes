@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:studynotes/logic/database/chapter_load/bloc/loadchapter_bloc.dart';
 import 'package:studynotes/resources/colors.dart';
 import 'package:http/http.dart' as http;
 
@@ -112,10 +111,10 @@ dialogbox(context){
                                     context: context, builder: (context){
                                return Center(
                                  child: Container(
-                                  padding: EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(10),
                                       height: 60,
                                       width: 60,
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                       shape: BoxShape.circle,
                                       color: Colors.white
                                         ),
@@ -132,10 +131,10 @@ downloadbox(context){
                                     context: context, builder: (context){
                                return Center(
                                  child: Container(
-                                  padding: EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(10),
                                       height: 60,
                                       width: 60,
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                       shape: BoxShape.circle,
                                       color: Colors.white
                                         ),

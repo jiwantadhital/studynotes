@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 class InvitePage extends StatefulWidget {
   const InvitePage({super.key});
@@ -13,10 +11,10 @@ class _InvitePageState extends State<InvitePage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
                                     height: 100,
                                     width: MediaQuery.of(context).size.width,
-                                    decoration: BoxDecoration(
+                                    decoration: const BoxDecoration(
                                       color: Colors.white,
                                     ),
                                     child: Row(
@@ -50,7 +48,7 @@ class Share extends StatelessWidget {
         border: Border.all(color: Colors.grey[400]!,width: 2)
       ),
       child: Container(
-        margin: EdgeInsets.all(10),
+        margin: const EdgeInsets.all(10),
         height: 30,
         width: 30,
         decoration: BoxDecoration(

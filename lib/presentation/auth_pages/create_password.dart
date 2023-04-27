@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:studynotes/presentation/auth_pages/auth_widgets/auth_widgets.dart';
 import 'package:studynotes/resources/colors.dart';
 
@@ -24,10 +22,10 @@ class _CreatePasswordState extends State<CreatePassword> {
         title: Center(child: DText(text: "Create Your Password",color: ColorManager.textColorWhite,weight: FontWeightManager.semibold,size: FontSize.s20, family: FontConstants.fontNunito,),),
       ),
       body: Container(
-        margin: EdgeInsets.all(10),
+        margin: const EdgeInsets.all(10),
         child: Column(
           children: [
-            SizedBox(height: 10,),
+            const SizedBox(height: 10,),
             AuthTextBox(labelText: "Password",
             hide: hide1,
             icon: hide1==true?Icons.remove_red_eye: Icons.remove_red_eye_outlined,
@@ -38,7 +36,7 @@ class _CreatePasswordState extends State<CreatePassword> {
               });
             },
             ),
-            SizedBox(height: 20,),
+            const SizedBox(height: 20,),
             AuthTextBox(labelText: "Confirm Password",
             hide: hide2,
             icon:hide2==true?Icons.remove_red_eye: Icons.remove_red_eye_outlined,
@@ -49,7 +47,7 @@ class _CreatePasswordState extends State<CreatePassword> {
               });
             },
             ),
-            SizedBox(height: 40,),
+            const SizedBox(height: 40,),
             AuthButton(text: "Save")
           ],
         ),

@@ -42,7 +42,7 @@ class _AuthPageState extends State<AuthPage> {
               Container(
                 height: size.height*0.32,
                 width: size.width,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   image: DecorationImage(image: AssetImage(
                     "assets/images/lb.png"
                   ),
@@ -54,11 +54,11 @@ class _AuthPageState extends State<AuthPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                  children: [
                    DText(color: ColorManager.textColorWhite, text: "Welcome User", weight: FontWeightManager.semibold, family: FontConstants.fontNoto, size: FontSize.s30),
-                   SizedBox(
+                   const SizedBox(
                     height: 5,
                    ),
                   loginselected==true?DText(color: ColorManager.textColorWhite, text: "Please Create Your Account", weight: FontWeightManager.semibold, family: FontConstants.fontNunito, size: FontSize.s20):  DText(color: ColorManager.textColorWhite, text: "Please Login To Continue", weight: FontWeightManager.semibold, family: FontConstants.fontNunito, size: FontSize.s20),
-                    SizedBox(height: 40,)
+                    const SizedBox(height: 40,)
                  ],
                )
                 ),
@@ -66,7 +66,7 @@ class _AuthPageState extends State<AuthPage> {
               ),
               Column(
                 children: [
-                  Container(
+                  SizedBox(
                     height: MediaQuery.of(context).size.height*0.19,
                     width: MediaQuery.of(context).size.width,
                    
@@ -75,26 +75,26 @@ class _AuthPageState extends State<AuthPage> {
                     children: [
                       Container(
                         margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.05),
-                        padding: EdgeInsets.only(left: 10,right: 10,top: 60),
+                        padding: const EdgeInsets.only(left: 10,right: 10,top: 60),
                         height: MediaQuery.of(context).size.height*0.74,
                         width: MediaQuery.of(context).size.width,
                         decoration: BoxDecoration(
                           color: Colors.grey[200],
-                          borderRadius: BorderRadius.only(
+                          borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(20),
                             topRight: Radius.circular(20),
                           )
                         ),
-                        child: loginselected==false? Login():Register()
+                        child: loginselected==false? const Login():const Register()
                       ),
                         Positioned(
-                child: Container(
+                child: SizedBox(
                   height: 70,
                   width: MediaQuery.of(context).size.width,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      SizedBox(width: 10,),
+                      const SizedBox(width: 10,),
                       GestureDetector(
                         onTap: (){
                           loginselected = false;
@@ -103,7 +103,7 @@ class _AuthPageState extends State<AuthPage> {
                           });
                         },
                         child: AnimatedContainer(
-                          duration: Duration(milliseconds: 500),
+                          duration: const Duration(milliseconds: 500),
                           height: loginselected == false? 60 : 55,
                           width: 130,
                             decoration: BoxDecoration(
@@ -124,7 +124,7 @@ class _AuthPageState extends State<AuthPage> {
                           });
                         },
                         child: AnimatedContainer(
-                          duration: Duration(milliseconds: 500),
+                          duration: const Duration(milliseconds: 500),
                           height: loginselected == false? 55 :60 ,
                           width: 130,
                             decoration: BoxDecoration(
@@ -137,7 +137,7 @@ class _AuthPageState extends State<AuthPage> {
                                ),
                         ),
                       ),
-                      SizedBox(width: 10,),
+                      const SizedBox(width: 10,),
                     ],
                   ),
         ),

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:studynotes/presentation/extra_widgets/extra_widgets.dart';
 import 'package:studynotes/presentation/home_pages/widgets/home_page_widgets.dart';
 import 'package:studynotes/presentation/subject_details/extra_notes/extra_drawer/extra_drawer.dart';
-import 'package:studynotes/presentation/subject_details/question_bank/drawer/drawer_items.dart';
 import 'package:studynotes/resources/colors.dart';
 import 'package:studynotes/resources/fonts.dart';
 
@@ -23,17 +22,17 @@ class _ExtraNotesState extends State<ExtraNotes> {
       drawer: Drawer(
         backgroundColor: ColorManager.primaryColor,
         width: 200,
-        child: ExtraDrawer()
+        child: const ExtraDrawer()
       ),
       appBar: AppBar(
         leading: GestureDetector(
           onTap: (){
             Navigator.pop(context);
           },
-          child: Icon(Icons.arrow_back)),
+          child: const Icon(Icons.arrow_back)),
         actions: [
           Padding(padding: 
-          EdgeInsets.only(right: 20),
+          const EdgeInsets.only(right: 20),
           child: GestureDetector(
             onTap: (){
             if(scaffoldKey3.currentState!.isDrawerOpen){
@@ -46,7 +45,7 @@ class _ExtraNotesState extends State<ExtraNotes> {
         
       });
             },
-            child: Icon(Icons.menu,)),
+            child: const Icon(Icons.menu,)),
           )
         ],
         centerTitle: true,
@@ -59,10 +58,10 @@ class _ExtraNotesState extends State<ExtraNotes> {
           itemCount: 2,
           itemBuilder: (context,index){
             return Container(
-              margin: EdgeInsets.only(left: 5,right: 5,top: 5,bottom: 10),
+              margin: const EdgeInsets.only(left: 5,right: 5,top: 5,bottom: 10),
               height: MediaQuery.of(context).size.height*0.9,
               width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 image: DecorationImage(image: NetworkImage(
                   "https://html.scribdassets.com/1las21nxmo8rt97u/images/1-534c22921c.jpg"
                 ),

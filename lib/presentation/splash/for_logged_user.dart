@@ -29,7 +29,7 @@ class _ForLoggedState extends State<ForLogged> {
   }
   _goNext(){
    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
-    return BottomBarPage();
+    return const BottomBarPage();
    }));
   }
   @override
@@ -39,24 +39,24 @@ class _ForLoggedState extends State<ForLogged> {
     }
     _controller = SimpleAnimation('Loading');
    opac();
-   Timer(Duration(seconds: 3), _goNext);
+   Timer(const Duration(seconds: 3), _goNext);
     super.initState();
   }
   @override
   Widget build(BuildContext context) {
-     context.read<ProfileBloc>()..add(GetProfileEvent());
+     context.read<ProfileBloc>().add(GetProfileEvent());
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Container(
-          margin: EdgeInsets.all(10),
+          margin: const EdgeInsets.all(10),
           child: SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             child: Column(
               children: [
                 Container(
                   height: MediaQuery.of(context).size.height*0.25,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage(
                         "assets/images/splashi.png"
@@ -69,10 +69,10 @@ class _ForLoggedState extends State<ForLogged> {
                 SizedBox(height: MediaQuery.of(context).size.height*0.15,),
                 DText(color: ColorManager.textColorBlack, text: "Welcome Back",
                weight: FontWeightManager.bold, family: FontConstants.fontNoto, size: FontSize.s36),
-               SizedBox(height: 10,),
+               const SizedBox(height: 10,),
                DText(color: ColorManager.textColorBlack, text: UserSimplePreferences.getUsername()??"User",
                weight: FontWeightManager.regular, family: FontConstants.fontNunito, size: FontSize.s22),
-               SizedBox(height: 20,),
+               const SizedBox(height: 20,),
                Container(
                 color: Colors.white,
                 height: 200,
@@ -99,7 +99,7 @@ class _ForLoggedState extends State<ForLogged> {
 class SocialBox extends StatelessWidget {
 String text;
 String icon;
-SocialBox({required this.icon, required this.text});
+SocialBox({super.key, required this.icon, required this.text});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -120,7 +120,7 @@ SocialBox({required this.icon, required this.text});
               ),
             ),
           ),
-          SizedBox(width: 20,),
+          const SizedBox(width: 20,),
           Text(text,
           style: TextStyle(
             fontSize:16,

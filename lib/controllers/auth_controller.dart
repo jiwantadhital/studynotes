@@ -15,7 +15,7 @@ GetRepo getRepo = GetRepo();
 var loginModel;
 Future<LoginModel> login(email, password)async{
 
-var response = await authRepo.loginRepo("${ApiClass.loginApi}", email, password);
+var response = await authRepo.loginRepo(ApiClass.loginApi, email, password);
     var data = jsonDecode(response.body);
     loginModel = LoginModel.fromJson(data);
     print(response.body);
@@ -28,7 +28,7 @@ var registerModel;
 
   Future<RegisterModel> register(email, password, phone, name)async{
 
-var response = await authRepo.registerRepo("${ApiClass.registerApi}", name, email, password, phone);
+var response = await authRepo.registerRepo(ApiClass.registerApi, name, email, password, phone);
     var data = jsonDecode(response.body);
     registerModel = RegisterModel.fromJson(data);
     print(response.body);
@@ -40,7 +40,7 @@ var googleModel;
 
   Future<GoogleModel> google(token)async{
 
-var response = await authRepo.googleRepo("${ApiClass.googleApi}",token);
+var response = await authRepo.googleRepo(ApiClass.googleApi,token);
     var data = jsonDecode(response.body);
     googleModel = GoogleModel.fromJson(data);
     print(response.body);

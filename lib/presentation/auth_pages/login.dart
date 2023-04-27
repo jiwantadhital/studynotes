@@ -49,7 +49,7 @@ class _LoginState extends State<Login> {
                             controller: emailController,
                             labelText: "Email",
                           ),
-                          SizedBox(height: 20,),
+                          const SizedBox(height: 20,),
                           AuthTextBox(
                             controller: passwordController,
                             labelText: "Password",
@@ -71,8 +71,8 @@ class _LoginState extends State<Login> {
                               });
                             },
                           ),
-                          SizedBox(height: 10,),
-                          Container(
+                          const SizedBox(height: 10,),
+                          SizedBox(
                             height: 40,
                             width: double.maxFinite,
                             child: Row(
@@ -93,13 +93,13 @@ class _LoginState extends State<Login> {
                               ],
                             ),
                           ),
-                          SizedBox(height: 10,),
+                          const SizedBox(height: 10,),
                       BlocConsumer<LoginBloc,LoginState>(builder: (context,state){
                         return AuthButton(
                           text: "Login",
                        tap: (){
                          if(_formKey.currentState!.validate()){
-                             context.read<LoginBloc>()..add(LoggingEvent(email: emailController.text, password: passwordController.text));
+                             context.read<LoginBloc>().add(LoggingEvent(email: emailController.text, password: passwordController.text));
                              
                          }
                          else{
@@ -120,42 +120,42 @@ class _LoginState extends State<Login> {
                         }
                           if(state is LoginOtp){
                           Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context){
-                           return OTPPage();
+                           return const OTPPage();
                          }), (Route<dynamic> route) => false);
                         }
                         if(state is LoginDone){
                           Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context){
-                           return BottomBarPage();
+                           return const BottomBarPage();
                          }), (Route<dynamic> route) => false);
                         }
                         
                       }),
-                          SizedBox(height: 20,),
+                          const SizedBox(height: 20,),
                           Align(
                             alignment: Alignment.centerRight,
                             child: Padding(
                               padding: const EdgeInsets.only(right: 10),
                               child: DText(color: ColorManager.boxBlue, text: "Forgot Password ?", weight: FontWeightManager.bold, family: FontConstants.fontNunito, size: FontSize.s14),
                             )),
-                            SizedBox(height: 10,),
-                            Container(
+                            const SizedBox(height: 10,),
+                            SizedBox(
                               height: 20,
                               width: MediaQuery.of(context).size.width,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                                 children: [
-                                  Container(
+                                  SizedBox(
                                     width: MediaQuery.of(context).size.width*0.4,
                                     child: Divider(thickness: 2,color: ColorManager.primaryColor,)),
                                   DText(color: ColorManager.textColorBlack, text: "Or", weight: FontWeightManager.bold, family: FontConstants.fontNunito, size: FontSize.s14),
-                                  Container(
+                                  SizedBox(
                                     width: MediaQuery.of(context).size.width*0.4,
                                     child: Divider(thickness: 2,color: ColorManager.primaryColor,)),
                                 ],
                               ),
                             ),
-                            SizedBox(height: 20,),
-                            Container(
+                            const SizedBox(height: 20,),
+                            SizedBox(
                               height: 40,
                               width: MediaQuery.of(context).size.width,
                               child: Row(
@@ -165,7 +165,7 @@ class _LoginState extends State<Login> {
                                   GestureDetector(
                                     onTap: (){
                                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context){
-                                            return SocialLogin();
+                                            return const SocialLogin();
                                              }), (Route<dynamic> route) => false);
                                     },
                                     child: DText(color: ColorManager.boxBlue, text: "social login", weight: FontWeightManager.bold, family: FontConstants.fontNunito, size: FontSize.s14)),

@@ -17,17 +17,17 @@ class DrawerItems extends StatelessWidget {
     return  Column(
           children: [
             Container(
-              padding: EdgeInsets.only(left: 10,right: 10,top: 40),
+              padding: const EdgeInsets.only(left: 10,right: 10,top: 40),
               height: 100,
               width: 200,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
               ),
               child: Center(
                 child: DText(color: ColorManager.textColorWhite, text: "Select The Year", weight: FontWeightManager.bold, family: FontConstants.fontNoto, size: FontSize.s14),
               ),
             ),
-            SizedBox(height: 10,),
-            Divider(
+            const SizedBox(height: 10,),
+            const Divider(
               height: 4,
               color: Colors.white,
             ),
@@ -46,16 +46,16 @@ class DrawerItems extends StatelessWidget {
                       GestureDetector(
                         onTap: (){
                           onItemSelected(state.qyearModel[index].name??"");
-                          context.read<QuestionBloc>()..add(QuestionGettingEvent(id: sub_id, year_id: state.qyearModel[index].id!.toInt()));
+                          context.read<QuestionBloc>().add(QuestionGettingEvent(id: sub_id, year_id: state.qyearModel[index].id!.toInt()));
                         },
                         child: Container(
-                          padding: EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(10),
                           height: 50,
                           width: 200,
                           child: DText(color: ColorManager.textColorWhite, text: state.qyearModel[index].name??"", weight: FontWeightManager.semibold, family: FontConstants.fontNunito, size: FontSize.s13),
                         ),
                       ),
-                      Divider(
+                      const Divider(
               height: 2,
               color: Colors.white,
             ),

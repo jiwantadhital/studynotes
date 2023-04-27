@@ -26,20 +26,20 @@ class SolutionModel {
     questionyearId = json['questionyear_id'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
-    qyear = json['qyear'] != null ? new Qyear.fromJson(json['qyear']) : null;
+    qyear = json['qyear'] != null ? Qyear.fromJson(json['qyear']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['image'] = this.image;
-    data['sem_id'] = this.semId;
-    data['sub_id'] = this.subId;
-    data['questionyear_id'] = this.questionyearId;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    if (this.qyear != null) {
-      data['qyear'] = this.qyear!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['image'] = image;
+    data['sem_id'] = semId;
+    data['sub_id'] = subId;
+    data['questionyear_id'] = questionyearId;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    if (qyear != null) {
+      data['qyear'] = qyear!.toJson();
     }
     return data;
   }
@@ -61,11 +61,11 @@ class Qyear {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
     return data;
   }
 }

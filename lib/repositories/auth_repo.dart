@@ -11,13 +11,13 @@ final body = {
     "email" : email,
     "password" : password
   };
-  var res =await http.post(Uri.parse("${ApiClass.local}${api}"),
+  var res =await http.post(Uri.parse("${ApiClass.local}$api"),
   headers: {
     "Content-Type": "application/json",
     "Accept" : "application/json"
   },
   body: jsonEncode(body)
-  ).timeout(Duration(seconds: 10));
+  ).timeout(const Duration(seconds: 10));
   if(res.statusCode==200){
     return res;
   }
@@ -32,13 +32,13 @@ Future<http.Response> googleRepo(api, token) async{
 final body = {
     "token" : token,
   };
-  var res =await http.post(Uri.parse("${ApiClass.local}${api}"),
+  var res =await http.post(Uri.parse("${ApiClass.local}$api"),
   headers: {
     "Content-Type": "application/json",
     "Accept" : "application/json"
   },
   body: jsonEncode(body)
-  ).timeout(Duration(seconds: 10));
+  ).timeout(const Duration(seconds: 10));
   if(res.statusCode==200){
     return res;
   }
@@ -57,13 +57,13 @@ final body = {
     "name" : name,
     "phone" : phone
   };print(" $email");
-  var res =await http.post(Uri.parse("${ApiClass.local}${api}"),
+  var res =await http.post(Uri.parse("${ApiClass.local}$api"),
   headers: {
     "Content-Type": "application/json",
     "Accept" : "application/json"
   },
   body: jsonEncode(body)
-  ).timeout(Duration(seconds: 10));
+  ).timeout(const Duration(seconds: 10));
   if(res.statusCode==200){
     print("200");
     return res;
@@ -85,13 +85,13 @@ final body = {
     "college_id" : collegeId
   };
   print("$rate as $desc as $id as $studentId as $collegeId");
-  var res =await http.post(Uri.parse("${ApiClass.local}${api}"),
+  var res =await http.post(Uri.parse("${ApiClass.local}$api"),
   headers: {
     "Content-Type": "application/json",
     "Accept" : "application/json"
   },
   body: jsonEncode(body)
-  ).timeout(Duration(seconds: 10));
+  ).timeout(const Duration(seconds: 10));
   if(res.statusCode==200){
     print("200");
     return res;
@@ -113,13 +113,13 @@ final body = {
   }; 
   print("$name as $phone as $sem as $image");
   print(sem);
-   var res =await http.put(Uri.parse("${ApiClass.local}${api}"),
+   var res =await http.put(Uri.parse("${ApiClass.local}$api"),
   headers: {
     "Content-Type": "application/json",
     "Accept" : "application/json"
   },
   body: jsonEncode(body)
-  ).timeout(Duration(seconds: 10));
+  ).timeout(const Duration(seconds: 10));
   if(res.statusCode==200){
     print("200");
     return res;
@@ -137,13 +137,13 @@ Future<http.Response> otpRepo(api,num) async{
 final body = {
     "phone_verified" : num,
   };
-  var res =await http.put(Uri.parse("${ApiClass.local}${api}"),
+  var res =await http.put(Uri.parse("${ApiClass.local}$api"),
   headers: {
     "Content-Type": "application/json",
     "Accept" : "application/json"
   },
   body: jsonEncode(body)
-  ).timeout(Duration(seconds: 10));
+  ).timeout(const Duration(seconds: 10));
   if(res.statusCode==200){
     print("200");
     return res;

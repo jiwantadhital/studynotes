@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:studynotes/local_databases/sharedpreferences/shared_pref.dart';
 import 'package:studynotes/logic/news/bloc/news_bloc.dart';
@@ -41,14 +39,14 @@ class _NewsPageState extends State<NewsPage> {
                             return Column(
                               children: [
                                 Container(
-                                  margin: EdgeInsets.only(
+                                  margin: const EdgeInsets.only(
                                       left: 15, right: 15, top: 10, bottom: 10),
                                   height: 120,
                                   width: double.maxFinite,
                                   child: Row(
                                     children: [
                                       Loading(size: size),
-                                      SizedBox(
+                                      const SizedBox(
                                         width: 10,
                                       ),
                                       Loading(size: size)
@@ -56,13 +54,13 @@ class _NewsPageState extends State<NewsPage> {
                                   ),
                                 ),
                                 Container(
-                                  margin: EdgeInsets.only(left: 15, right: 15),
+                                  margin: const EdgeInsets.only(left: 15, right: 15),
                                   height: 120,
                                   width: double.maxFinite,
                                   child: Row(
                                     children: [
                                       Loading(size: size),
-                                      SizedBox(
+                                      const SizedBox(
                                         width: 10,
                                       ),
                                       Loading(size: size)
@@ -77,9 +75,9 @@ class _NewsPageState extends State<NewsPage> {
                                controller: context.read<NewsBloc>().scrollController,
                               child: Container(
                                 child: GridView.builder(
-                                    padding: EdgeInsets.all(0),
+                                    padding: const EdgeInsets.all(0),
                                     shrinkWrap: true,
-                                    physics: ClampingScrollPhysics(),
+                                    physics: const ClampingScrollPhysics(),
                                     gridDelegate:
                                         SliverGridDelegateWithFixedCrossAxisCount(
                                       crossAxisCount: 2,
@@ -89,7 +87,7 @@ class _NewsPageState extends State<NewsPage> {
                                     itemCount: context.read<NewsBloc>().isLoadingMore? state.newsModel.length+1:state.newsModel.length,
                                     itemBuilder: (context, index) {
                                        if(index >= state.newsModel.length){
-                                                return Center(child: CircularProgressIndicator());
+                                                return const Center(child: CircularProgressIndicator());
                                                }
                                                else{
                                       return GestureDetector(
@@ -105,7 +103,7 @@ class _NewsPageState extends State<NewsPage> {
                                           }));
                                         },
                                         child: Container(
-                                          margin: EdgeInsets.all(10),
+                                          margin: const EdgeInsets.all(10),
                                           child: Column(
                                             children: [
                                               Container(
@@ -123,7 +121,7 @@ class _NewsPageState extends State<NewsPage> {
                                                       fit: BoxFit.cover,
                                                     )),
                                               ),
-                                              SizedBox(
+                                              const SizedBox(
                                                 height: 5,
                                               ),
                                               Padding(
@@ -148,9 +146,9 @@ class _NewsPageState extends State<NewsPage> {
                           }
                           if (state is NewsError) {
                             print(state.message);
-                            return Center(child: Text("Something went wrong"));
+                            return const Center(child: Text("Something went wrong"));
                           }
-                          return Text("error");
+                          return const Text("error");
                         }),
                         listener: (context, state) {}),
       ),

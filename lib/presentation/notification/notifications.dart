@@ -1,15 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get_utils/get_utils.dart';
 import 'package:intl/intl.dart';
 import 'package:studynotes/local_databases/sharedpreferences/shared_pref.dart';
 import 'package:studynotes/logic/notices/bloc/notices_bloc.dart';
 import 'package:studynotes/logic/thisWeek/bloc/t_week_bloc.dart';
 import 'package:studynotes/logic/todayNotice/bloc/t_notice_bloc.dart';
-import 'package:studynotes/models/institute_model.dart';
 import 'package:studynotes/models/notice_model.dart';
-import 'package:studynotes/presentation/extra_widgets/extra_widgets.dart';
 
 import 'package:studynotes/presentation/home_pages/widgets/home_page_widgets.dart';
 import 'package:studynotes/resources/colors.dart';
@@ -26,8 +23,8 @@ class Notifications extends StatefulWidget {
 
 class _NotificationsState extends State<Notifications> {
   
-      TextEditingController _controller = TextEditingController();
-  List<NoticeModel> _searchList = [];
+      final TextEditingController _controller = TextEditingController();
+  final List<NoticeModel> _searchList = [];
   DateTime now = DateTime.now();
   var fh =  DateFormat('H');
     final f =  DateFormat('yyyy-M-d');
@@ -134,9 +131,9 @@ class _NotificationsState extends State<Notifications> {
                 if(stat is TNoticeError){
 
                 }
-                return Text("No");
+                return const Text("No");
               }),
-          SizedBox(height: 10,),
+          const SizedBox(height: 10,),
 
           //this week
             BlocBuilder<TWeekBloc,TWeekState>(
@@ -167,9 +164,9 @@ class _NotificationsState extends State<Notifications> {
                 if(sta is TWeekError){
 
                 }
-                return Text("");
+                return const Text("");
               }),
-            SizedBox(height: 10,),
+            const SizedBox(height: 10,),
              //all
               BlocConsumer<NoticesBloc,NoticesState>(
                 listener:(context, state) {
@@ -197,7 +194,7 @@ class _NotificationsState extends State<Notifications> {
           itemBuilder: (context,index){
                    if(index >= state.noticeModel.length){
                     print("index = $index length = ${state.noticeModel.length}");
-                    return Center(child: CircularProgressIndicator());
+                    return const Center(child: CircularProgressIndicator());
                    }
                    else{
                      var tday = f2.format(DateTime.parse(state.noticeModel[index].createdAt.toString()));
@@ -210,7 +207,7 @@ class _NotificationsState extends State<Notifications> {
                 if(state is NoticesError){
 
                 }
-                return Text("");
+                return const Text("");
               }),
             ],
           ),
@@ -226,14 +223,14 @@ class _NotificationsState extends State<Notifications> {
         });
         return;
       }
-      all.forEach((searchDetails) {
+      for (var searchDetails in all) {
         if(searchDetails.title!.toLowerCase().contains(text.toLowerCase())){
           _searchList.add(searchDetails);
           _searchList.sort((a, b) {
             return a.title.toString().compareTo(b.title.toString());
           },);
         }
-       });
+       }
        setState(() {
          
        });
@@ -276,7 +273,7 @@ String time;
                                 width: MediaQuery.of(context).size.width*0.9,
                                 decoration: BoxDecoration(
                                   color: ColorManager.primaryColor,
-                                  borderRadius: BorderRadius.only(
+                                  borderRadius: const BorderRadius.only(
                                     topLeft: Radius.circular(10),
                                     topRight: Radius.circular(10)
                                   )
@@ -284,8 +281,8 @@ String time;
                              child: Center(child: DText(color: ColorManager.textColorWhite, text: "Notice", weight: FontWeightManager.bold, family: FontConstants.fontPoppins, size: FontSize.s16)),
 
                               ),
-                              SizedBox(height: 10,),
-                                Container(
+                              const SizedBox(height: 10,),
+                                SizedBox(
                                   height: MediaQuery.of(context).size.height*0.28,
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
@@ -294,10 +291,10 @@ String time;
                                       color: ColorManager.textColorBlack, text: state.noticeModel[index].shortDescription??"", weight: FontWeightManager.light, family: FontConstants.fontPoppins, size: FontSize.s14),
                                   ),
                                 ),
-                                SizedBox(height: 10,),
+                                const SizedBox(height: 10,),
                                 ElevatedButton(onPressed: (){
                                   Navigator.pop(context);
-                                }, child: Text("Ok"))
+                                }, child: const Text("Ok"))
                             ],
                           ),
                         ),
@@ -410,7 +407,7 @@ String time;
                                 width: MediaQuery.of(context).size.width*0.9,
                                 decoration: BoxDecoration(
                                   color: ColorManager.primaryColor,
-                                  borderRadius: BorderRadius.only(
+                                  borderRadius: const BorderRadius.only(
                                     topLeft: Radius.circular(10),
                                     topRight: Radius.circular(10)
                                   )
@@ -418,8 +415,8 @@ String time;
                              child: Center(child: DText(color: ColorManager.textColorWhite, text: "Notice", weight: FontWeightManager.bold, family: FontConstants.fontPoppins, size: FontSize.s16)),
 
                               ),
-                              SizedBox(height: 10,),
-                                Container(
+                              const SizedBox(height: 10,),
+                                SizedBox(
                                   height: MediaQuery.of(context).size.height*0.28,
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
@@ -428,10 +425,10 @@ String time;
                                       color: ColorManager.textColorBlack, text: list[index].shortDescription??"", weight: FontWeightManager.light, family: FontConstants.fontPoppins, size: FontSize.s14),
                                   ),
                                 ),
-                                SizedBox(height: 10,),
+                                const SizedBox(height: 10,),
                                 ElevatedButton(onPressed: (){
                                   Navigator.pop(context);
-                                }, child: Text("Ok"))
+                                }, child: const Text("Ok"))
                             ],
                           ),
                         ),

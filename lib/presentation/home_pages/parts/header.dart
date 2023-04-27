@@ -220,14 +220,14 @@ class _TopState extends State<Top> {
   Widget build(BuildContext context) {
         localnotice.value = UserSimplePreferences.getNotices() ?? 0;
     return Container(
-      margin: EdgeInsets.only(left: 5, right: 10),
+      margin: const EdgeInsets.only(left: 5, right: 10),
       height: 60,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
             children: [
-              HeadImage(),
+              const HeadImage(),
               const SizedBox(
                 width: 20,
               ),
@@ -237,7 +237,7 @@ class _TopState extends State<Top> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
+                    SizedBox(
                       width: widget.size.width * 0.5,
                       child: DText(
                         lines: 1,
@@ -262,7 +262,7 @@ class _TopState extends State<Top> {
               ),
             ],
           ),
-          NoticesPart()
+          const NoticesPart()
         ],
       ),
     );
@@ -281,7 +281,7 @@ class NoticesPart extends StatefulWidget {
 class _NoticesPartState extends State<NoticesPart> {
 
 refresh(){
-  Future.delayed(Duration(milliseconds: 10),(){
+  Future.delayed(const Duration(milliseconds: 10),(){
     setState(() {
       
     });
@@ -320,8 +320,8 @@ refresh(){
                         onTap: () {
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) {
-                            return Notifications();
-                          }))..whenComplete(() {
+                            return const Notifications();
+                          })).whenComplete(() {
                                   setState(() {});
                                 });
                         },
@@ -370,7 +370,7 @@ class HeadImage extends StatefulWidget {
 class _HeadImageState extends State<HeadImage> {
   
     getProfile() {
-    Future.delayed(Duration(milliseconds: 500), () {
+    Future.delayed(const Duration(milliseconds: 500), () {
        setState(() {
          
        });
@@ -384,7 +384,7 @@ class _HeadImageState extends State<HeadImage> {
   }
   @override
   Widget build(BuildContext context) {
-    context.read<ProfileBloc>()..add(GetProfileEvent());
+    context.read<ProfileBloc>().add(GetProfileEvent());
     return Container(
       height: 50,
       width: 50,

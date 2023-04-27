@@ -4,7 +4,6 @@ import 'package:studynotes/logic/institute/images/bloc/image_bloc.dart';
 import 'package:studynotes/logic/institute/main/bloc/institute_bloc.dart';
 import 'package:studynotes/presentation/colleges/college_details/desc_section.dart';
 import 'package:studynotes/presentation/colleges/college_details/widgets/widgets.dart';
-import 'package:studynotes/resources/colors.dart';
 import 'package:studynotes/resources/constants.dart';
 
 class CollegeDetail extends StatefulWidget {
@@ -27,7 +26,7 @@ class _CollegeDetailState extends State<CollegeDetail> {
   double bottomHeight = 70;
 
 refresh(){
-  Future.delayed(Duration(milliseconds: 500),(){
+  Future.delayed(const Duration(milliseconds: 500),(){
     setState(() {
       
     });
@@ -81,7 +80,7 @@ refresh(){
                         background: Stack(
                       alignment: Alignment.center,
                       children: [
-                      loaded==false?CircularProgressIndicator():  Container(
+                      loaded==false?const CircularProgressIndicator():  Container(
                           decoration: BoxDecoration(
                             color: Colors.blue,
                             image: DecorationImage(
@@ -122,7 +121,7 @@ refresh(){
                                             });
                                           },
                                           child: Container(
-                                            margin: EdgeInsets.only(left: 20),
+                                            margin: const EdgeInsets.only(left: 20),
                                             height: 40,
                                             width: 40,
                                             decoration: BoxDecoration(
@@ -188,7 +187,7 @@ refresh(){
                   color: Colors.white,
                 ),
                 child: TabBarView(
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     children: [
                       DescPart(
                         desc: institute.description.toString(),

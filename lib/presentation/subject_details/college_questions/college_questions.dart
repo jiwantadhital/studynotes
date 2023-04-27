@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:studynotes/presentation/extra_widgets/extra_widgets.dart';
 import 'package:studynotes/presentation/subject_details/college_questions/college_drawer/college_drawer.dart';
-import 'package:studynotes/presentation/subject_details/solutions/drawer/solution_drawers.dart';
 import 'package:studynotes/resources/colors.dart';
 import 'package:studynotes/resources/fonts.dart';
 
@@ -24,17 +23,17 @@ class _CollegeQuestionsState extends State<CollegeQuestions> {
       drawer: Drawer(
         backgroundColor: ColorManager.primaryColor,
         width: 200,
-        child: CollegeDrawer()
+        child: const CollegeDrawer()
       ),
       appBar: AppBar(
         leading: GestureDetector(
           onTap: (){
             Navigator.pop(context);
           },
-          child: Icon(Icons.arrow_back)),
+          child: const Icon(Icons.arrow_back)),
         actions: [
           Padding(padding: 
-          EdgeInsets.only(right: 20),
+          const EdgeInsets.only(right: 20),
           child: GestureDetector(
             onTap: (){
             if(scaffoldKey2.currentState!.isDrawerOpen){
@@ -47,7 +46,7 @@ class _CollegeQuestionsState extends State<CollegeQuestions> {
         
       });
             },
-            child: Icon(Icons.menu,)),
+            child: const Icon(Icons.menu,)),
           )
         ],
         centerTitle: true,
@@ -60,10 +59,10 @@ class _CollegeQuestionsState extends State<CollegeQuestions> {
           itemCount: 4,
           itemBuilder: (context,index){
             return Container(
-              margin: EdgeInsets.only(left: 5,right: 5,top: 5,bottom: 10),
+              margin: const EdgeInsets.only(left: 5,right: 5,top: 5,bottom: 10),
               height: MediaQuery.of(context).size.height*0.9,
               width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 image: DecorationImage(image: NetworkImage(
                   "https://image.slidesharecdn.com/6d2487ee-7eb5-4463-be73-405ffcf801ac-160421012703/85/5-questions-for-the-department-chair-of-your-major-1-638.jpg?cb=1667667298"
                 ),

@@ -23,7 +23,7 @@ class NoticeController{
    List<NoticeModel>  todayModel = [];
 
   Future<List<NoticeModel>> getToday() async{
-    var response = await getRepo.getRepository("${ApiClass.todaynoticeApi}");
+    var response = await getRepo.getRepository(ApiClass.todaynoticeApi);
     List data = jsonDecode(response.body);
    todayModel = data.map((e) => NoticeModel.fromJson(e)).toList();
     return data.map(((e)=> NoticeModel.fromJson(e))).toList();  
@@ -34,7 +34,7 @@ class NoticeController{
    List<NoticeModel>  thisWeekModel = [];
 
   Future<List<NoticeModel>> getWeek() async{
-    var response = await getRepo.getRepository("${ApiClass.thisWeekeApi}");
+    var response = await getRepo.getRepository(ApiClass.thisWeekeApi);
     List data = jsonDecode(response.body);
    thisWeekModel = data.map((e) => NoticeModel.fromJson(e)).toList();
     return data.map(((e)=> NoticeModel.fromJson(e))).toList();  

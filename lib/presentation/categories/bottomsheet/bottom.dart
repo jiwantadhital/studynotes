@@ -4,7 +4,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:studynotes/logic/database/chapter_load/bloc/loadchapter_bloc.dart';
-import 'package:studynotes/logic/database/chapters/bloc/chapters_bloc.dart';
 import 'package:studynotes/logic/notes/chapters/bloc/chapter_bloc.dart';
 import 'package:studynotes/logic/notes/lab/bloc/lab_bloc.dart';
 import 'package:studynotes/logic/notes/syllabus/bloc/syllabus_bloc.dart';
@@ -45,7 +44,7 @@ class _BottomOfCategoriesState extends State<BottomOfCategories> {
   }
   
   _afterSomeTime(){
-    Future.delayed(Duration(milliseconds: 100), () {
+    Future.delayed(const Duration(milliseconds: 100), () {
           extend = true;
       setState(() {
       });
@@ -65,7 +64,7 @@ class _BottomOfCategoriesState extends State<BottomOfCategories> {
                 padding: const EdgeInsets.only(top: 140,left: 5),
                 child: FloatingActionButton.small(
                   backgroundColor: Colors.white,
-                  child: Icon(Icons.close_rounded,color: Colors.red,),
+                  child: const Icon(Icons.close_rounded,color: Colors.red,),
                   onPressed: (){
                                         Navigator.pop(context);
                   }),
@@ -77,9 +76,9 @@ class _BottomOfCategoriesState extends State<BottomOfCategories> {
           alignment: Alignment.bottomCenter,
            child: Container(
             width: size.width,
-               padding: EdgeInsets.all(10),
+               padding: const EdgeInsets.all(10),
                height:size.height<687?size.height*0.77: size.height*0.75,
-               decoration: BoxDecoration(
+               decoration: const BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),
@@ -89,26 +88,26 @@ class _BottomOfCategoriesState extends State<BottomOfCategories> {
                child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(height: 10,),
+              const SizedBox(height: 10,),
               DText(
                 align: TextAlign.center,
                 lines: 2,
                 color: ColorManager.textColorBlack, text: widget.subject, weight: FontWeightManager.medium, family: FontConstants.fontPoppins, size: FontSize.s16),
-              SizedBox(height: 20,),
+              const SizedBox(height: 20,),
               GestureDetector(
                 onTap: (){
-                  context.read<SyllabusBloc>()..add(SyllabusGettingEvent(id: widget.sub_id));
+                  context.read<SyllabusBloc>().add(SyllabusGettingEvent(id: widget.sub_id));
                        Navigator.push(context, 
               MaterialPageRoute(builder: (context){
-                return Syllabus();
+                return const Syllabus();
               })
                   );
                 },
                 child: BottomWidget(extend: extend, size: size,text: "Syllabus",)),
-              SizedBox(height: 15,),
+              const SizedBox(height: 15,),
               GestureDetector(
                 onTap: (){
-                  context.read<ChapterBloc>()..add(ChapterGettingEvent(id: widget.sub_id));
+                  context.read<ChapterBloc>().add(ChapterGettingEvent(id: widget.sub_id));
                 context.read<LoadchapterBloc>().add(LoadingAllChapterEvent());
                   Navigator.push(context, 
               MaterialPageRoute(builder: (context){
@@ -119,10 +118,10 @@ class _BottomOfCategoriesState extends State<BottomOfCategories> {
                 child: BottomWidget(extend: extend, size: size,text: "Notes",
                 ),
               ),
-                        SizedBox(height: 15,),
+                        const SizedBox(height: 15,),
               GestureDetector(
                 onTap: (){
-                context.read<QuestionBloc>()..add(QuestionGettingEvent(id: widget.sub_id, year_id: 1));
+                context.read<QuestionBloc>().add(QuestionGettingEvent(id: widget.sub_id, year_id: 1));
                     Navigator.push(context, 
               MaterialPageRoute(builder: (context){
                 return Questions(sub_id: widget.sub_id,);
@@ -130,20 +129,20 @@ class _BottomOfCategoriesState extends State<BottomOfCategories> {
                   );
                 },
                 child: BottomWidget(extend: extend, size: size,text: "Question Bank",)),
-                SizedBox(height: 15,),
+                const SizedBox(height: 15,),
                 GestureDetector(
                 onTap: (){
                     Navigator.push(context, 
               MaterialPageRoute(builder: (context){
-                return CollegeQuestions();
+                return const CollegeQuestions();
               })
                   );
                 },
                 child: BottomWidget(extend: extend, size: size,text: "College Questions",)),
-                        SizedBox(height: 15,),
+                        const SizedBox(height: 15,),
               GestureDetector(
                 onTap: (){
-                 context.read<SolutionsBloc>()..add(SolutionGettingEvent(id: widget.sub_id, year_id: 1));
+                 context.read<SolutionsBloc>().add(SolutionGettingEvent(id: widget.sub_id, year_id: 1));
                          Navigator.push(context, 
               MaterialPageRoute(builder: (context){
                 return Solutions(sub_id: widget.sub_id,);
@@ -151,23 +150,23 @@ class _BottomOfCategoriesState extends State<BottomOfCategories> {
                   );
                 },
                 child: BottomWidget(extend: extend, size: size,text: "Solutions",)),
-                        SizedBox(height: 15,),
+                        const SizedBox(height: 15,),
               GestureDetector(
                 onTap: (){
                         Navigator.push(context, 
               MaterialPageRoute(builder: (context){
-                return ExtraNotes();
+                return const ExtraNotes();
               })
                   );
                 },
                 child: BottomWidget(extend: extend, size: size,text: "Extra Notes",)),
-                        SizedBox(height: 15,),
+                        const SizedBox(height: 15,),
               GestureDetector(
                 onTap: (){
                   context.read<LabBloc>().add(LabGettingEvent(id: widget.sub_id));
                       Navigator.push(context, 
               MaterialPageRoute(builder: (context){
-                return Labs();
+                return const Labs();
               })
                   );
                 },
@@ -181,7 +180,7 @@ class _BottomOfCategoriesState extends State<BottomOfCategories> {
 }
 
 class BottomWidget extends StatelessWidget {
-   BottomWidget({
+   const BottomWidget({
     super.key,
     required this.extend,
     required this.size,
@@ -194,8 +193,8 @@ class BottomWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
-      duration: Duration(milliseconds: 500),
-      padding: EdgeInsets.only(left: 20),
+      duration: const Duration(milliseconds: 500),
+      padding: const EdgeInsets.only(left: 20),
       alignment: Alignment.centerLeft,
       height: 50,
       width: extend == false?0:size.width,

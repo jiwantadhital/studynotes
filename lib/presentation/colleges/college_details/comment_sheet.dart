@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:http/http.dart';
 
 import 'package:studynotes/local_databases/sharedpreferences/shared_pref.dart';
 import 'package:studynotes/logic/auth/getProfile/bloc/profile_bloc.dart';
@@ -31,11 +30,11 @@ class CommentSheet extends StatelessWidget {
               const EdgeInsets.only(left: 10, right: 10, top: 20, bottom: 10),
           // width: double.infinity,
           height: MediaQuery.of(context).size.height * 0.65,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: Colors.white,
-            borderRadius: new BorderRadius.only(
-              topLeft: const Radius.circular(25.0),
-              topRight: const Radius.circular(25.0),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(25.0),
+              topRight: Radius.circular(25.0),
             ),
           ),
           child: Items(
@@ -58,7 +57,7 @@ class Items extends StatefulWidget {
 }
 
 class _ItemsState extends State<Items> {
-  TextEditingController _mycontroller = TextEditingController();
+  final TextEditingController _mycontroller = TextEditingController();
   int _value = 3;
   String _comment = " ";
   String submit = "Submit";
@@ -78,7 +77,7 @@ class _ItemsState extends State<Items> {
       child: Container(
         child: Column(
           children: [
-            Container(
+            SizedBox(
               height: 30,
               width: double.maxFinite,
               child: Center(
@@ -93,7 +92,7 @@ class _ItemsState extends State<Items> {
             const SizedBox(
               height: 20,
             ),
-            Container(
+            SizedBox(
               height: 80,
               width: MediaQuery.of(context).size.width,
               child: Container(
@@ -156,10 +155,10 @@ class _ItemsState extends State<Items> {
                 listener: (context, state) {
                   if(state is PcommentsPosting){
 
-                     afterSubmit = Container(
+                     afterSubmit = const SizedBox(
                                   height: 25,
                                   width: 25,
-                                  child: const CircularProgressIndicator(
+                                  child: CircularProgressIndicator(
                                     color: Colors.white,
                                   ));
                   }

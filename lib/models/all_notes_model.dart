@@ -34,32 +34,32 @@ class AllNotesModel {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     chapter =
-        json['chapter'] != null ? new Chapter.fromJson(json['chapter']) : null;
+        json['chapter'] != null ? Chapter.fromJson(json['chapter']) : null;
     semester = json['semester'] != null
-        ? new Semester.fromJson(json['semester'])
+        ? Semester.fromJson(json['semester'])
         : null;
     subject =
-        json['subject'] != null ? new Subject.fromJson(json['subject']) : null;
+        json['subject'] != null ? Subject.fromJson(json['subject']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['notes'] = this.notes;
-    data['image'] = this.image;
-    data['sem_id'] = this.semId;
-    data['sub_id'] = this.subId;
-    data['chapter_id'] = this.chapterId;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    if (this.chapter != null) {
-      data['chapter'] = this.chapter!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['notes'] = notes;
+    data['image'] = image;
+    data['sem_id'] = semId;
+    data['sub_id'] = subId;
+    data['chapter_id'] = chapterId;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    if (chapter != null) {
+      data['chapter'] = chapter!.toJson();
     }
-    if (this.semester != null) {
-      data['semester'] = this.semester!.toJson();
+    if (semester != null) {
+      data['semester'] = semester!.toJson();
     }
-    if (this.subject != null) {
-      data['subject'] = this.subject!.toJson();
+    if (subject != null) {
+      data['subject'] = subject!.toJson();
     }
     return data;
   }
@@ -94,14 +94,14 @@ class Chapter {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['number'] = this.number;
-    data['sem_id'] = this.semId;
-    data['sub_id'] = this.subId;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['number'] = number;
+    data['sem_id'] = semId;
+    data['sub_id'] = subId;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
     return data;
   }
 }
@@ -122,11 +122,11 @@ class Semester {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
     return data;
   }
 }
@@ -149,12 +149,12 @@ class Subject {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['title'] = this.title;
-    data['sem_id'] = this.semId;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['title'] = title;
+    data['sem_id'] = semId;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
     return data;
   }
 }

@@ -1,9 +1,7 @@
-import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:studynotes/local_databases/sharedpreferences/shared_pref.dart';
 import 'package:studynotes/local_databases/sqlite/chapter_database_controller.dart';
 import 'package:studynotes/logic/database/chapter_load/bloc/loadchapter_bloc.dart';
 import 'package:studynotes/logic/database/chapters/bloc/chapters_bloc.dart';
@@ -67,11 +65,11 @@ class _NotesState extends State<Notes> {
             listener: (context, state) {},
             builder: (context, state) {
               if (state is ChapterLoading) {
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               }
               if (state is ChapterGot) {
                 return Container(
-                  margin: EdgeInsets.only(top: 5, bottom: 5),
+                  margin: const EdgeInsets.only(top: 5, bottom: 5),
                   child: ListView.builder(
                       itemCount: state.chapterModel.length,
                       itemBuilder: (context, index) {
@@ -128,10 +126,10 @@ class _NotesState extends State<Notes> {
                                   if (sta is LoadChapterLoaded) {
                                     return Container(
                                         margin:
-                                            EdgeInsets.only(top: 5, bottom: 5),
+                                            const EdgeInsets.only(top: 5, bottom: 5),
                                         height: 80,
                                         width: size.width,
-                                        decoration: BoxDecoration(
+                                        decoration: const BoxDecoration(
                                           color: Colors.white,
                                         ),
                                         child: Row(
@@ -140,7 +138,7 @@ class _NotesState extends State<Notes> {
                                           children: [
                                             Row(
                                               children: [
-                                                SizedBox(
+                                                const SizedBox(
                                                   width: 5,
                                                 ),
                                                 Container(
@@ -152,7 +150,7 @@ class _NotesState extends State<Notes> {
                                                       shape: BoxShape.circle,
                                                       border: Border.all(
                                                           width: 3,
-                                                          color: Color.fromARGB(
+                                                          color: const Color.fromARGB(
                                                               255,
                                                               234,
                                                               233,
@@ -172,10 +170,10 @@ class _NotesState extends State<Notes> {
                                                     ),
                                                   ),
                                                 ),
-                                                SizedBox(
+                                                const SizedBox(
                                                   width: 10,
                                                 ),
-                                                Container(
+                                                SizedBox(
                                                   width: size.width * 0.72,
                                                   child: DText(
                                                     lines: 2,
@@ -232,14 +230,14 @@ class _NotesState extends State<Notes> {
                                                               .primaryColor,
                                                           size: 35,
                                                         )),
-                                            SizedBox(
+                                            const SizedBox(
                                               width: 5,
                                             )
                                           ],
                                         ));
                                   }
                                   if (sta is LoadChapterError) {
-                                    return Text("Er");
+                                    return const Text("Er");
                                   }
                                   return Container();
                                 },
@@ -253,7 +251,7 @@ class _NotesState extends State<Notes> {
               if (state is ChapterError) {
                 return Center(child: Text(state.message));
               }
-              return Center(child: Text("Something Went Wrong"));
+              return const Center(child: Text("Something Went Wrong"));
             }),
         floatingActionButton: BlocBuilder<LoadchapterBloc, LoadchapterState>(
           builder: (context, stte) {

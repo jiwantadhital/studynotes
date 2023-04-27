@@ -27,14 +27,14 @@ class InstituteModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['logo'] = this.logo;
-    data['description'] = this.description;
-    data['details'] = this.details;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['logo'] = logo;
+    data['description'] = description;
+    data['details'] = details;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
     return data;
   }
 }
@@ -58,12 +58,12 @@ class ImagesModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['image'] = this.image;
-    data['college_id'] = this.collegeId;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['image'] = image;
+    data['college_id'] = collegeId;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
     return data;
   }
 }
@@ -101,21 +101,21 @@ class CommentModel {
     updatedAt = json['updated_at'];
     collegeId = json['college_id'];
     student =
-        json['student'] != null ? new Student.fromJson(json['student']) : null;
+        json['student'] != null ? Student.fromJson(json['student']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['comments_ratting'] = this.commentsRatting;
-    data['description'] = this.description;
-    data['user_id'] = this.userId;
-    data['student_id'] = this.studentId;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    data['college_id'] = this.collegeId;
-    if (this.student != null) {
-      data['student'] = this.student!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['comments_ratting'] = commentsRatting;
+    data['description'] = description;
+    data['user_id'] = userId;
+    data['student_id'] = studentId;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    data['college_id'] = collegeId;
+    if (student != null) {
+      data['student'] = student!.toJson();
     }
     return data;
   }
@@ -156,16 +156,16 @@ class Student {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['user_id'] = this.userId;
-    data['phone'] = this.phone;
-    data['college_id'] = this.collegeId;
-    data['sem_id'] = this.semId;
-    data['image'] = this.image;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['user_id'] = userId;
+    data['phone'] = phone;
+    data['college_id'] = collegeId;
+    data['sem_id'] = semId;
+    data['image'] = image;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
     return data;
   }
 }
@@ -180,8 +180,8 @@ class PostModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['messgae'] = this.messgae;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['messgae'] = messgae;
     return data;
   }
 }

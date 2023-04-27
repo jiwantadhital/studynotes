@@ -9,7 +9,7 @@ import 'package:studynotes/resources/fonts.dart';
                         context: context, builder: (context){
                         return Center(
                           child: Container(
-                            padding: EdgeInsets.only(left: 5,right: 5),
+                            padding: const EdgeInsets.only(left: 5,right: 5),
                             height: 50,
                             width: 200,
                             decoration: BoxDecoration(
@@ -21,7 +21,7 @@ import 'package:studynotes/resources/fonts.dart';
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   DText(color: ColorManager.textColorBlack, text: text, weight: FontWeightManager.semibold, family: FontConstants.fontNunito, size: FontSize.s14),
-                                  SizedBox(height: 10,),
+                                  const SizedBox(height: 10,),
                                   LinearProgressIndicator(color: ColorManager.primaryColor,),
                                 ],
                               ),

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:studynotes/local_databases/sharedpreferences/shared_pref.dart';
@@ -39,7 +37,7 @@ class _CategoriesState extends State<Categories> {
     return  Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       body: SingleChildScrollView(
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         child: SafeArea(
           child: Column(
             children: [
@@ -48,7 +46,7 @@ class _CategoriesState extends State<Categories> {
                  return LoadError(size: size, selected: selected);
                 }
                 if(state is SemesterGot){
-                  return Container(
+                  return SizedBox(
                 height: 50,
                 width: size.width,
                 child: ListView.builder(
@@ -60,15 +58,15 @@ class _CategoriesState extends State<Categories> {
                      
                       setState(() {
                          selected = index;
-                      context.read<SubjectsBloc>()..add(SubjectGettingEvent(id: state.semesterModel[index].id!.toInt()));
+                      context.read<SubjectsBloc>().add(SubjectGettingEvent(id: state.semesterModel[index].id!.toInt()));
                       });
                     },
                     child: Container(
-                      margin: EdgeInsets.only(top: 10,bottom: 5,right: 7,left: 7),
+                      margin: const EdgeInsets.only(top: 10,bottom: 5,right: 7,left: 7),
                       height: 25,
                       width: 100,
                       decoration: BoxDecoration(
-                        color: selected==index?Theme.of(context).buttonColor: Theme.of(context).hoverColor,
+                        color: selected==index?Theme.of(context).primaryColor: Theme.of(context).hoverColor,
                         borderRadius: BorderRadius.circular(20),
                         border: Border.all(width: 2,color: Colors.white),
                       ),
@@ -85,15 +83,15 @@ class _CategoriesState extends State<Categories> {
                 }
                 return Container();
               }),
-              SizedBox(height: 10,),
+              const SizedBox(height: 10,),
               SingleChildScrollView(
                 child: Container(
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   height: MediaQuery.of(context).size.height,
                   width: double.maxFinite,
                   decoration: BoxDecoration(
                   color: UserSimplePreferences.getDark()==true?Colors.black:Colors.white,
-                     borderRadius: BorderRadius.only(
+                     borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(20),
                           topRight: Radius.circular(20)
                         )
@@ -103,20 +101,20 @@ class _CategoriesState extends State<Categories> {
                       DText(color: ColorManager.textColorBlack,
                       text: "Subjects",
                       weight: FontWeightManager.semibold, family: FontConstants.fontPoppins, size: FontSize.s16),
-                      SizedBox(height: 10,),
+                      const SizedBox(height: 10,),
                       BlocBuilder<SubjectsBloc,SubjectsState>(builder: (context,state){
                         if(state is SubjectLoading){
                           return Container(
-                            margin: EdgeInsets.only(top: 40),
+                            margin: const EdgeInsets.only(top: 40),
                             child: spinkit);
                         }
                         if(state is SubjectGot){
                           return Expanded(
                             child: GridView.builder(
                                                   shrinkWrap: true,
-                                                  physics: BouncingScrollPhysics(),
+                                                  physics: const BouncingScrollPhysics(),
                                                   itemCount: state.subjectModel.length,
-                                                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                                                  crossAxisCount: 3,  
                                                  crossAxisSpacing: 7.0,  
                                                  childAspectRatio: 2/2.1,
@@ -145,21 +143,21 @@ class _CategoriesState extends State<Categories> {
                               });
                             },
                             child: Container(
-                              padding: EdgeInsets.all(5),
+                              padding: const EdgeInsets.all(5),
                               //width: 200,
                               decoration: BoxDecoration(
-                                color: Theme.of(context).buttonColor,
+                                color: Theme.of(context).primaryColor,
                                 borderRadius: BorderRadius.circular(10)
                               ),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Container(
-                                    margin: EdgeInsets.only(top: 10),
+                                    margin: const EdgeInsets.only(top: 10),
                                     height: 60,
                                     child: DText(color: ColorManager.textColorWhite, text: state.subjectModel[index].title.toString(), weight: FontWeightManager.medium, family: FontConstants.fontPoppins, size: FontSize.s13),
                                   ),
-                                  Container(
+                                  SizedBox(
                                     height: 30,
                                     child: DText(color: ColorManager.textColorWhite, text: "Chapters: 12", weight: FontWeightManager.light, family: FontConstants.fontPoppins, size: FontSize.s12),
                                   )
@@ -174,13 +172,13 @@ class _CategoriesState extends State<Categories> {
                         }
                         if(state is SubjectError){
                          return Container(
-                          margin: EdgeInsets.only(top: 40),
+                          margin: const EdgeInsets.only(top: 40),
                           height: 250,
                           width: 200,
                           child: Column(
                             children: [
                               Image.asset("assets/images/wrong.png"),
-                              SizedBox(height: 10,),
+                              const SizedBox(height: 10,),
                               DText(color: ColorManager.textColorBlack, text: "Something went wrong",
                                weight: FontWeightManager.regular, family: FontConstants.fontPoppins, size: FontSize.s14)
                             ],
@@ -188,7 +186,7 @@ class _CategoriesState extends State<Categories> {
                         }
                         return Container();
                       })  ,
-                      SizedBox(height: 80,)
+                      const SizedBox(height: 80,)
 
                     ],
                   ),
@@ -204,12 +202,12 @@ class _CategoriesState extends State<Categories> {
 }
 
 class LoadError extends StatelessWidget {
-   LoadError({
+   const LoadError({
     super.key,
     required this.size,
     required this.selected,
   });
- final spinkit = SpinKitPulse(
+ final spinkit = const SpinKitPulse(
     color: Colors.white,
     size: 20,
 );
@@ -218,7 +216,7 @@ class LoadError extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
                 height: 50,
                 width: size.width,
                 child: ListView.builder(
@@ -226,11 +224,11 @@ class LoadError extends StatelessWidget {
      scrollDirection: Axis.horizontal,
      itemBuilder: (context,index){
      return Container(
-       margin: EdgeInsets.only(top: 10,bottom: 5,right: 7,left: 7),
+       margin: const EdgeInsets.only(top: 10,bottom: 5,right: 7,left: 7),
        height: 25,
        width: 100,
        decoration: BoxDecoration(
-         color: selected==index?Theme.of(context).buttonColor: Theme.of(context).hoverColor,
+         color: selected==index?Theme.of(context).primaryColor: Theme.of(context).hoverColor,
          borderRadius: BorderRadius.circular(20),
          border: Border.all(width: 2,color: Colors.white),
        ),
