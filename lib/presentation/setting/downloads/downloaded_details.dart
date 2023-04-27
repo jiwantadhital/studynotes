@@ -99,7 +99,7 @@ print("Hello");
                   child: BlocBuilder<DescBloc, DescState>(
                     builder: (context, state) {
                       if(state is DescLoading){
-                        return const Center(child: Text("Loading...."),);
+                        return const Center(child: Text("Loading..."),);
                       }
                       if(state is DescGot){
                         return Container(
