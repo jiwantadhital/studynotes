@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:studynotes/logic/news/bloc/news_bloc.dart';
 import 'package:studynotes/presentation/home_pages/widgets/home_page_widgets.dart';
 import 'package:studynotes/resources/colors.dart';
+import 'package:studynotes/resources/constants.dart';
 import 'package:studynotes/resources/fonts.dart';
 
 class NewsDetails extends StatefulWidget {
@@ -101,7 +102,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                   background: Container(
                     // height: 300,
                     decoration: BoxDecoration(
-                      image: DecorationImage(image: NetworkImage("http://10.3.6.13:8000/uploads/images/news/${widget.image
+                      image: DecorationImage(image: NetworkImage("${ApiClass.local}uploads/images/news/${widget.image
                                                       .toString()}"),fit: BoxFit.cover)
                     ),
                   ),

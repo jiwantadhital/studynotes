@@ -11,6 +11,7 @@ class GoogleSignInApi{
   static final _googleSignIn = GoogleSignIn();
   static Future<GoogleSignInAccount?> login(context) => _googleSignIn.signIn().then((userData) {
     userData!.authentication.then((gkey)async{
+      print(gkey.accessToken.toString());
       BlocProvider.of<GoogleBloc>(context).add(GoogleLoginEvent(token: gkey.accessToken.toString()));
       await networkImageToBase64(userData.photoUrl.toString());
     UserSimplePreferences.setGooglePhoto(bytes);

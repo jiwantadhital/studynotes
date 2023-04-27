@@ -50,7 +50,7 @@ decrease(){
 
   @override
   Widget build(BuildContext context) {
-
+print("now");
     return Scaffold(
       appBar: AppBar(
         title: Center(child: DText(text: "Verify Phone Number",color: ColorManager.textColorWhite,weight: FontWeightManager.semibold,size: FontSize.s20, family: FontConstants.fontNunito,),),
